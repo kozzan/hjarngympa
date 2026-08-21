@@ -39,19 +39,27 @@
   function decide(value) {
     try { localStorage.setItem(KEY, value); } catch (e) {}
     if (cmp) cmp.hidden = true;
-    if (value === 'all') loadAds();
+    grantConsent(value === 'all');
   }
-  function loadAds() {
-    // ponytail: placeholder. Drops in the AdSense tag once the account is
-    // approved -- everything around it (slots, reserved heights, consent
-    // gate, footer re-open link) is already in place.
-    document.documentElement.dataset.ads = 'consented';
+  function grantConsent(granted) {
+    // The AdSense tag is already on the page but held by the Consent Mode
+    // defaults set in <head>. This releases it (or keeps it held).
+    var v = granted ? 'granted' : 'denied';
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', {
+        ad_storage: v,
+        ad_user_data: v,
+        ad_personalization: v,
+        analytics_storage: v
+      });
+    }
+    document.documentElement.dataset.ads = granted ? 'consented' : 'denied';
   }
 
   if (cmp) {
     var choice = readConsent();
     if (!choice) cmp.hidden = false;
-    else if (choice === 'all') loadAds();
+    else grantConsent(choice === 'all');
 
     var accept = document.getElementById('cmp-accept');
     var reject = document.getElementById('cmp-reject');
