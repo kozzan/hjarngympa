@@ -45,21 +45,36 @@
   //
   // The footer link re-opens Google's dialog, and stays hidden unless the CMP
   // actually loaded (it only serves EEA/UK/CH, and ad blockers eat it).
+  // Google's CMP exposes the reopen dialog through googlefc, but only once it
+  // has actually collected a decision. Calling showRevocationMessage() while
+  // the status is UNKNOWN silently does nothing, so the link is revealed only
+  // when there is a real choice to change -- otherwise it is a dead control.
   var reopen = document.getElementById('cmp-reopen');
   if (reopen) {
     reopen.addEventListener('click', function () {
-      if (window.googlefc && typeof googlefc.showRevocationMessage === 'function') {
-        googlefc.showRevocationMessage();
-      }
+      if (!window.googlefc) return;
+      googlefc.callbackQueue = googlefc.callbackQueue || [];
+      googlefc.callbackQueue.push({
+        CONSENT_DATA_READY: function () { googlefc.showRevocationMessage(); }
+      });
     });
+
     var tries = 0;
     var poll = setInterval(function () {
-      if (window.googlefc && typeof googlefc.showRevocationMessage === 'function') {
-        reopen.hidden = false;
-        clearInterval(poll);
-      } else if (++tries > 20) {
-        clearInterval(poll);
+      var fc = window.googlefc;
+      if (fc && typeof fc.getConsentStatus === 'function' && fc.ConsentStatusEnum) {
+        var st = fc.getConsentStatus();
+        var E = fc.ConsentStatusEnum;
+        // UNKNOWN = never asked (nothing to revoke).
+        // CONSENT_NOT_REQUIRED = outside the EEA, no dialog exists.
+        if (st !== E.UNKNOWN && st !== E.CONSENT_NOT_REQUIRED) {
+          reopen.hidden = false;
+          clearInterval(poll);
+          return;
+        }
       }
-    }, 250);
+      // Consent can be collected after load, so keep looking for a while.
+      if (++tries > 40) clearInterval(poll);
+    }, 500);
   }
 })();
