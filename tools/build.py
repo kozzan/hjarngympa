@@ -22,6 +22,9 @@ BASE_URL = os.environ.get("BASE_URL", "https://hjarngympa.se")
 # Serving from a project path (kozzan.github.io/hjarngympa) until the real
 # domain is attached. Empty for a root domain, "/hjarngympa" for the preview.
 BASE_PATH = os.environ.get("BASE_PATH", "").rstrip("/")
+# Written into dist/ so the custom domain survives every deploy -- without it
+# GitHub Pages can drop the domain back to the github.io URL on a redeploy.
+CNAME = os.environ.get("CNAME", "hjarngympa.se")
 META_RE = re.compile(r"^<!--meta\s*(.*?)-->\s*", re.S)
 
 
@@ -110,6 +113,8 @@ def main():
     # GitHub Pages serves this repo from a project path until the domain is
     # attached; .nojekyll stops it mangling paths that start with an underscore.
     open(os.path.join(DIST, ".nojekyll"), "w").close()
+    if CNAME and not BASE_PATH:
+        open(os.path.join(DIST, "CNAME"), "w").write(CNAME + "\n")
 
     print(f"built {len(routes)} pages -> {DIST}")
     for r, _ in sorted(routes):
