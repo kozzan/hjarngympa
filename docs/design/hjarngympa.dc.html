@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #D9D3C8; }
+  a { color: #B4531F; text-decoration: none; }
+  a:hover { color: #8E3F14; text-decoration: underline; }
+  * { box-sizing: border-box; }
+</style>
+</helmet>
+
+<section style="display:flex;flex-direction:column;gap:72px;padding:72px;font-family:'Source Sans 3',sans-serif;color:#221D17">
+  <div id="1a" style="display:flex;flex-direction:column;gap:56px">
+
+    <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;background:#221D17;color:#F6F2EA;padding:6px 12px;border-radius:6px">1A</div>
+      <div>
+        <div style="font-family:'Newsreader',serif;font-size:46px;font-weight:600;line-height:1.05">hjärngympa.se</div>
+        <div style="font-size:19px;color:#5F574C;margin-top:6px">Fem skärmar · mobil &amp; desktop · ljust &amp; mörkt läge · annonsplatser i IAB-format</div>
+      </div>
+    </div>
+
+    <!-- ══ SPECIFIKATION ══ -->
+    <sc-if value="{{ showSpecs }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#FFFDF9;border:1px solid #C8C0B2;border-radius:20px;padding:48px;display:flex;flex-direction:column;gap:44px;max-width:1280px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.16em;color:#7A7264">BYGGDELAR / DESIGNTOKENS</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+        <div>
+          <div style="font-family:'Newsreader',serif;font-size:26px;margin-bottom:16px">Färg — ljust läge</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#F6F2EA;border:1px solid #DDD5C7"></div><div><div style="font-weight:600;font-size:17px">bg</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#F6F2EA</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#FFFFFF;border:1px solid #DDD5C7"></div><div><div style="font-weight:600;font-size:17px">surface</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#FFFFFF</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#1E1A15"></div><div><div style="font-weight:600;font-size:17px">ink</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#1E1A15</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#6C6358"></div><div><div style="font-weight:600;font-size:17px">muted</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#6C6358</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#E3DCD0"></div><div><div style="font-weight:600;font-size:17px">line</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#E3DCD0</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#B4531F"></div><div><div style="font-weight:600;font-size:17px">accent — primär handling</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#B4531F</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#4C6B3C"></div><div><div style="font-weight:600;font-size:17px">ok — rätt bokstav, rätt plats</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#4C6B3C</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#B98A22"></div><div><div style="font-weight:600;font-size:17px">near — fel plats</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#B98A22</div></div></div>
+          </div>
+        </div>
+        <div style="background:#151210;border-radius:14px;padding:28px;color:#F1ECE3">
+          <div style="font-family:'Newsreader',serif;font-size:26px;margin-bottom:16px">Färg — mörkt läge</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#151210;border:1px solid #3A322A"></div><div><div style="font-weight:600;font-size:17px">bg</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#151210</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#1F1B17;border:1px solid #3A322A"></div><div><div style="font-weight:600;font-size:17px">surface</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#1F1B17</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#F1ECE3"></div><div><div style="font-weight:600;font-size:17px">ink</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#F1ECE3</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#A69C90"></div><div><div style="font-weight:600;font-size:17px">muted</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#A69C90</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#352E26"></div><div><div style="font-weight:600;font-size:17px">line</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#352E26</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#E58A46"></div><div><div style="font-weight:600;font-size:17px">accent</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#E58A46</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#6F9A55"></div><div><div style="font-weight:600;font-size:17px">ok</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#6F9A55</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:44px;height:44px;border-radius:8px;background:#C69B36"></div><div><div style="font-weight:600;font-size:17px">near</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">#C69B36</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:40px;border-top:1px solid #E3DCD0;padding-top:36px">
+        <div>
+          <div style="font-family:'Newsreader',serif;font-size:26px;margin-bottom:20px">Typskala</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:baseline;gap:20px"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;width:150px;flex:none">display / 46 / Newsreader</div><div style="font-family:'Newsreader',serif;font-size:46px;line-height:1.05;font-weight:600">Dagens ord</div></div>
+            <div style="display:flex;align-items:baseline;gap:20px"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;width:150px;flex:none">h1 / 34 / Newsreader</div><div style="font-family:'Newsreader',serif;font-size:34px;font-weight:600">Sudokuregler</div></div>
+            <div style="display:flex;align-items:baseline;gap:20px"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;width:150px;flex:none">h2 / 26 / Newsreader</div><div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">Så tänker du</div></div>
+            <div style="display:flex;align-items:baseline;gap:20px"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;width:150px;flex:none">h3 / 21 / Source Sans</div><div style="font-size:21px;font-weight:600">Sju bokstäver</div></div>
+            <div style="display:flex;align-items:baseline;gap:20px"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;width:150px;flex:none">body / 19 / 1.65</div><div style="font-size:19px">Brödtext läses på armlängds avstånd.</div></div>
+            <div style="display:flex;align-items:baseline;gap:20px"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;width:150px;flex:none">small / 17</div><div style="font-size:17px">Sekundär text, metadata</div></div>
+            <div style="display:flex;align-items:baseline;gap:20px"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;width:150px;flex:none">micro / 15 / mono</div><div style="font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.06em">ETIKETT · 04:12</div></div>
+          </div>
+          <div style="font-size:17px;color:#6C6358;margin-top:18px">Minsta textstorlek i produkt: 17 px. Brödtext 19 px. Alla tryckytor minst 48 × 48 px.</div>
+        </div>
+        <div>
+          <div style="font-family:'Newsreader',serif;font-size:26px;margin-bottom:20px">Rymd</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:4px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">4 — inom komponent</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:8px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">8 — brickor, tangenter</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:12px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">12</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:16px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">16 — sidmarginal mobil</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:24px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">24 — mellan block</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:32px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">32 — runt spelytan</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:48px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">48 — sektioner desktop</span></div>
+            <div style="display:flex;align-items:center;gap:14px"><div style="width:64px;height:22px;background:#B4531F"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#7A7264">64 — före/efter annons</span></div>
+          </div>
+          <div style="margin-top:24px;font-size:17px;color:#6C6358">Radie: 8 brickor · 12 kort · 999 knappar. Aldrig annons närmare spelytan än 32 px.</div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #E3DCD0;padding-top:36px">
+        <div style="font-family:'Newsreader',serif;font-size:26px;margin-bottom:6px">Bricktillstånd — Dagens ord</div>
+        <div style="font-size:17px;color:#6C6358;margin-bottom:20px">Färg är aldrig enda signalen: ram, ikon och fyllnad skiljer varje tillstånd även i gråskala.</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap">
+          <div style="text-align:center"><div style="width:72px;height:72px;border-radius:8px;border:2px solid #C8C0B2;display:grid;place-items:center;font-size:34px;font-weight:700;color:#1E1A15;background:#FFF">S</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">tom / fokus</div></div>
+          <div style="text-align:center"><div style="width:72px;height:72px;border-radius:8px;border:3px solid #4C6B3C;background:#4C6B3C;color:#FFF;display:grid;place-items:center;font-size:34px;font-weight:700;position:relative">S<span style="position:absolute;top:3px;right:6px;font-size:15px">{{ markOk }}</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">rätt plats</div></div>
+          <div style="text-align:center"><div style="width:72px;height:72px;border-radius:8px;border:3px dashed #B98A22;background:#F8EFDA;color:#5A4413;display:grid;place-items:center;font-size:34px;font-weight:700;position:relative">L<span style="position:absolute;top:3px;right:6px;font-size:15px">{{ markNear }}</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">fel plats</div></div>
+          <div style="text-align:center"><div style="width:72px;height:72px;border-radius:8px;border:2px solid #E3DCD0;background:#EDE8DE;color:#9A9186;display:grid;place-items:center;font-size:34px;font-weight:700;position:relative">P<span style="position:absolute;top:3px;right:6px;font-size:15px">{{ markAbsent }}</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">finns inte</div></div>
+          <div style="text-align:center"><div style="width:72px;height:72px;border-radius:8px;border:2px solid #B4531F;background:#FFF;color:#1E1A15;display:grid;place-items:center;font-size:34px;font-weight:700">Ö</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">aktiv rad</div></div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #E3DCD0;padding-top:36px">
+        <div style="font-family:'Newsreader',serif;font-size:26px;margin-bottom:20px">Ruttillstånd — Sudoku</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap">
+          <div style="text-align:center"><div style="width:64px;height:64px;border:1px solid #D6CEBF;background:#FFF;display:grid;place-items:center;font-size:30px;font-weight:700">7</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">given</div></div>
+          <div style="text-align:center"><div style="width:64px;height:64px;border:1px solid #D6CEBF;background:#FFF;display:grid;place-items:center;font-size:30px;font-weight:500;color:#B4531F">4</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">ifylld</div></div>
+          <div style="text-align:center"><div style="width:64px;height:64px;border:3px solid #B4531F;background:#F1E6D9;display:grid;place-items:center;font-size:30px;font-weight:500;color:#B4531F">4</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">markerad</div></div>
+          <div style="text-align:center"><div style="width:64px;height:64px;border:1px solid #D6CEBF;background:#F5EFE4;display:grid;place-items:center;font-size:30px;font-weight:700">7</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">samma rad/kolumn</div></div>
+          <div style="text-align:center"><div style="width:64px;height:64px;border:3px solid #A2331A;background:#F6E2DB;display:grid;place-items:center;font-size:30px;font-weight:700;color:#A2331A;position:relative">7<span style="position:absolute;bottom:1px;right:4px;font-size:15px">△</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">konflikt</div></div>
+          <div style="text-align:center"><div style="width:64px;height:64px;border:1px solid #D6CEBF;background:#FFF;display:grid;grid-template-columns:1fr 1fr 1fr;font-size:13px;color:#6C6358;padding:4px;font-family:'IBM Plex Mono',monospace"><span>1</span><span></span><span>3</span><span></span><span>5</span><span></span><span>7</span><span></span><span></span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264;margin-top:8px">blyertsanteckning</div></div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #E3DCD0;padding-top:36px">
+        <div style="font-family:'Newsreader',serif;font-size:26px;margin-bottom:16px">Annonsplatser</div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;font-size:18px;color:#3A342C">
+          <div>Ovanför spelet, mobil — <b>320 × 100</b>, fast höjd reserverad så inget hoppar. Spelytan börjar alltid inom första skärmhöjden.</div>
+          <div>Ovanför spelet, desktop — <b>728 × 90</b> i sidhuvudet, aldrig mellan rubrik och bräde.</div>
+          <div>Sidospalt desktop — <b>300 × 600</b> (eller 300 × 250), minst 32 px från spelytan. Faller bort helt under 1024 px.</div>
+          <div>Mellan omgångar — <b>336 × 280</b>, visas i resultatpanelen efter avslutat spel, före &quot;Nästa&quot;.</div>
+          <div>Mitt i artikel — <b>300 × 250</b> mellan två stycken, aldrig mitt i en mening eller lista.</div>
+          <div style="color:#A2331A">Aldrig: i, över eller intill spelytan. Inga interstitials mellan drag. Ingen annons under tangentbordet på mobil.</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ══ STARTSIDA ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">01 · STARTSIDA</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL 390 · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--ok:#4C6B3C;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600">hjärngympa</div>
+              <div style="display:flex;gap:8px">
+                <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+                <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☰</div>
+              </div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:16px 16px 0">
+              <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:24px 16px 32px;display:flex;flex-direction:column;gap:24px">
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--muted)">FREDAG 21 AUGUSTI</div>
+                <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600;line-height:1.1;margin-top:4px">Vad vill du gympa idag?</div>
+              </div>
+              <div style="background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <div style="font-family:'Newsreader',serif;font-size:27px;font-weight:600">Dagens ord</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ok)">🔥 12 dagar</div>
+                </div>
+                <div style="display:flex;gap:6px">
+                  <div style="width:38px;height:38px;border-radius:6px;background:var(--ok);color:#fff;display:grid;place-items:center;font-weight:700;font-size:19px">S</div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                </div>
+                <div style="height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">Spela dagens omgång</div>
+              </div>
+              <div>
+                <div style="font-size:21px;font-weight:600;margin-bottom:12px">Spel</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">▦</div><div style="font-size:19px;font-weight:600">Sudoku</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">✦</div><div style="font-size:19px;font-weight:600">Minsvepare</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">▤</div><div style="font-size:19px;font-weight:600">Mahjong</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">♠</div><div style="font-size:19px;font-weight:600">Patiens</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">◈</div><div style="font-size:19px;font-weight:600">Minnesspel</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">2⁴⁸</div><div style="font-size:19px;font-weight:600">2048</div></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:21px;font-weight:600;margin-bottom:12px">Verktyg</div>
+                <div style="display:flex;flex-direction:column;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden">
+                  <div style="padding:18px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)"><div><div style="font-size:19px;font-weight:600">Wordfeud-hjälp</div><div style="font-size:17px;color:var(--muted)">Bästa ordet av dina brickor</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                  <div style="padding:18px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)"><div><div style="font-size:19px;font-weight:600">Korsordshjälp</div><div style="font-size:17px;color:var(--muted)">Sök med _ för okända bokstäver</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                  <div style="padding:18px 16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:19px;font-weight:600">Anagram</div><div style="font-size:17px;color:var(--muted)">Kasta om bokstäverna</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:21px;font-weight:600;margin-bottom:12px">Läs</div>
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <div style="border-left:none"><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Sudokuregler – så spelar du</div><div style="font-size:17px;color:var(--muted)">6 min läsning</div></div>
+                  <div><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Wordfeud-strategi för nybörjare</div><div style="font-size:17px;color:var(--muted)">9 min läsning</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL 390 · MÖRKT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;--ok:#6F9A55;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600">hjärngympa</div>
+              <div style="display:flex;gap:8px">
+                <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☀</div>
+                <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☰</div>
+              </div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:16px 16px 0">
+              <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:24px 16px 32px;display:flex;flex-direction:column;gap:24px">
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--muted)">FREDAG 21 AUGUSTI</div>
+                <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600;line-height:1.1;margin-top:4px">Vad vill du gympa idag?</div>
+              </div>
+              <div style="background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <div style="font-family:'Newsreader',serif;font-size:27px;font-weight:600">Dagens ord</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ok)">🔥 12 dagar</div>
+                </div>
+                <div style="display:flex;gap:6px">
+                  <div style="width:38px;height:38px;border-radius:6px;background:var(--ok);color:#fff;display:grid;place-items:center;font-weight:700;font-size:19px">S</div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                  <div style="width:38px;height:38px;border-radius:6px;border:2px solid var(--line)"></div>
+                </div>
+                <div style="height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">Spela dagens omgång</div>
+              </div>
+              <div>
+                <div style="font-size:21px;font-weight:600;margin-bottom:12px">Spel</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">▦</div><div style="font-size:19px;font-weight:600">Sudoku</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">✦</div><div style="font-size:19px;font-weight:600">Minsvepare</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">▤</div><div style="font-size:19px;font-weight:600">Mahjong</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">♠</div><div style="font-size:19px;font-weight:600">Patiens</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">◈</div><div style="font-size:19px;font-weight:600">Minnesspel</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:28px">2⁴⁸</div><div style="font-size:19px;font-weight:600">2048</div></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:21px;font-weight:600;margin-bottom:12px">Verktyg</div>
+                <div style="display:flex;flex-direction:column;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden">
+                  <div style="padding:18px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)"><div><div style="font-size:19px;font-weight:600">Wordfeud-hjälp</div><div style="font-size:17px;color:var(--muted)">Bästa ordet av dina brickor</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                  <div style="padding:18px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)"><div><div style="font-size:19px;font-weight:600">Korsordshjälp</div><div style="font-size:17px;color:var(--muted)">Sök med _ för okända bokstäver</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                  <div style="padding:18px 16px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:19px;font-weight:600">Anagram</div><div style="font-size:17px;color:var(--muted)">Kasta om bokstäverna</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:21px;font-weight:600;margin-bottom:12px">Läs</div>
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <div style="border-left:none"><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Sudokuregler – så spelar du</div><div style="font-size:17px;color:var(--muted)">6 min läsning</div></div>
+                  <div><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Wordfeud-strategi för nybörjare</div><div style="font-size:17px;color:var(--muted)">9 min läsning</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP 1280 · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--ok:#4C6B3C;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:var(--accent)">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px;font-weight:500">
+                <span>Spel</span><span>Verktyg</span><span>Artiklar</span>
+              </div>
+              <div hidden="{{ adsHidden }}" style="margin-left:auto;width:728px;height:90px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>728 × 90</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;flex-direction:column;gap:40px">
+                <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;align-items:stretch">
+                  <div style="background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:20px">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--muted)">FREDAG 21 AUGUSTI · OMGÅNG 612</div>
+                    <div style="font-family:'Newsreader',serif;font-size:42px;font-weight:600;line-height:1.05">Dagens ord</div>
+                    <div style="display:flex;gap:8px">
+                      <div style="width:46px;height:46px;border-radius:6px;background:var(--ok);color:#fff;display:grid;place-items:center;font-weight:700;font-size:22px">S</div>
+                      <div style="width:46px;height:46px;border-radius:6px;border:2px solid var(--line)"></div>
+                      <div style="width:46px;height:46px;border-radius:6px;border:2px solid var(--line)"></div>
+                      <div style="width:46px;height:46px;border-radius:6px;border:2px solid var(--line)"></div>
+                      <div style="width:46px;height:46px;border-radius:6px;border:2px solid var(--line)"></div>
+                    </div>
+                    <div style="font-size:19px;color:var(--muted)">Fem bokstäver, sex försök. Ny omgång varje natt.</div>
+                    <div style="margin-top:auto;display:flex;gap:16px;align-items:center">
+                      <div style="height:56px;padding:0 32px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">Spela</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--ok)">🔥 12 dagar i rad</div>
+                    </div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:30px">▦</div><div style="font-size:20px;font-weight:600">Sudoku</div></div>
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:30px">✦</div><div style="font-size:20px;font-weight:600">Minsvepare</div></div>
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:30px">▤</div><div style="font-size:20px;font-weight:600">Mahjong</div></div>
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:30px">♠</div><div style="font-size:20px;font-weight:600">Patiens</div></div>
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:30px">◈</div><div style="font-size:20px;font-weight:600">Minnesspel</div></div>
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:space-between"><div style="font-size:30px">2⁴⁸</div><div style="font-size:20px;font-weight:600">2048</div></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600;margin-bottom:16px">Verktyg</div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px"><div style="font-size:21px;font-weight:600;margin-bottom:6px">Wordfeud-hjälp</div><div style="font-size:18px;color:var(--muted)">Bästa ordet av dina brickor, med poäng.</div></div>
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px"><div style="font-size:21px;font-weight:600;margin-bottom:6px">Korsordshjälp</div><div style="font-size:18px;color:var(--muted)">Sök med _ för okända bokstäver.</div></div>
+                    <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px"><div style="font-size:21px;font-weight:600;margin-bottom:6px">Anagram</div><div style="font-size:18px;color:var(--muted)">Kasta om bokstäverna.</div></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600;margin-bottom:16px">Läs</div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+                    <div><div style="font-family:'Newsreader',serif;font-size:23px;font-weight:600;line-height:1.25">Sudokuregler – så spelar du</div><div style="font-size:17px;color:var(--muted);margin-top:6px">6 min</div></div>
+                    <div><div style="font-family:'Newsreader',serif;font-size:23px;font-weight:600;line-height:1.25">Wordfeud-strategi för nybörjare</div><div style="font-size:17px;color:var(--muted);margin-top:6px">9 min</div></div>
+                    <div><div style="font-family:'Newsreader',serif;font-size:23px;font-weight:600;line-height:1.25">Korsordsguiden: knäck de svåra</div><div style="font-size:17px;color:var(--muted);margin-top:6px">7 min</div></div>
+                  </div>
+                </div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="display:flex;flex-direction:column;gap:24px">
+                <div style="width:300px;height:600px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>300 × 600</span><span style="opacity:.7">döljs &lt; 1024 px</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DAGENS ORD ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">02 · DAGENS ORD</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST · SPELAR</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--ok:#4C6B3C;--near:#B98A22;--near-soft:#F8EFDA;--absent:#9A9186;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Dagens ord</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100 · fast höjd, spelet flyttas inte</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px 0;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--muted)">
+              <span>OMGÅNG 612</span><span>FÖRSÖK 3 / 6</span><span style="color:var(--ok)">🔥 12</span>
+            </div>
+            <div style="padding:16px 16px 24px;display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div style="display:flex;gap:8px">
+                <div style="width:60px;height:60px;border-radius:8px;border:3px solid var(--ok);background:var(--ok);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">S<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markOk }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:#EDE8DE;color:var(--absent);display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">P<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markAbsent }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:#EDE8DE;color:var(--absent);display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">E<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markAbsent }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:3px dashed var(--near);background:var(--near-soft);color:#5A4413;display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">L<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markNear }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:#EDE8DE;color:var(--absent);display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">A<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markAbsent }}</span></div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <div style="width:60px;height:60px;border-radius:8px;border:3px solid var(--ok);background:var(--ok);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">S<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markOk }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:3px solid var(--ok);background:var(--ok);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">K<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markOk }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:#EDE8DE;color:var(--absent);display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">O<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markAbsent }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:#EDE8DE;color:var(--absent);display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">T<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markAbsent }}</span></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:#EDE8DE;color:var(--absent);display:grid;place-items:center;font-size:30px;font-weight:700;position:relative">T<span style="position:absolute;top:2px;right:5px;font-size:13px">{{ markAbsent }}</span></div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--accent);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">S</div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--accent);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">K</div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--accent);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">Ö</div>
+                <div style="width:60px;height:60px;border-radius:8px;border:3px solid var(--accent);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700"></div>
+                <div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div>
+              </div>
+              <div style="display:flex;gap:8px"><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div></div>
+              <div style="display:flex;gap:8px"><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div></div>
+              <div style="display:flex;gap:8px"><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:60px;height:60px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div></div>
+            </div>
+            <div style="background:var(--surface);border-top:1px solid var(--line);padding:12px 8px 20px;display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;gap:5px;justify-content:center">
+                <div style="width:30px;height:52px;border-radius:6px;background:#EDE8DE;color:var(--absent);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">Q</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:#EDE8DE;color:var(--absent);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">W</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:#EDE8DE;color:var(--absent);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">E</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">R</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:#EDE8DE;color:var(--absent);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">T</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">Y</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">U</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">I</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:#EDE8DE;color:var(--absent);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">O</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:#EDE8DE;color:var(--absent);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">P</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">Å</div>
+              </div>
+              <div style="display:flex;gap:5px;justify-content:center">
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--ok);color:#fff;border:1px solid var(--ok);display:grid;place-items:center;font-size:18px;font-weight:600">S</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:#EDE8DE;color:var(--absent);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">A</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">D</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">F</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">G</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">H</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">J</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--ok);color:#fff;border:1px solid var(--ok);display:grid;place-items:center;font-size:18px;font-weight:600">K</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--near-soft);border:1px dashed var(--near);color:#5A4413;display:grid;place-items:center;font-size:18px;font-weight:600">L</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">Ö</div>
+                <div style="width:32px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">Ä</div>
+              </div>
+              <div style="display:flex;gap:5px;justify-content:center">
+                <div style="width:56px;height:52px;border-radius:6px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:16px;font-weight:600">GÅ</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">Z</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">X</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">C</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">V</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">B</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">N</div>
+                <div style="width:30px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;font-weight:600">M</div>
+                <div style="width:56px;height:52px;border-radius:6px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:20px">⌫</div>
+              </div>
+              <div style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);margin-top:4px">Fysiskt tangentbord funkar också</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · MÖRKT · RESULTAT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;--ok:#6F9A55;--near:#C69B36;--near-soft:#312817;--absent:#5F574E;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Dagens ord</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☀</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:20px 16px 8px;display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="display:flex;gap:6px">
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">S</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:22px;font-weight:700">P</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:22px;font-weight:700">E</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px dashed var(--near);background:var(--near-soft);color:#E8C67A;display:grid;place-items:center;font-size:22px;font-weight:700">L</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:22px;font-weight:700">A</div>
+              </div>
+              <div style="display:flex;gap:6px">
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">S</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">K</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:22px;font-weight:700">O</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:22px;font-weight:700">T</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:22px;font-weight:700">T</div>
+              </div>
+              <div style="display:flex;gap:6px">
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">S</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">K</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">Ö</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">L</div>
+                <div style="width:44px;height:44px;border-radius:6px;border:2px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:22px;font-weight:700">D</div>
+              </div>
+            </div>
+            <div style="margin:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:20px">
+              <div>
+                <div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600">Snyggt jobbat!</div>
+                <div style="font-size:19px;color:var(--muted);margin-top:4px">Ordet var <b style="color:var(--ok)">SKÖLD</b> — löst på 3 försök.</div>
+              </div>
+              <div style="display:flex;gap:12px">
+                <div style="flex:1;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">13</div><div style="font-size:16px;color:var(--muted)">dagar i rad</div></div>
+                <div style="flex:1;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">94%</div><div style="font-size:16px;color:var(--muted)">lösta</div></div>
+                <div style="flex:1;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">3,8</div><div style="font-size:16px;color:var(--muted)">snitt</div></div>
+              </div>
+              <div style="display:flex;gap:12px">
+                <div style="flex:1;height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">Dela resultat</div>
+                <div style="width:56px;height:56px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:22px">▤</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--muted);text-align:center">Nästa ord om 09:41:22</div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:0 16px 24px">
+              <div style="height:280px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS · MELLAN OMGÅNGAR</span><span>336 × 280</span></div>
+            </div>
+            <div style="padding:0 16px 28px"><div style="height:56px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Spela sudoku istället →</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · MÖRKT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;--ok:#6F9A55;--near:#C69B36;--near-soft:#312817;--absent:#5F574E;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:var(--accent)">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px;font-weight:500"><span style="color:var(--accent)">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div hidden="{{ adsHidden }}" style="margin-left:auto;width:728px;height:90px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>728 × 90</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☀</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:24px">
+                <div style="display:flex;align-items:baseline;gap:20px;width:100%;justify-content:center">
+                  <div style="font-family:'Newsreader',serif;font-size:40px;font-weight:600">Dagens ord</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--muted)">OMGÅNG 612 · FÖRSÖK 3 / 6 · 🔥 12</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+                  <div style="display:flex;gap:10px">
+                    <div style="width:72px;height:72px;border-radius:8px;border:3px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">S<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markOk }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">P<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markAbsent }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">E<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markAbsent }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:3px dashed var(--near);background:var(--near-soft);color:#E8C67A;display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">L<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markNear }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">A<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markAbsent }}</span></div>
+                  </div>
+                  <div style="display:flex;gap:10px">
+                    <div style="width:72px;height:72px;border-radius:8px;border:3px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">S<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markOk }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:3px solid var(--ok);background:var(--ok);color:#0F1A0A;display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">K<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markOk }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">O<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markAbsent }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">T<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markAbsent }}</span></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:#241F1A;color:var(--absent);display:grid;place-items:center;font-size:36px;font-weight:700;position:relative">T<span style="position:absolute;top:3px;right:7px;font-size:14px">{{ markAbsent }}</span></div>
+                  </div>
+                  <div style="display:flex;gap:10px">
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--accent);background:var(--surface);display:grid;place-items:center;font-size:36px;font-weight:700">S</div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--accent);background:var(--surface);display:grid;place-items:center;font-size:36px;font-weight:700">K</div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--accent);background:var(--surface);display:grid;place-items:center;font-size:36px;font-weight:700">Ö</div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:3px solid var(--accent);background:var(--surface)"></div>
+                    <div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div>
+                  </div>
+                  <div style="display:flex;gap:10px"><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div></div>
+                  <div style="display:flex;gap:10px"><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div></div>
+                  <div style="display:flex;gap:10px"><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div><div style="width:72px;height:72px;border-radius:8px;border:2px solid var(--line);background:var(--surface)"></div></div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--muted);margin-top:8px">Skriv med tangentbordet · ENTER för att gissa · BACKSTEG för att radera</div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>300 × 600</span><span style="opacity:.7">min 32 px från brädet</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SUDOKU ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">03 · SUDOKU</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--sel:#F1E6D9;--grid:#D6CEBF;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Sudoku</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:16px 16px 0;display:flex;gap:6px">
+              <div style="flex:1;height:48px;border-radius:999px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:17px;font-weight:600">Lätt</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:17px;font-weight:500">Medel</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:17px;font-weight:500">Svår</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:17px;font-weight:500">Expert</div>
+            </div>
+            <div style="padding:14px 16px 8px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--muted)">
+              <span>⏱ 07:14</span><span>Fel 1</span><span>Lätt · #4821</span>
+            </div>
+            <div style="padding:0 16px">
+              <div style="display:grid;grid-template-columns:repeat(9,1fr);border:3px solid var(--ink);background:var(--surface)">
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">5</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">3</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">7</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">6</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)">1</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">9</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)">5</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)">9</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink);background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)">6</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:2px solid var(--ink)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;grid-template-columns:1fr 1fr 1fr;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel);padding:2px"><span>2</span><span></span><span>4</span><span></span><span>6</span><span></span><span></span><span></span><span></span></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-bottom:1px solid var(--grid)">3</div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">4</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;color:var(--accent);border:3px solid var(--accent);border-bottom-width:3px;background:var(--sel);font-weight:600">4</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-bottom:1px solid var(--grid)">1</div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)">7</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;position:relative;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink);background:#F6E2DB;color:#A2331A;font-weight:600;box-shadow:inset 0 0 0 3px #A2331A">4<span style="position:absolute;bottom:0;right:2px;font-size:11px">△</span></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-bottom:2px solid var(--ink)">6</div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">6</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">2</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)">2</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid var(--ink)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);background:var(--sel)">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid var(--ink)">7</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700">9</div>
+              </div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:52px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:600">↺ Ångra</div>
+                <div style="flex:1;height:52px;border-radius:10px;border:2px solid var(--accent);background:var(--sel);display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:600;color:var(--accent)">✎ Blyerts</div>
+                <div style="flex:1;height:52px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:600">⌫ Radera</div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:5px">
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">1</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">2</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">3</div>
+                <div style="height:64px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:26px;font-weight:700">4</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">5</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">6</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">7</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">8</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">9</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);text-align:center">Piltangenter flyttar · 1–9 fyller · P för blyerts</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · MÖRKT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;--sel:#2A241D;--grid:#3A322A;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Sudoku</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☀</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:16px 16px 0;display:flex;gap:6px">
+              <div style="flex:1;height:48px;border-radius:999px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:17px;font-weight:600">Lätt</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:17px;font-weight:500">Medel</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:17px;font-weight:500">Svår</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:17px;font-weight:500">Expert</div>
+            </div>
+            <div style="padding:14px 16px 8px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--muted)">
+              <span>⏱ 07:14</span><span>Fel 1</span><span>Lätt · #4821</span>
+            </div>
+            <div style="padding:0 16px">
+              <div style="display:grid;grid-template-columns:repeat(9,1fr);border:3px solid #6B6055;background:var(--surface)">
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">5</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">3</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">7</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">6</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)">1</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">9</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)">5</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055">9</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055;background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055">6</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:2px solid #6B6055"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;grid-template-columns:1fr 1fr 1fr;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel);padding:2px"><span>2</span><span></span><span>4</span><span></span><span>6</span><span></span><span></span><span></span><span></span></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-bottom:1px solid var(--grid)">3</div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">4</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;color:var(--accent);border:3px solid var(--accent);border-bottom-width:3px;background:var(--sel);font-weight:600">4</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-bottom:1px solid var(--grid)">1</div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055">7</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;position:relative;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055;background:#33201B;color:#F2907A;font-weight:600;box-shadow:inset 0 0 0 3px #C4553A">4<span style="position:absolute;bottom:0;right:2px;font-size:11px">△</span></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-bottom:2px solid #6B6055">6</div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">6</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">2</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)">2</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-bottom:1px solid var(--grid)"></div>
+
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:2px solid #6B6055"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:1px solid var(--grid);background:var(--sel)">8</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700;border-right:2px solid #6B6055">7</div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;border-right:1px solid var(--grid)"></div>
+                <div style="aspect-ratio:1;display:grid;place-items:center;font-size:22px;font-weight:700">9</div>
+              </div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:52px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:600">↺ Ångra</div>
+                <div style="flex:1;height:52px;border-radius:10px;border:2px solid var(--accent);background:var(--sel);display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:600;color:var(--accent)">✎ Blyerts</div>
+                <div style="flex:1;height:52px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:center;gap:6px;font-size:17px;font-weight:600">⌫ Radera</div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:5px">
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">1</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">2</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">3</div>
+                <div style="height:64px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:26px;font-weight:700">4</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">5</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">6</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">7</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">8</div>
+                <div style="height:64px;border-radius:8px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;font-weight:700">9</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);text-align:center">Piltangenter flyttar · 1–9 fyller · P för blyerts</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · MÖRKT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;--sel:#2A241D;--grid:#3A322A;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:var(--accent)">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px;font-weight:500"><span style="color:var(--accent)">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div hidden="{{ adsHidden }}" style="margin-left:auto;width:728px;height:90px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>728 × 90</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☀</div>
+            </div>
+            <div style="display:grid;grid-template-columns:640px 1fr 300px;gap:48px;padding:48px">
+              <div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
+                  <div style="font-family:'Newsreader',serif;font-size:36px;font-weight:600">Sudoku</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--muted)">MEDEL · #4821</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(9,1fr);border:3px solid #6B6055;background:var(--surface)">
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">5</div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">3</div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">7</div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-bottom:1px solid var(--grid)"></div>
+
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">6</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)">1</div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">9</div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)">5</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-bottom:1px solid var(--grid)"></div>
+
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055">9</div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055">8</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055;background:var(--sel)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055">6</div>
+                  <div style="aspect-ratio:1;border-bottom:2px solid #6B6055"></div>
+
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">8</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;grid-template-columns:1fr 1fr 1fr;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel);padding:4px"><span>2</span><span></span><span>4</span><span></span><span>6</span><span></span><span></span><span></span><span></span></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-bottom:1px solid var(--grid)">3</div>
+
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">4</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:600;color:var(--accent);box-shadow:inset 0 0 0 3px var(--accent);background:#2F261D">4</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-bottom:1px solid var(--grid)">1</div>
+
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055">7</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:600;position:relative;color:#F2907A;box-shadow:inset 0 0 0 3px #C4553A;background:#33201B">4<span style="position:absolute;bottom:2px;right:4px;font-size:13px">△</span></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-bottom:2px solid #6B6055">6</div>
+
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">6</div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">2</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-bottom:1px solid var(--grid)"></div>
+
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)">2</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid);background:var(--sel)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055;border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);border-bottom:1px solid var(--grid)">8</div>
+                  <div style="aspect-ratio:1;border-bottom:1px solid var(--grid)"></div>
+
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:2px solid #6B6055"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:1px solid var(--grid);background:var(--sel)">8</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700;border-right:2px solid #6B6055">7</div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;border-right:1px solid var(--grid)"></div>
+                  <div style="aspect-ratio:1;display:grid;place-items:center;font-size:30px;font-weight:700">9</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:24px">
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <div style="height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Lätt</div>
+                  <div style="height:48px;padding:0 20px;border-radius:999px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:17px;font-weight:600">Medel</div>
+                  <div style="height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Svår</div>
+                  <div style="height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Expert</div>
+                </div>
+                <div style="border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;background:var(--surface)">
+                  <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:19px"><span style="color:var(--muted)">TID</span><span>07:14</span></div>
+                  <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:19px"><span style="color:var(--muted)">FEL</span><span style="color:#F2907A">1 △</span></div>
+                  <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:19px"><span style="color:var(--muted)">KVAR</span><span>38 rutor</span></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+                  <div style="height:56px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+                  <div style="height:56px;border-radius:10px;border:2px solid var(--accent);color:var(--accent);background:var(--sel);display:grid;place-items:center;font-size:17px;font-weight:600">✎ Blyerts</div>
+                  <div style="height:56px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px;font-weight:600">⌫ Radera</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">1</div>
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">2</div>
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">3</div>
+                  <div style="height:72px;border-radius:10px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:30px;font-weight:700">4</div>
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">5</div>
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">6</div>
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">7</div>
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">8</div>
+                  <div style="height:72px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:30px;font-weight:700">9</div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--muted);line-height:1.6">PILTANGENTER flyttar markören<br>1–9 fyller · 0 raderar · P blyerts<br>CTRL+Z ångrar</div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="display:flex;flex-direction:column;gap:24px">
+                <div style="width:300px;height:250px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>300 × 250</span></div>
+                <div style="width:300px;height:250px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>300 × 250</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ WORDFEUD-HJÄLP ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">04 · VERKTYG / WORDFEUD-HJÄLP</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--ok:#4C6B3C;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Wordfeud-hjälp</div>
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="padding:20px 16px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:14px">
+              <div style="font-size:18px;color:var(--muted)">Skriv dina brickor. <b style="color:var(--ink)">*</b> eller <b style="color:var(--ink)">?</b> för blank.</div>
+              <div style="height:64px;border:2px solid var(--accent);border-radius:12px;display:flex;align-items:center;padding:0 16px;font-family:'IBM Plex Mono',monospace;font-size:28px;letter-spacing:.16em;justify-content:space-between"><span>GATRSN*</span><span style="color:var(--muted);font-size:22px">✕</span></div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <div style="height:44px;padding:0 16px;border-radius:999px;background:#F1E6D9;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Innehåller…</div>
+                <div style="height:44px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Slutar på…</div>
+                <div style="height:44px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Max längd</div>
+              </div>
+              <div style="height:60px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:21px;font-weight:600">Sök ord</div>
+            </div>
+            <div style="padding:20px 16px 8px;display:flex;justify-content:space-between;align-items:baseline">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--muted)">418 ORD · SORTERAT PÅ POÄNG</div>
+            </div>
+            <div style="padding:0 16px;display:flex;flex-direction:column;gap:20px">
+              <div>
+                <div style="font-size:19px;font-weight:600;padding:8px 0;border-bottom:2px solid var(--ink)">7 bokstäver <span style="color:var(--muted);font-weight:400">· 12 ord</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">STRANGA</div><div style="display:flex;align-items:center;gap:12px"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><span style="font-size:23px;font-weight:700;color:var(--ok)">78</span></div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">GRANTAS</div><div style="display:flex;align-items:center;gap:12px"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><span style="font-size:23px;font-weight:700;color:var(--ok)">76</span></div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">SNARGAT</div><div style="display:flex;align-items:center;gap:12px"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><span style="font-size:23px;font-weight:700;color:var(--ok)">74</span></div></div>
+              </div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:250px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS · EFTER FÖRSTA GRUPPEN</span><span>300 × 250</span></div>
+              </div>
+              <div>
+                <div style="font-size:19px;font-weight:600;padding:8px 0;border-bottom:2px solid var(--ink)">6 bokstäver <span style="color:var(--muted);font-weight:400">· 41 ord</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">SNARGA</div><span style="font-size:23px;font-weight:700;color:var(--ok)">24</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">GRANAT</div><span style="font-size:23px;font-weight:700;color:var(--ok)">22</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">TRASAN</div><span style="font-size:23px;font-weight:700;color:var(--ok)">21</span></div>
+              </div>
+              <div style="height:56px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600;margin-bottom:28px">Visa fler ord</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · MÖRKT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;--ok:#6F9A55;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Wordfeud-hjälp</div>
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☀</div>
+            </div>
+            <div style="padding:20px 16px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:14px">
+              <div style="font-size:18px;color:var(--muted)">Skriv dina brickor. <b style="color:var(--ink)">*</b> eller <b style="color:var(--ink)">?</b> för blank.</div>
+              <div style="height:64px;border:2px solid var(--accent);border-radius:12px;display:flex;align-items:center;padding:0 16px;font-family:'IBM Plex Mono',monospace;font-size:28px;letter-spacing:.16em;justify-content:space-between"><span>GATRSN*</span><span style="color:var(--muted);font-size:22px">✕</span></div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <div style="height:44px;padding:0 16px;border-radius:999px;background:#2A241D;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Innehåller…</div>
+                <div style="height:44px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Slutar på…</div>
+                <div style="height:44px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Max längd</div>
+              </div>
+              <div style="height:60px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:21px;font-weight:600">Sök ord</div>
+            </div>
+            <div style="padding:20px 16px 8px;display:flex;justify-content:space-between;align-items:baseline">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--muted)">418 ORD · SORTERAT PÅ POÄNG</div>
+            </div>
+            <div style="padding:0 16px;display:flex;flex-direction:column;gap:20px">
+              <div>
+                <div style="font-size:19px;font-weight:600;padding:8px 0;border-bottom:2px solid #6B6055">7 bokstäver <span style="color:var(--muted);font-weight:400">· 12 ord</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">STRANGA</div><div style="display:flex;align-items:center;gap:12px"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><span style="font-size:23px;font-weight:700;color:var(--ok)">78</span></div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">GRANTAS</div><div style="display:flex;align-items:center;gap:12px"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><span style="font-size:23px;font-weight:700;color:var(--ok)">76</span></div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">SNARGAT</div><div style="display:flex;align-items:center;gap:12px"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><span style="font-size:23px;font-weight:700;color:var(--ok)">74</span></div></div>
+              </div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:250px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS · EFTER FÖRSTA GRUPPEN</span><span>300 × 250</span></div>
+              </div>
+              <div>
+                <div style="font-size:19px;font-weight:600;padding:8px 0;border-bottom:2px solid #6B6055">6 bokstäver <span style="color:var(--muted);font-weight:400">· 41 ord</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">SNARGA</div><span style="font-size:23px;font-weight:700;color:var(--ok)">24</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">GRANAT</div><span style="font-size:23px;font-weight:700;color:var(--ok)">22</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;letter-spacing:.06em">TRASAN</div><span style="font-size:23px;font-weight:700;color:var(--ok)">21</span></div>
+              </div>
+              <div style="height:56px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600;margin-bottom:28px">Visa fler ord</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--ok:#4C6B3C;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:var(--accent)">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px;font-weight:500"><span>Spel</span><span style="color:var(--accent)">Verktyg</span><span>Artiklar</span></div>
+              <div hidden="{{ adsHidden }}" style="margin-left:auto;width:728px;height:90px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>728 × 90</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;flex-direction:column;gap:32px">
+                <div>
+                  <div style="font-family:'Newsreader',serif;font-size:40px;font-weight:600">Wordfeud-hjälp</div>
+                  <div style="font-size:19px;color:var(--muted);margin-top:6px">Skriv dina brickor, få de bäst betalda orden. Blank = <b style="color:var(--ink)">*</b></div>
+                </div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:20px">
+                  <div style="display:flex;gap:16px">
+                    <div style="flex:1;height:72px;border:2px solid var(--accent);border-radius:12px;display:flex;align-items:center;padding:0 20px;font-family:'IBM Plex Mono',monospace;font-size:32px;letter-spacing:.16em">GATRSN*</div>
+                    <div style="height:72px;padding:0 40px;background:var(--accent);color:var(--accent-ink);border-radius:12px;display:grid;place-items:center;font-size:22px;font-weight:600">Sök</div>
+                  </div>
+                  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+                    <span style="font-size:18px;color:var(--muted)">Filter:</span>
+                    <div style="height:48px;padding:0 20px;border-radius:999px;background:#F1E6D9;border:1px solid var(--accent);display:grid;place-items:center;font-size:17px">Innehåller ST</div>
+                    <div style="height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Börjar på…</div>
+                    <div style="height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Slutar på…</div>
+                    <div style="height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;font-size:17px">Ordlängd: alla</div>
+                  </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+                  <div>
+                    <div style="font-size:21px;font-weight:600;padding:10px 0;border-bottom:2px solid var(--ink)">7 bokstäver · 12 ord</div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">STRANGA</span><span style="display:flex;gap:14px;align-items:center"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><b style="font-size:24px;color:var(--ok)">78</b></span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">GRANTAS</span><span style="display:flex;gap:14px;align-items:center"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><b style="font-size:24px;color:var(--ok)">76</b></span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">SNARGAT</span><span style="display:flex;gap:14px;align-items:center"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><b style="font-size:24px;color:var(--ok)">74</b></span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">TRANSGA</span><span style="display:flex;gap:14px;align-items:center"><span style="font-size:17px;color:var(--muted)">+50 bingo</span><b style="font-size:24px;color:var(--ok)">71</b></span></div>
+                  </div>
+                  <div>
+                    <div style="font-size:21px;font-weight:600;padding:10px 0;border-bottom:2px solid var(--ink)">6 bokstäver · 41 ord</div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">SNARGA</span><b style="font-size:24px;color:var(--ok)">24</b></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">GRANAT</span><b style="font-size:24px;color:var(--ok)">22</b></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">TRASAN</span><b style="font-size:24px;color:var(--ok)">21</b></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-size:24px;letter-spacing:.06em">STRAND</span><b style="font-size:24px;color:var(--ok)">20</b></div>
+                  </div>
+                </div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>300 × 600</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ARTIKEL ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">05 · ARTIKEL</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600">hjärngympa</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☰</div></div>
+            </div>
+            <div style="padding:24px 20px 32px;display:flex;flex-direction:column;gap:20px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--muted)">ARTIKLAR · SUDOKU</div>
+              <div style="font-family:'Newsreader',serif;font-size:36px;font-weight:600;line-height:1.12;text-wrap:pretty">Sudokuregler – så spelar du, steg för steg</div>
+              <div style="font-size:17px;color:var(--muted)">Uppdaterad 12 augusti 2026 · 6 min läsning</div>
+              <div style="font-family:'Newsreader',serif;font-size:23px;line-height:1.5;font-weight:500;text-wrap:pretty">Sudoku ser matematiskt ut men kräver ingen räkning. Det handlar om att utesluta möjligheter, en ruta i taget.</div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100</span></div>
+              </div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Ett sudoku består av nio rader, nio kolumner och nio block om 3 × 3 rutor. Varje rad, kolumn och block ska innehålla siffrorna 1 till 9 — exakt en gång var. Inget mer än så.</div>
+              <div style="font-family:'Newsreader',serif;font-size:27px;font-weight:600;margin-top:8px">Börja med det som är givet</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Leta efter raden, kolumnen eller blocket med flest ifyllda siffror. Där är valmöjligheterna minst, och där hittar du oftast den första säkra rutan.</div>
+              <div style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;font-family:'Newsreader',serif;font-size:23px;line-height:1.45;font-style:italic">Gissa aldrig. Ett sudoku går alltid att lösa med logik.</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">När du kör fast: byt håll. Titta på en siffra i stället för en ruta — var i det här blocket kan sjuan stå?</div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:250px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS · MITT I ARTIKEL</span><span>300 × 250</span></div>
+              </div>
+              <div style="font-family:'Newsreader',serif;font-size:27px;font-weight:600">Blyertsanteckningar</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Skriv in kandidaterna i små siffror. På svårare brädden är det anteckningarna, inte huvudräkningen, som löser pusslet.</div>
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;margin-top:8px">
+                <div style="font-size:19px;font-weight:600">Testa direkt</div>
+                <div style="height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Spela sudoku (lätt)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · MÖRKT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600">hjärngympa</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☀</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☰</div></div>
+            </div>
+            <div style="padding:24px 20px 32px;display:flex;flex-direction:column;gap:20px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--muted)">ARTIKLAR · SUDOKU</div>
+              <div style="font-family:'Newsreader',serif;font-size:36px;font-weight:600;line-height:1.12;text-wrap:pretty">Sudokuregler – så spelar du, steg för steg</div>
+              <div style="font-size:17px;color:var(--muted)">Uppdaterad 12 augusti 2026 · 6 min läsning</div>
+              <div style="font-family:'Newsreader',serif;font-size:23px;line-height:1.5;font-weight:500;text-wrap:pretty">Sudoku ser matematiskt ut men kräver ingen räkning. Det handlar om att utesluta möjligheter, en ruta i taget.</div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:100px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>320 × 100</span></div>
+              </div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Ett sudoku består av nio rader, nio kolumner och nio block om 3 × 3 rutor. Varje rad, kolumn och block ska innehålla siffrorna 1 till 9 — exakt en gång var. Inget mer än så.</div>
+              <div style="font-family:'Newsreader',serif;font-size:27px;font-weight:600;margin-top:8px">Börja med det som är givet</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Leta efter raden, kolumnen eller blocket med flest ifyllda siffror. Där är valmöjligheterna minst, och där hittar du oftast den första säkra rutan.</div>
+              <div style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;font-family:'Newsreader',serif;font-size:23px;line-height:1.45;font-style:italic">Gissa aldrig. Ett sudoku går alltid att lösa med logik.</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">När du kör fast: byt håll. Titta på en siffra i stället för en ruta — var i det här blocket kan sjuan stå?</div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:250px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS · MITT I ARTIKEL</span><span>300 × 250</span></div>
+              </div>
+              <div style="font-family:'Newsreader',serif;font-size:27px;font-weight:600">Blyertsanteckningar</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Skriv in kandidaterna i små siffror. På svårare brädden är det anteckningarna, inte huvudräkningen, som löser pusslet.</div>
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;margin-top:8px">
+                <div style="font-size:19px;font-weight:600">Testa direkt</div>
+                <div style="height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Spela sudoku (lätt)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:var(--accent)">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px;font-weight:500"><span>Spel</span><span>Verktyg</span><span style="color:var(--accent)">Artiklar</span></div>
+              <div hidden="{{ adsHidden }}" style="margin-left:auto;width:728px;height:90px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>728 × 90</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:700px 300px;gap:64px;padding:56px 48px 64px;justify-content:center">
+              <div style="display:flex;flex-direction:column;gap:24px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--muted)">ARTIKLAR · SUDOKU</div>
+                <div style="font-family:'Newsreader',serif;font-size:52px;font-weight:600;line-height:1.08;text-wrap:pretty">Sudokuregler – så spelar du, steg för steg</div>
+                <div style="font-size:18px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:20px">Uppdaterad 12 augusti 2026 · 6 min läsning</div>
+                <div style="font-family:'Newsreader',serif;font-size:26px;line-height:1.5;font-weight:500;text-wrap:pretty">Sudoku ser matematiskt ut men kräver ingen räkning. Det handlar om att utesluta möjligheter, en ruta i taget.</div>
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Ett sudoku består av nio rader, nio kolumner och nio block om 3 × 3 rutor. Varje rad, kolumn och block ska innehålla siffrorna 1 till 9 — exakt en gång var. Inget mer än så. Alla svårighetsgrader följer samma regel; det som skiljer dem är hur många rutor du får gratis från början.</div>
+                <div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600;margin-top:12px">Börja med det som är givet</div>
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Leta efter raden, kolumnen eller blocket med flest ifyllda siffror. Där är valmöjligheterna minst, och där hittar du oftast den första säkra rutan. Fyll bara i när du är säker — en felaktig siffra tar tjugo minuter att hitta tillbaka från.</div>
+                <div style="border-left:3px solid var(--accent);padding:8px 0 8px 24px;font-family:'Newsreader',serif;font-size:28px;line-height:1.4;font-style:italic">Gissa aldrig. Ett sudoku går alltid att lösa med logik.</div>
+                <div hidden="{{ adsHidden }}" style="display:flex;justify-content:center;padding:16px 0">
+                  <div style="width:300px;height:250px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS · MITT I ARTIKEL</span><span>300 × 250</span></div>
+                </div>
+                <div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600">Blyertsanteckningar</div>
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Skriv in kandidaterna i små siffror. På svårare bräden är det anteckningarna, inte huvudräkningen, som löser pusslet. Vår sudoku har blyertsläge på tangenten P.</div>
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty">När du kör fast: byt håll. Titta på en siffra i stället för en ruta — var i det här blocket kan sjuan stå? Ofta faller resten på plats direkt efteråt.</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:32px">
+                <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed var(--line);background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)"><span>ANNONS</span><span>300 × 600</span></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:16px">
+                  <div style="font-size:20px;font-weight:600">Testa direkt</div>
+                  <div style="height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Spela sudoku</div>
+                  <div style="font-size:18px;color:var(--muted)">Lätt · Medel · Svår · Expert</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--muted)">LÄS OCKSÅ</div>
+                  <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600;line-height:1.3">Wordfeud-strategi för nybörjare</div>
+                  <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600;line-height:1.3">Korsordsguiden: knäck de svåra</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSpecs&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Presentation&quot;},&quot;showAds&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Presentation&quot;},&quot;signalStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Ikon + färg&quot;,&quot;Endast färg&quot;],&quot;default&quot;:&quot;Ikon + färg&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tillgänglighet&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const icons = (this.props.signalStyle ?? "Ikon + färg") === "Ikon + färg";
+    return {
+      showSpecs: this.props.showSpecs ?? true,
+      adsHidden: !(this.props.showAds ?? true),
+      markOk: icons ? "✓" : "",
+      markNear: icons ? "→" : "",
+      markAbsent: icons ? "×" : ""
+    };
+  }
+}
+</script>
+</body>
+</html>
