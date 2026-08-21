@@ -140,6 +140,12 @@ def main():
     )
     # GitHub Pages serves this repo from a project path until the domain is
     # attached; .nojekyll stops it mangling paths that start with an underscore.
+    # ads.txt (Authorized Digital Sellers). Without it most exchanges refuse
+    # to bid, so it is worth real money. f08c47fec0942fa0 is Google's fixed
+    # certification authority id -- the same for every AdSense publisher.
+    open(os.path.join(DIST, "ads.txt"), "w", encoding="utf-8").write(
+        f"google.com, {ADS_CLIENT.replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n"
+    )
     open(os.path.join(DIST, ".nojekyll"), "w").close()
     if CNAME and not BASE_PATH:
         open(os.path.join(DIST, "CNAME"), "w").write(CNAME + "\n")

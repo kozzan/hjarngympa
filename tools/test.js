@@ -145,3 +145,12 @@ test('build emits absolute canonicals even when CI passes empty env vars', () =>
   const robots = fs.readFileSync(path.join(ROOT, 'dist/robots.txt'), 'utf8');
   assert.match(robots, /Sitemap: https:\/\//);
 });
+
+test('ads.txt names the publisher id in the exact format exchanges require', () => {
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  const ads = fs.readFileSync(path.join(ROOT, 'dist/ads.txt'), 'utf8').trim();
+  // <domain>, <publisher id>, DIRECT|RESELLER, <certification authority id>
+  assert.match(ads, /^google\.com, pub-\d+, DIRECT, f08c47fec0942fa0$/,
+    `malformed ads.txt line: ${ads}`);
+  assert.ok(!ads.includes('ca-pub-'), 'ads.txt takes pub-, not ca-pub-');
+});
