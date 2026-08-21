@@ -29,6 +29,25 @@ BASE_PATH = (os.environ.get("BASE_PATH") or "").rstrip("/")
 CNAME = os.environ.get("CNAME") or "hjarngympa.se"
 META_RE = re.compile(r"^<!--meta\s*(.*?)-->\s*", re.S)
 
+# Ad slots are authored as sized placeholder divs so the pages stay readable.
+# The real <ins> is injected here, INSIDE the sized box, so the reserved
+# height survives and a late-filling ad never shifts the layout.
+ADS_CLIENT = "ca-pub-2838730195714407"
+ADS_SLOT = "4551546102"
+AD_RE = re.compile(r'<div class="ad ([^"]*)">[^<]*</div>')
+
+
+def mount_ads(html):
+    def rep(m):
+        return (
+            f'<div class="ad {m.group(1)}">'
+            f'<ins class="adsbygoogle" style="display:block;width:100%;height:100%"'
+            f' data-ad-client="{ADS_CLIENT}" data-ad-slot="{ADS_SLOT}"'
+            f' data-ad-format="auto" data-full-width-responsive="true"></ins>'
+            f'</div>'
+        )
+    return AD_RE.sub(rep, html)
+
 
 def read_page(path):
     raw = open(path, encoding="utf-8").read()
@@ -82,6 +101,7 @@ def main():
                 head=meta.get("head", ""),
                 body=body,
             )
+            page = mount_ads(page)
             if BASE_PATH:
                 page = page.replace('href="/', f'href="{BASE_PATH}/')
                 page = page.replace('src="/', f'src="{BASE_PATH}/')

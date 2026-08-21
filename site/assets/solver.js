@@ -136,8 +136,11 @@
       if (gi === 0) {
         var ad = document.createElement('div');
         ad.className = 'ad ad-300x250';
-        ad.textContent = 'ANNONS 300×250';
+        ad.innerHTML = '<ins class="adsbygoogle" style="display:block;width:100%;height:100%"' +
+          ' data-ad-client="ca-pub-2838730195714407" data-ad-slot="4551546102"' +
+          ' data-ad-format="auto" data-full-width-responsive="true"></ins>';
         out.appendChild(ad);
+        if (window.mountAd) window.mountAd(ad.firstChild);
       }
     });
   }

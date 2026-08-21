@@ -26,6 +26,17 @@
     });
   }
 
+  // ---- ads ---------------------------------------------------------------
+  // AdSense needs exactly one push per <ins>. Pushing twice for the same
+  // element is a policy violation, so mounted slots are marked.
+  window.mountAd = function (el) {
+    if (!el || el.dataset.adsbygoogleStatus || el.dataset.mounted) return;
+    el.dataset.mounted = '1';
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+  };
+  Array.prototype.forEach.call(
+    document.querySelectorAll('ins.adsbygoogle'), window.mountAd);
+
   // ---- consent -----------------------------------------------------------
   // Google's certified CMP (Funding Choices) owns the consent dialog and the
   // Consent Mode updates. We only set the denied-by-default signals in <head>
