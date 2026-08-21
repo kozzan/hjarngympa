@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #D9D3C8; }
+  a { color: #B4531F; text-decoration: none; }
+  a:hover { color: #8E3F14; text-decoration: underline; }
+  * { box-sizing: border-box; }
+</style>
+</helmet>
+
+<section style="display:flex;flex-direction:column;gap:72px;padding:72px;font-family:'Source Sans 3',sans-serif;color:#221D17">
+  <div id="1a" style="display:flex;flex-direction:column;gap:56px">
+
+    <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;background:#221D17;color:#F6F2EA;padding:6px 12px;border-radius:6px">1A</div>
+      <div>
+        <div style="font-family:'Newsreader',serif;font-size:46px;font-weight:600;line-height:1.05">Fem nya spel</div>
+        <div style="font-size:19px;color:#5F574C;margin-top:6px">Minsvepare · Mahjong · Patiens · Minnesspel · 2048 — samma sidskelett, samma tokens, mobil 390 &amp; desktop 1280, ljust &amp; mörkt</div>
+      </div>
+    </div>
+
+    <!-- ══ BESLUT ══ -->
+    <div style="background:#FFFDF9;border:1px solid #C8C0B2;border-radius:20px;padding:48px;display:flex;flex-direction:column;gap:36px;max-width:1280px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.16em;color:#7A7264">BESLUT PÅ DE FYRA SVÅRA FRÅGORNA</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">1 · Minsvepares brädstorlekar</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Fyra nivåer, olika bräden per enhet: <b>Lätt 9×9</b> (mobil 38 px rutor), <b>Medel 12×12</b> (28 px men zoomat), <b>Svår 12×16 porträtt</b> på mobil / <b>16×16</b> på dator, <b>Expert 30×16 endast dator</b> — nivån syns på mobil men märkt &quot;bäst på dator&quot; i stället för att tystas bort.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Allt över 9×9 ritas i en <b>fast ram med nyp-zoom och panorering</b>, startzoom satt så att rutan alltid är ≥ 40 px <i>renderade</i> pixlar — tryckytan mäts på skärmen, inte i brädkoordinater. En &quot;Centrera&quot;-knapp och en minikarta visar var i brädet du är. Brädet skalas aldrig ner så att siffrorna blir mindre än 17 px.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">2 · Flagga eller gräv på touch</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty"><b>Synligt lägesval, inte långtryck.</b> En segmenterad kontroll (Gräv / Flagga) sitter fast strax ovanför tummen, 56 px hög, aktivt läge fyllt i accent och med glyf (⛏ / ▲) — långtryck finns kvar som genväg men är aldrig enda vägen. Läget upprepas som liten glyf vid räknaren så att man ser det utan att titta ner.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Motivering: långtryck är osynligt, kräver finmotorik och tolkas olika av skärmläsare. En 45+-publik ska inte behöva gissa gesten.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">3 · Mahjong på telefon</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Två uppläggningar, inte en skalad. Mobil får <b>&quot;Kompakt sköldpadda&quot; med 72 brickor</b> i tre lager — brickan blir 42 × 54 px, alltså full tryckyta och läsbar bricka utan zoom. Den klassiska <b>144-brickorsuppläggningen</b> finns kvar som eget val och ritas då i zoom-/panoreringsramen med minikarta.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Brickfaserna ritas som en <b>egen inline-SVG-uppsättning</b> (34 motiv). Unicodes mahjongtecken används aldrig — de faller tillbaka olika på iOS, Android och Windows. Mockupen visar motiven som text; specen nedan anger geometrin.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">4 · Patiens på touch</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty"><b>Tryck-välj, tryck-lägg är huvudinteraktionen.</b> Drag finns som bonus på mus och för den som vill, men allt går att spela med två tryck. Valt kort lyfts 6 px, får 3 px accentram och accenttonad fyllning; giltiga mål får streckad 2 px accentram och en liten ▾-markör. Ogiltigt tryck ger skak 160 ms och behåller valet.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Tableau-facket har <b>34 px synlig kant</b> per överlappande kort (48 px för det översta) — nog för valör + färg i hörnindexet. Vid mer än sju kort i högen krymper facket till 26 px och hörnindexet flyttas upp.</div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #E3DCD0;padding-top:32px">
+        <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-bottom:8px">Nya tokens</div>
+        <div style="font-size:18px;color:#6C6358;margin-bottom:20px">Allt annat är oförändrat. Dessa sex är tillägg som de nya spelen kräver, namngivna i befintlig stil.</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+          <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:44px;height:44px;border-radius:8px;background:#EDE7DB;border:1px solid #DDD5C7;flex:none"></div><div><div style="font-weight:600;font-size:18px">felt</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#EDE7DB / #1A1713</div><div style="font-size:17px;color:#6C6358">spelduk bakom mahjong- och patienskort</div></div></div>
+          <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:44px;height:44px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;border-bottom:6px solid #C8C0B2;flex:none"></div><div><div style="font-weight:600;font-size:18px">edge</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#C8C0B2 / #4A4239</div><div style="font-size:17px;color:#6C6358">underkant som gör bricka/ruta upphöjd (formsignal)</div></div></div>
+          <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:44px;height:44px;border-radius:8px;background:repeating-linear-gradient(45deg,#EDE8DE 0 4px,rgba(30,26,21,.10) 4px 5px);border:1px solid #DDD5C7;flex:none"></div><div><div style="font-weight:600;font-size:18px">hatch</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">rgba(30,26,21,.10) / rgba(241,236,227,.10)</div><div style="font-size:17px;color:#6C6358">45° raster = blockerad/låst, oberoende av färg</div></div></div>
+          <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:44px;height:44px;border-radius:8px;background:#F5EFE3;border:1px solid #DDD5C7;flex:none"></div><div><div style="font-weight:600;font-size:18px">card-face</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#FFFFFF / #EFE9DD</div><div style="font-size:17px;color:#6C6358">kort och brickor förblir ljusa i mörkt läge — svart text på kort läses bäst</div></div></div>
+          <div style="display:flex;gap:14px;align-items:flex-start"><div style="display:flex;gap:3px;flex:none"><div style="width:20px;height:44px;border-radius:4px;background:#3E6187"></div><div style="width:20px;height:44px;border-radius:4px;background:#5A3E86"></div></div><div><div style="font-weight:600;font-size:18px">num-1 … num-8</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#3E6187 #4C6B3C #A2331A #5A3E86 #8A4A17 #1F6B6B #1E1A15 #6C6358</div><div style="font-size:17px;color:#6C6358">minsvepares grannsiffror — <b>förstärkning</b>, siffran bär meningen</div></div></div>
+          <div style="display:flex;gap:14px;align-items:flex-start"><div style="width:44px;height:44px;border-radius:8px;background:#E9EFE1;border:3px solid #4C6B3C;flex:none;display:grid;place-items:center;font-size:18px;color:#4C6B3C">✓</div><div><div style="font-weight:600;font-size:18px">ok-soft</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#7A7264">#E9EFE1 / #25301E</div><div style="font-size:17px;color:#6C6358">matchat par, klarat fält</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 01 MINSVEPARE ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">01 · MINSVEPARE /minsvepare/ — högst prioritet</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST · LÄTT 9×9</div>
+          <div style="width:390px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #E3DCD0;background:#FFFFFF">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Minsvepare</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>320 × 100 · reserverad höjd</span></div>
+            </div>
+            <div style="padding:16px 16px 0;display:flex;gap:6px">
+              <div style="flex:1;height:48px;border-radius:999px;background:#B4531F;color:#FFF;display:grid;place-items:center;font-size:17px;font-weight:600">Lätt</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:17px">Medel</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:17px">Svår</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:15px;color:#6C6358;text-align:center;line-height:1.1">Expert<br><span style="font-size:12px">dator</span></div>
+            </div>
+            <div style="padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">
+              <span>▲ 4 / 10</span><span>⏱ 01:52</span><span>LÄGE ⛏</span>
+            </div>
+            <div style="padding:0 16px;display:flex;justify-content:center">
+              <div style="display:flex;flex-direction:column;gap:2px;padding:6px;background:#D6CEBF;border-radius:8px">
+                <sc-for list="{{ msMobile }}" as="row" hint-placeholder-count="9">
+                  <div style="display:flex;gap:2px">
+                    <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="9">
+                      <div style="{{ c.style }}">{{ c.txt }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="padding:20px 16px 28px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:8px;background:#FFF;border:1px solid #E3DCD0;border-radius:999px;padding:4px">
+                <div style="flex:1;height:56px;border-radius:999px;background:#B4531F;color:#FFF;display:flex;align-items:center;justify-content:center;gap:8px;font-size:19px;font-weight:600">⛏ Gräv</div>
+                <div style="flex:1;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:19px;font-weight:600;color:#1E1A15">▲ Flagga</div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:52px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Nytt bräde</div>
+                <div style="flex:1;height:52px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">⏸ Pausa</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358;text-align:center">Piltangenter flyttar · MELLANSLAG gräver · F flaggar</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · MÖRKT · SVÅR 12×16 I ZOOMRAM</div>
+          <div style="width:390px;background:#151210;color:#F1ECE3;border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #352E26;background:#1F1B17">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Minsvepare</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☀</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:17px;color:#A69C90">
+              <span>▲ 12 / 40</span><span>⏱ 06:31</span><span>LÄGE ▲</span>
+            </div>
+            <div style="margin:0 16px;border:2px solid #352E26;border-radius:12px;overflow:hidden;position:relative;height:360px;background:#3A322A">
+              <div style="position:absolute;top:-40px;left:-30px;display:flex;flex-direction:column;gap:2px;padding:6px">
+                <sc-for list="{{ msZoom }}" as="row" hint-placeholder-count="12">
+                  <div style="display:flex;gap:2px">
+                    <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="12">
+                      <div style="{{ c.style }}">{{ c.txt }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="position:absolute;right:10px;top:10px;width:76px;height:100px;border:1px solid #A69C90;background:rgba(21,18,16,.82);border-radius:4px;padding:4px">
+                <div style="width:44px;height:56px;border:2px solid #E58A46;border-radius:2px;margin:8px 0 0 6px"></div>
+              </div>
+              <div style="position:absolute;left:10px;bottom:10px;display:flex;gap:8px">
+                <div style="height:48px;padding:0 16px;border-radius:999px;background:rgba(31,27,23,.92);border:1px solid #352E26;display:grid;place-items:center;font-size:17px;font-weight:600">⊕ Centrera</div>
+                <div style="width:48px;height:48px;border-radius:999px;background:rgba(31,27,23,.92);border:1px solid #352E26;display:grid;place-items:center;font-size:20px">＋</div>
+                <div style="width:48px;height:48px;border-radius:999px;background:rgba(31,27,23,.92);border:1px solid #352E26;display:grid;place-items:center;font-size:20px">－</div>
+              </div>
+            </div>
+            <div style="padding:8px 16px 0;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90;text-align:center">NYP FÖR ZOOM · DRA FÖR ATT PANORERA · RUTA ALLTID ≥ 40 PX PÅ SKÄRMEN</div>
+            <div style="padding:16px 16px 28px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:8px;background:#1F1B17;border:1px solid #352E26;border-radius:999px;padding:4px">
+                <div style="flex:1;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:19px;font-weight:600;color:#F1ECE3">⛏ Gräv</div>
+                <div style="flex:1;height:56px;border-radius:999px;background:#E58A46;color:#1B1410;display:flex;align-items:center;justify-content:center;gap:8px;font-size:19px;font-weight:600">▲ Flagga</div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:52px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Nytt bräde</div>
+                <div style="flex:1;height:52px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">⏸ Pausa</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · LJUST · SVÅR 16×16</div>
+          <div style="width:1280px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:#FFF;border-bottom:1px solid #E3DCD0;padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:#B4531F">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px;font-weight:600"><span style="color:#B4531F">Spel</span><span style="font-weight:400">Verktyg</span><span style="font-weight:400">Artiklar</span></div>
+              <div style="margin-left:auto"></div>
+              <div style="width:48px;height:48px;border:1px solid #E3DCD0;border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:24px">
+                <div style="width:100%;display:flex;align-items:baseline;justify-content:space-between">
+                  <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600">Minsvepare</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">SVÅR 16×16 · ▲ 18 / 40 · ⏱ 04:12 · LÄGE ⛏</div>
+                </div>
+                <div style="width:100%;display:flex;gap:10px">
+                  <div style="height:48px;padding:0 22px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:17px">Lätt 9×9</div>
+                  <div style="height:48px;padding:0 22px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:17px">Medel 12×12</div>
+                  <div style="height:48px;padding:0 22px;border-radius:999px;background:#B4531F;color:#FFF;display:grid;place-items:center;font-size:17px;font-weight:600">Svår 16×16</div>
+                  <div style="height:48px;padding:0 22px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:17px">Expert 30×16</div>
+                  <div style="margin-left:auto;display:flex;gap:8px;background:#FFF;border:1px solid #E3DCD0;border-radius:999px;padding:4px">
+                    <div style="height:40px;padding:0 18px;border-radius:999px;background:#B4531F;color:#FFF;display:grid;place-items:center;font-size:17px;font-weight:600">⛏ Gräv</div>
+                    <div style="height:40px;padding:0 18px;border-radius:999px;display:grid;place-items:center;font-size:17px;font-weight:600">▲ Flagga</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:2px;padding:8px;background:#D6CEBF;border-radius:10px">
+                  <sc-for list="{{ msDesktop }}" as="row" hint-placeholder-count="16">
+                    <div style="display:flex;gap:2px">
+                      <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="16">
+                        <div style="{{ c.style }}">{{ c.txt }}</div>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#6C6358">PILTANGENTER flyttar · MELLANSLAG gräver · F flaggar · R nytt bräde</div>
+                <div hidden="{{ adsHidden }}" style="width:336px;height:280px;margin-top:16px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS · UNDER BRÄDET</span><span>336 × 280 · 40 px luft</span></div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>300 × 600</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width:620px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">RUTTILLSTÅND · SIFFRAN ÄR HUVUDSIGNALEN</div>
+          <div style="background:#FFFDF9;border:1px solid #C8C0B2;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:24px">
+            <div style="display:flex;gap:16px;flex-wrap:wrap">
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">täckt<br>upphöjd kant</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;outline:3px solid #B4531F;outline-offset:2px"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">fokus<br>3 px accent</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#F1E6D9;border:2px solid #B4531F;box-shadow:inset 0 -4px 0 #C8C0B2;display:grid;place-items:center;font-size:24px;color:#B4531F">▲</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">flaggad<br>glyf + ram</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#F1E6D9;border:2px dashed #6C6358;box-shadow:inset 0 -4px 0 #C8C0B2;display:grid;place-items:center;font-size:24px;color:#6C6358">?</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">osäker<br>streckad</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">tom<br>insänkt</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#F6E2DB;border:3px solid #A2331A;display:grid;place-items:center;font-size:26px;color:#A2331A">✳</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">mina<br>✳ + 3 px ram</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#A2331A;display:grid;place-items:center;font-size:26px;color:#FFF">✳</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">träffad mina<br>fylld</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#EDE8DE;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:24px;color:#9A9186;text-decoration:line-through">▲</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">felflaggad<br>överstruken</div></div>
+              <div style="text-align:center;width:88px"><div style="width:56px;height:56px;margin:0 auto;border-radius:4px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;font-size:24px;color:#4C6B3C">✓</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">rätt flagga<br>vid vinst</div></div>
+            </div>
+            <div style="border-top:1px solid #E3DCD0;padding-top:20px">
+              <div style="font-size:18px;color:#3A342C;margin-bottom:14px">Grannsiffror: 700 vikt, 26 px på 56 px ruta (≈ 0,46 × rutan). Färgen är förstärkning — i gråskala skiljer siffran ändå.</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#3E6187">1</div>
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#4C6B3C">2</div>
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#A2331A">3</div>
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#5A3E86">4</div>
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#8A4A17">5</div>
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#1F6B6B">6</div>
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#1E1A15">7</div>
+                <div style="width:56px;height:56px;border-radius:4px;background:#F6F2EA;border:1px solid #D6CEBF;display:grid;place-items:center;font-size:26px;font-weight:600;color:#6C6358">8</div>
+              </div>
+            </div>
+            <div style="border-top:1px solid #E3DCD0;padding-top:20px;font-size:18px;line-height:1.6;color:#3A342C">
+              <b>Får inte missas:</b> första trycket är alltid säkert (minorna läggs efter första grävningen). Ackordklick (tryck på färdig siffra röjer grannarna) finns på både mus och touch. Räknaren <span style="font-family:'IBM Plex Mono',monospace">▲ 4 / 10</span> räknar flaggor, inte minor. Ingen annons får ligga inom 40 px från brädet — brädet är hela spelytan även när det är zoomat.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">RESULTAT · VINST (LJUST) &amp; FÖRLUST (MÖRKT)</div>
+          <div style="display:flex;gap:24px">
+            <div style="width:390px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+              <div style="margin:16px;background:#FFF;border:2px solid #4C6B3C;border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:20px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:44px;height:44px;border-radius:999px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;font-size:22px;color:#4C6B3C;flex:none">✓</div>
+                  <div>
+                    <div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600;line-height:1.1">Rensat!</div>
+                    <div style="font-size:18px;color:#6C6358">Lätt 9×9 · alla 10 minor flaggade</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:12px">
+                  <div style="flex:1;border:1px solid #E3DCD0;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">01:52</div><div style="font-size:16px;color:#6C6358">tid</div></div>
+                  <div style="flex:1;border:1px solid #E3DCD0;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">01:31</div><div style="font-size:16px;color:#6C6358">ditt bästa</div></div>
+                  <div style="flex:1;border:1px solid #E3DCD0;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">18</div><div style="font-size:16px;color:#6C6358">rensade</div></div>
+                </div>
+                <div style="height:56px;background:#B4531F;color:#FFF;border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">Spela igen</div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="padding:0 16px">
+                <div style="height:280px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS · EFTER OMGÅNG</span><span>336 × 280</span></div>
+              </div>
+              <div style="padding:16px 16px 28px"><div style="height:56px;border:1px solid #E3DCD0;border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Prova mahjong →</div></div>
+            </div>
+            <div style="width:390px;background:#151210;color:#F1ECE3;border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+              <div style="margin:16px;background:#1F1B17;border:2px solid #C4553A;border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:20px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:44px;height:44px;border-radius:999px;background:#33201B;border:2px solid #C4553A;display:grid;place-items:center;font-size:22px;color:#F2907A;flex:none">✳</div>
+                  <div>
+                    <div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600;line-height:1.1">Mina på ruta 7:4</div>
+                    <div style="font-size:18px;color:#A69C90">Svår 12×16 · 28 av 152 rutor kvar</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:12px">
+                  <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">06:31</div><div style="font-size:16px;color:#A69C90">tid</div></div>
+                  <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">82%</div><div style="font-size:16px;color:#A69C90">rensat</div></div>
+                  <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">12</div><div style="font-size:16px;color:#A69C90">flaggor</div></div>
+                </div>
+                <div style="height:56px;background:#E58A46;color:#1B1410;border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">Nytt bräde</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#A69C90;text-align:center">SAMMA BRÄDE IGEN: TRYCK R</div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="padding:0 16px">
+                <div style="height:280px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS · EFTER OMGÅNG</span><span>336 × 280</span></div>
+              </div>
+              <div style="padding:16px 16px 28px"><div style="height:56px;border:1px solid #352E26;border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Prova patiens →</div></div>
+            </div>
+          </div>
+          <div style="width:804px;font-size:18px;color:#3A342C;margin-top:14px;line-height:1.55">Samma skelett som Dagens ord: rubrik, enrads utfall, tre statlådor med Newsreader-siffror, accentpill, 336 × 280, och en outline-korslänk till ett annat spel. Vinst ramas i <b>ok</b>, förlust i <b>error</b> — plus ikon i cirkel, så utfallet inte bara är färg. Per spel: mahjong byter statlådor till <i>tid / borttagna par / omblandningar</i>, patiens till <i>tid / drag / poäng</i>, minnesspel till <i>tid / försök / bästa</i>, 2048 till <i>poäng / bästa / högsta bricka</i>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 02 MAHJONG ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">02 · MAHJONG /mahjong/</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST · KOMPAKT SKÖLDPADDA 72</div>
+          <div style="width:390px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #E3DCD0;background:#FFF">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Mahjong</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:16px 16px 0;display:flex;gap:8px">
+              <div style="flex:1;height:48px;border-radius:999px;background:#B4531F;color:#FFF;display:grid;place-items:center;font-size:16px;font-weight:600">Kompakt · 72</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:16px">Klassisk · 144</div>
+            </div>
+            <div style="padding:12px 16px 8px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">
+              <span>⏱ 03:08</span><span>PAR 14 / 36</span><span>DRAG 3</span>
+            </div>
+            <div style="margin:0 16px;background:#EDE7DB;border:1px solid #E3DCD0;border-radius:12px;padding:10px">
+              <div style="position:relative;width:356px;height:346px;margin:0 auto">
+                <sc-for list="{{ mjMobile }}" as="t" hint-placeholder-count="72">
+                  <div style="{{ t.style }}">{{ t.face }}</div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">☞ Tips</div>
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">⇄ Blanda</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358;text-align:center">Fri bricka = tjock ram + upphöjd kant · Låst = raster</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · MÖRKT · KLASSISK 144</div>
+          <div style="width:1280px;background:#151210;color:#F1ECE3;border:1px solid rgba(0,0,0,.4);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="background:#1F1B17;border-bottom:1px solid #352E26;padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:#E58A46">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px"><span style="color:#E58A46;font-weight:600">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div style="margin-left:auto"></div>
+              <div style="width:48px;height:48px;border:1px solid #352E26;border-radius:999px;display:grid;place-items:center;font-size:20px">☀</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:24px">
+                <div style="width:100%;display:flex;align-items:baseline;justify-content:space-between">
+                  <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600">Mahjong</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:#A69C90">SKÖLDPADDA · ⏱ 08:44 · PAR 26 / 72 · DRAG 7</div>
+                </div>
+                <div style="background:#1A1713;border:1px solid #352E26;border-radius:14px;padding:24px">
+                  <div style="position:relative;width:604px;height:522px">
+                    <sc-for list="{{ mjDesktop }}" as="t" hint-placeholder-count="144">
+                      <div style="{{ t.style }}">{{ t.face }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display:flex;gap:12px">
+                  <div style="height:56px;padding:0 26px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+                  <div style="height:56px;padding:0 26px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">☞ Tips</div>
+                  <div style="height:56px;padding:0 26px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">⇄ Blanda (2 kvar)</div>
+                  <div style="height:56px;padding:0 26px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Ny läggning</div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#A69C90">PILTANGENTER flyttar mellan fria brickor · MELLANSLAG väljer · H tips · CTRL+Z ångrar</div>
+                <div hidden="{{ adsHidden }}" style="width:336px;height:280px;margin-top:16px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS · UNDER BRÄDET</span><span>336 × 280 · 40 px luft</span></div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS</span><span>300 × 600</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width:620px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">BRICKFAS &amp; BRICKTILLSTÅND</div>
+          <div style="background:#FFFDF9;border:1px solid #C8C0B2;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:26px">
+            <div>
+              <div style="font-size:18px;color:#3A342C;margin-bottom:16px;line-height:1.6">Bricka 42 × 54 px mobil, 48 × 62 px dator. Motivet ritas i en <b>28 × 36 px inline-SVG</b> centrerad med 7 px luft, streckvikt 2,5 px, alltid i <b>ink</b> på <b>card-face</b> — aldrig Unicodes mahjongtecken. Fyra motivgrupper: tecken 一–九, punkter ●, bambu ▮, vindar/drakar 東南西北中發.</div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap">
+                <div style="width:56px;height:72px;border-radius:6px;background:#FFF;border:2px solid #1E1A15;border-bottom-width:7px;display:grid;place-items:center;font-size:28px">五</div>
+                <div style="width:56px;height:72px;border-radius:6px;background:#FFF;border:2px solid #1E1A15;border-bottom-width:7px;display:grid;place-items:center;font-size:24px">●●</div>
+                <div style="width:56px;height:72px;border-radius:6px;background:#FFF;border:2px solid #1E1A15;border-bottom-width:7px;display:grid;place-items:center;font-size:24px">▮▮</div>
+                <div style="width:56px;height:72px;border-radius:6px;background:#FFF;border:2px solid #1E1A15;border-bottom-width:7px;display:grid;place-items:center;font-size:28px">東</div>
+                <div style="width:56px;height:72px;border-radius:6px;background:#FFF;border:2px solid #1E1A15;border-bottom-width:7px;display:grid;place-items:center;font-size:28px">發</div>
+              </div>
+            </div>
+            <div style="border-top:1px solid #E3DCD0;padding-top:22px;display:flex;gap:18px;flex-wrap:wrap">
+              <div style="text-align:center;width:96px"><div style="width:56px;height:72px;margin:0 auto;border-radius:6px;background:#FFF;border:2px solid #1E1A15;border-bottom-width:7px;display:grid;place-items:center;font-size:26px">三</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">fri<br>2 px ram + 7 px kant</div></div>
+              <div style="text-align:center;width:96px"><div style="width:56px;height:72px;margin:0 auto;border-radius:6px;background:repeating-linear-gradient(45deg,#FFF 0 4px,rgba(30,26,21,.10) 4px 5px);border:1px solid #E3DCD0;display:grid;place-items:center;font-size:26px;color:#9A9186;opacity:.72">三</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">låst<br>raster + platt</div></div>
+              <div style="text-align:center;width:96px"><div style="width:56px;height:72px;margin:0 auto;border-radius:6px;background:#F1E6D9;border:3px solid #B4531F;border-bottom-width:8px;display:grid;place-items:center;font-size:26px;color:#B4531F">三</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">vald<br>3 px accent</div></div>
+              <div style="text-align:center;width:96px"><div style="width:56px;height:72px;margin:0 auto;border-radius:6px;background:#FFF;border:3px dashed #B4531F;display:grid;place-items:center;font-size:26px">三</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">tips<br>streckad</div></div>
+              <div style="text-align:center;width:96px"><div style="width:56px;height:72px;margin:0 auto;border-radius:6px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;font-size:22px;color:#4C6B3C">✓</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">par borta<br>tonar ut 200 ms</div></div>
+            </div>
+            <div style="border-top:1px solid #E3DCD0;padding-top:20px;font-size:18px;line-height:1.6;color:#3A342C">
+              <b>Får inte missas:</b> fri/låst får aldrig skiljas av bara ljushet — det är ramvikt (2 px mot 1 px), upphöjd underkant och 45°-raster som bär skillnaden. Lagerdjup ritas med 6 px förskjutning per lager, inte med skugga. Låsta brickor är inte tryckbara och rapporterar <span style="font-family:'IBM Plex Mono',monospace">aria-disabled</span>. Tips får bara markera, aldrig flytta. &quot;Blanda&quot; är begränsad (2 per omgång) och räknas i resultatpanelen.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 03 PATIENS ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">03 · PATIENS /patiens/</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST · KORT VALT, GILTIGA MÅL MARKERADE</div>
+          <div style="width:390px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #E3DCD0;background:#FFF">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Patiens</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:12px 16px 8px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">
+              <span>⏱ 04:20</span><span>DRAG 38</span><span>POÄNG 180</span>
+            </div>
+            <div style="margin:0 16px;background:#EDE7DB;border:1px solid #E3DCD0;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;gap:8px;align-items:flex-start">
+                <div style="width:46px;height:64px;border-radius:6px;background:#FFF;border:1px solid #C8C0B2;display:grid;place-items:center;font-size:20px;color:#6C6358">▤</div>
+                <div style="width:46px;height:64px;border-radius:6px;background:#FFF;border:1px solid #C8C0B2;padding:4px;font-size:17px;font-weight:600;line-height:1.05">7<div style="font-size:19px">♠</div></div>
+                <div style="margin-left:auto;display:flex;gap:6px">
+                  <div style="width:46px;height:64px;border-radius:6px;border:2px dashed #B4531F;background:#F1E6D9;display:grid;place-items:center;font-size:20px;color:#B4531F">♠<span style="position:absolute;margin-top:34px;font-size:13px">▾</span></div>
+                  <div style="width:46px;height:64px;border-radius:6px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:20px;color:#9A9186">♥</div>
+                  <div style="width:46px;height:64px;border-radius:6px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:20px;color:#9A9186">♦</div>
+                  <div style="width:46px;height:64px;border-radius:6px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:20px;color:#9A9186">♣</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;align-items:flex-start">
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="height:34px;border-radius:6px 6px 0 0;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:16px;font-weight:600;line-height:1">K<span style="margin-left:2px">♣</span></div>
+                  <div style="height:48px;border-radius:6px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:16px;font-weight:600;line-height:1;margin-top:-4px">Q<span style="margin-left:2px;text-decoration:underline">♦</span></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="height:34px;border-radius:6px 6px 0 0;background:#EDE7DB;border:1px solid #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px)"></div>
+                  <div style="height:48px;border-radius:6px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:16px;font-weight:600;line-height:1;margin-top:-4px">9<span style="margin-left:2px">♠</span></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="height:34px;border-radius:6px 6px 0 0;background:#EDE7DB;border:1px solid #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px)"></div>
+                  <div style="height:34px;border-radius:6px 6px 0 0;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:16px;font-weight:600;line-height:1;margin-top:-4px">6<span style="margin-left:2px;text-decoration:underline">♥</span></div>
+                  <div style="height:52px;border-radius:6px;background:#F1E6D9;border:3px solid #B4531F;padding:3px 5px;font-size:16px;font-weight:600;line-height:1;margin-top:-8px;color:#B4531F;position:relative;top:-6px">5<span style="margin-left:2px">♠</span></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="height:48px;border-radius:6px;background:#FFF;border:2px dashed #B4531F;padding:3px 5px;font-size:16px;font-weight:600;line-height:1;position:relative">6<span style="margin-left:2px;text-decoration:underline">♥</span><span style="position:absolute;bottom:2px;right:4px;font-size:13px;color:#B4531F">▾</span></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="height:34px;border-radius:6px 6px 0 0;background:#EDE7DB;border:1px solid #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px)"></div>
+                  <div style="height:48px;border-radius:6px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:16px;font-weight:600;line-height:1;margin-top:-4px">J<span style="margin-left:2px">♠</span></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="height:48px;border-radius:6px;border:1px dashed #C8C0B2"></div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="height:34px;border-radius:6px 6px 0 0;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:16px;font-weight:600;line-height:1">4<span style="margin-left:2px;text-decoration:underline">♦</span></div>
+                  <div style="height:48px;border-radius:6px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:16px;font-weight:600;line-height:1;margin-top:-4px">3<span style="margin-left:2px">♣</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="background:#FFF;border:1px solid #E3DCD0;border-radius:10px;padding:14px 16px;font-size:18px;line-height:1.5"><b>5♠ valt.</b> Tryck på ett markerat mål för att lägga — eller tryck på kortet igen för att avmarkera.</div>
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">☞ Tips</div>
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Ny giv</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358;text-align:center">Röd färg = understruken symbol · dubbeltryck lägger direkt på ess-högen</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · LJUST</div>
+          <div style="width:1280px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:#FFF;border-bottom:1px solid #E3DCD0;padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:#B4531F">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px"><span style="color:#B4531F;font-weight:600">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div style="margin-left:auto"></div>
+              <div style="width:48px;height:48px;border:1px solid #E3DCD0;border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;flex-direction:column;gap:24px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600">Patiens</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">KLONDIKE · ETT KORT · ⏱ 04:20 · DRAG 38 · POÄNG 180</div>
+                </div>
+                <div style="background:#EDE7DB;border:1px solid #E3DCD0;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:28px">
+                  <div style="display:flex;gap:16px;align-items:flex-start">
+                    <div style="width:88px;height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;display:grid;place-items:center;font-size:26px;color:#6C6358">▤</div>
+                    <div style="width:88px;height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;padding:8px;font-size:24px;font-weight:600;line-height:1.05">7<div style="font-size:28px">♠</div></div>
+                    <div style="margin-left:auto;display:flex;gap:12px">
+                      <div style="width:88px;height:124px;border-radius:8px;border:2px dashed #B4531F;background:#F1E6D9;display:grid;place-items:center;font-size:30px;color:#B4531F">♠</div>
+                      <div style="width:88px;height:124px;border-radius:8px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:30px;color:#9A9186">♥</div>
+                      <div style="width:88px;height:124px;border-radius:8px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:30px;color:#9A9186">♦</div>
+                      <div style="width:88px;height:124px;border-radius:8px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:30px;color:#9A9186">♣</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:16px;align-items:flex-start">
+                    <div style="width:88px;display:flex;flex-direction:column">
+                      <div style="height:48px;border-radius:8px 8px 0 0;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:20px;font-weight:600;line-height:1">K<span style="margin-left:3px">♣</span></div>
+                      <div style="height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:20px;font-weight:600;line-height:1;margin-top:-6px">Q<span style="margin-left:3px;text-decoration:underline">♦</span></div>
+                    </div>
+                    <div style="width:88px;display:flex;flex-direction:column">
+                      <div style="height:48px;border-radius:8px 8px 0 0;border:1px solid #C8C0B2;background:#EDE7DB;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px)"></div>
+                      <div style="height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:20px;font-weight:600;line-height:1;margin-top:-6px">9<span style="margin-left:3px">♠</span></div>
+                    </div>
+                    <div style="width:88px;display:flex;flex-direction:column">
+                      <div style="height:48px;border-radius:8px 8px 0 0;border:1px solid #C8C0B2;background:#EDE7DB;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px)"></div>
+                      <div style="height:48px;border-radius:8px 8px 0 0;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:20px;font-weight:600;line-height:1;margin-top:-6px">6<span style="margin-left:3px;text-decoration:underline">♥</span></div>
+                      <div style="height:130px;border-radius:8px;background:#F1E6D9;border:3px solid #B4531F;padding:6px 8px;font-size:20px;font-weight:600;line-height:1;margin-top:-12px;color:#B4531F;position:relative;top:-6px">5<span style="margin-left:3px">♠</span></div>
+                    </div>
+                    <div style="width:88px;display:flex;flex-direction:column">
+                      <div style="height:124px;border-radius:8px;background:#FFF;border:2px dashed #B4531F;padding:6px 8px;font-size:20px;font-weight:600;line-height:1;position:relative">6<span style="margin-left:3px;text-decoration:underline">♥</span><span style="position:absolute;bottom:6px;right:8px;font-size:16px;color:#B4531F">▾</span></div>
+                    </div>
+                    <div style="width:88px;display:flex;flex-direction:column">
+                      <div style="height:48px;border-radius:8px 8px 0 0;border:1px solid #C8C0B2;background:#EDE7DB;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px)"></div>
+                      <div style="height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:20px;font-weight:600;line-height:1;margin-top:-6px">J<span style="margin-left:3px">♠</span></div>
+                    </div>
+                    <div style="width:88px"><div style="height:124px;border-radius:8px;border:1px dashed #C8C0B2"></div></div>
+                    <div style="width:88px;display:flex;flex-direction:column">
+                      <div style="height:48px;border-radius:8px 8px 0 0;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:20px;font-weight:600;line-height:1">4<span style="margin-left:3px;text-decoration:underline">♦</span></div>
+                      <div style="height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:20px;font-weight:600;line-height:1;margin-top:-6px">3<span style="margin-left:3px">♣</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:12px">
+                  <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+                  <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">☞ Tips</div>
+                  <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Ny giv</div>
+                  <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">Tre kort</div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#6C6358">PILTANGENTER väljer hög · MELLANSLAG tar/lägger · A lägger på ess-högen · CTRL+Z ångrar</div>
+                <div hidden="{{ adsHidden }}" style="width:336px;height:280px;margin-top:16px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS · UNDER SPELYTAN</span><span>336 × 280 · 40 px luft</span></div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>300 × 600</span></div>
+            </div>
+          </div>
+          <div style="width:1280px;background:#FFFDF9;border:1px solid #C8C0B2;border-radius:16px;padding:28px 32px;margin-top:20px;font-size:18px;line-height:1.6;color:#3A342C">
+            <b>Får inte missas:</b> röd färg får aldrig vara enda signalen — röda symboler bär <b>understrykning under valören</b> och symbolen är minst 19 px mobil / 28 px dator. Kort som är nedvända ritas med raster (samma <b>hatch</b> som mahjong), inte med en dekorerad baksida. Tryck-välj är huvudinteraktionen: valt kort lyfts 6 px och behåller markeringen tills du väljer mål eller trycker igen; drag är tillägg. Fack: 34 px per överlappat kort, 48 px synligt för det översta, 26 px när högen är djupare än sju. Kort behåller <b>card-face</b> ljus i mörkt läge.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 04 MINNESSPEL ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">04 · MINNESSPEL /minnesspel/</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · LJUST · 4×4</div>
+          <div style="width:390px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #E3DCD0;background:#FFF">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Minnesspel</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:16px 16px 0;display:flex;gap:6px">
+              <div style="flex:1;height:48px;border-radius:999px;background:#B4531F;color:#FFF;display:grid;place-items:center;font-size:17px;font-weight:600">4×4</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:17px">5×4</div>
+              <div style="flex:1;height:48px;border-radius:999px;border:1px solid #E3DCD0;background:#FFF;display:grid;place-items:center;font-size:17px">6×5</div>
+            </div>
+            <div style="padding:14px 16px 10px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">
+              <span>PAR 3 / 8</span><span>⏱ 00:47</span><span>FÖRSÖK 11</span>
+            </div>
+            <div style="padding:0 16px">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+                <div style="aspect-ratio:.82;border-radius:10px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;position:relative;font-size:30px;color:#4C6B3C">▲<span style="position:absolute;top:4px;right:6px;font-size:15px">✓</span></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#F1E6D9;border:3px solid #B4531F;display:grid;place-items:center;font-size:30px;color:#B4531F">◆</div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;position:relative;font-size:30px;color:#4C6B3C">▲<span style="position:absolute;top:4px;right:6px;font-size:15px">✓</span></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px);outline:3px solid #B4531F;outline-offset:2px"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;position:relative;font-size:30px;color:#4C6B3C">◼<span style="position:absolute;top:4px;right:6px;font-size:15px">✓</span></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#F6E2DB;border:3px solid #A2331A;display:grid;place-items:center;position:relative;font-size:30px;color:#A2331A">●<span style="position:absolute;top:4px;right:6px;font-size:15px">△</span></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;position:relative;font-size:30px;color:#4C6B3C">◼<span style="position:absolute;top:4px;right:6px;font-size:15px">✓</span></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+                <div style="aspect-ratio:.82;border-radius:10px;background:#FFF;border:1px solid #E3DCD0;box-shadow:inset 0 -4px 0 #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(30,26,21,.06) 5px 6px)"></div>
+              </div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="background:#FFF;border:1px solid #E3DCD0;border-radius:10px;padding:14px 16px;font-size:18px;line-height:1.5">Inget par — korten vänds tillbaka om ett ögonblick. <b>△</b> visar missen även utan färg.</div>
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Blanda om</div>
+                <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">⏸ Pausa</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358;text-align:center">Motiven är former, inte färger — 12 distinkta silhuetter</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · MÖRKT · 6×5</div>
+          <div style="width:1280px;background:#151210;color:#F1ECE3;border:1px solid rgba(0,0,0,.4);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="background:#1F1B17;border-bottom:1px solid #352E26;padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:#E58A46">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px"><span style="color:#E58A46;font-weight:600">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div style="margin-left:auto"></div>
+              <div style="width:48px;height:48px;border:1px solid #352E26;border-radius:999px;display:grid;place-items:center;font-size:20px">☀</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;flex-direction:column;gap:24px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600">Minnesspel</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:#A69C90">6×5 · PAR 6 / 15 · ⏱ 02:12 · FÖRSÖK 24</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px;max-width:820px">
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">▲<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#2A241D;border:3px solid #E58A46;display:grid;place-items:center;font-size:34px;color:#E58A46">◆</div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">◼<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px);outline:3px solid #E58A46;outline-offset:2px"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">▲<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">◼<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">●<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">●<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">◆<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#25301E;border:2px solid #6F9A55;display:grid;place-items:center;position:relative;font-size:34px;color:#6F9A55">◆<span style="position:absolute;top:6px;right:8px;font-size:16px">✓</span></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                  <div style="aspect-ratio:.82;border-radius:12px;background:#1F1B17;border:1px solid #352E26;box-shadow:inset 0 -4px 0 #4A4239;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(241,236,227,.06) 5px 6px)"></div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#A69C90">PILTANGENTER flyttar · MELLANSLAG vänder · matchat par låses och behåller ✓</div>
+                <div hidden="{{ adsHidden }}" style="width:336px;height:280px;margin-top:16px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS · UNDER SPELYTAN</span><span>336 × 280</span></div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS</span><span>300 × 600</span></div>
+            </div>
+          </div>
+          <div style="width:1280px;background:#FFFDF9;border:1px solid #C8C0B2;border-radius:16px;padding:28px 32px;margin-top:20px;font-size:18px;line-height:1.6;line-height:1.6;color:#3A342C">
+            <b>Får inte missas:</b> motiven är <b>silhuetter</b> (12 distinkta former), aldrig färgplattor — då fungerar spelet i gråskala. Matchat par behåller ✓-märket och 2 px <b>ok</b>-ram permanent, inte bara en färgtoning. Miss visar △ och <b>error</b>-ram i 900 ms; med <span style="font-family:'IBM Plex Mono',monospace">prefers-reduced-motion</span> byts vändningen mot direkt tillståndsbyte. Kortet är minst 76 × 92 px på mobil vid 4×4 och 6×5 begränsas till dator.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 05 2048 ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">05 · 2048 /2048/</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL · MÖRKT</div>
+          <div style="width:390px;background:#151210;color:#F1ECE3;border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #352E26;background:#1F1B17">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">2048</div>
+              <div style="display:flex;gap:4px"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☀</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:16px 16px 12px;display:flex;gap:10px">
+              <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:12px;text-align:center"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">POÄNG</div><div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">6 148</div></div>
+              <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:12px;text-align:center"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90">BÄSTA</div><div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">11 320</div></div>
+            </div>
+            <div style="padding:0 16px">
+              <div style="background:#3A322A;border-radius:12px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+                <div style="aspect-ratio:1;border-radius:8px;background:#241F1A"></div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#EFE9DD;color:#1E1A15;display:grid;place-items:center;font-size:30px;font-weight:600">2</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#241F1A"></div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#E4D9C4;color:#1E1A15;display:grid;place-items:center;font-size:30px;font-weight:600">4</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#D9A96A;color:#1E1A15;display:grid;place-items:center;font-size:30px;font-weight:600">8</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#241F1A"></div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#D08F45;color:#1B1410;display:grid;place-items:center;font-size:28px;font-weight:600">16</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#241F1A"></div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#C4703A;color:#FFF;display:grid;place-items:center;font-size:28px;font-weight:600">32</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#B4531F;color:#FFF;display:grid;place-items:center;font-size:28px;font-weight:600">64</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#241F1A"></div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#8E3F14;color:#FFF;display:grid;place-items:center;font-size:24px;font-weight:600">128</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#241F1A"></div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#4C6B3C;color:#FFF;display:grid;place-items:center;font-size:24px;font-weight:600">512</div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#241F1A"></div>
+                <div style="aspect-ratio:1;border-radius:8px;background:#2F4A24;color:#FFF;display:grid;place-items:center;font-size:22px;font-weight:600;border:3px solid #6F9A55">1024</div>
+              </div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:8px">
+                <div style="flex:1;height:56px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+                <div style="flex:1;height:56px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Nytt spel</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90;text-align:center">Svep eller piltangenter · valören är signalen, färgen är rampen</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP · LJUST · MED KORSLÄNKAR</div>
+          <div style="width:1280px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:#FFF;border-bottom:1px solid #E3DCD0;padding:20px 48px;display:flex;align-items:center;gap:40px">
+              <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:#B4531F">.se</span></div>
+              <div style="display:flex;gap:28px;font-size:19px"><span style="color:#B4531F;font-weight:600">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div style="margin-left:auto"></div>
+              <div style="width:48px;height:48px;border:1px solid #E3DCD0;border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+              <div style="display:flex;gap:48px;align-items:flex-start">
+                <div style="display:flex;flex-direction:column;gap:20px">
+                  <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600">2048</div>
+                  <div style="background:#D6CEBF;border-radius:14px;padding:10px;display:grid;grid-template-columns:repeat(4,110px);gap:10px">
+                    <div style="height:110px;border-radius:8px;background:#EDE8DE"></div>
+                    <div style="height:110px;border-radius:8px;background:#FFF;display:grid;place-items:center;font-size:38px;font-weight:600">2</div>
+                    <div style="height:110px;border-radius:8px;background:#EDE8DE"></div>
+                    <div style="height:110px;border-radius:8px;background:#F3EADA;display:grid;place-items:center;font-size:38px;font-weight:600">4</div>
+                    <div style="height:110px;border-radius:8px;background:#E9C89A;display:grid;place-items:center;font-size:38px;font-weight:600">8</div>
+                    <div style="height:110px;border-radius:8px;background:#EDE8DE"></div>
+                    <div style="height:110px;border-radius:8px;background:#DDA265;display:grid;place-items:center;font-size:36px;font-weight:600">16</div>
+                    <div style="height:110px;border-radius:8px;background:#EDE8DE"></div>
+                    <div style="height:110px;border-radius:8px;background:#C97A42;color:#FFF;display:grid;place-items:center;font-size:36px;font-weight:600">32</div>
+                    <div style="height:110px;border-radius:8px;background:#B4531F;color:#FFF;display:grid;place-items:center;font-size:36px;font-weight:600">64</div>
+                    <div style="height:110px;border-radius:8px;background:#EDE8DE"></div>
+                    <div style="height:110px;border-radius:8px;background:#8E3F14;color:#FFF;display:grid;place-items:center;font-size:32px;font-weight:600">128</div>
+                    <div style="height:110px;border-radius:8px;background:#EDE8DE"></div>
+                    <div style="height:110px;border-radius:8px;background:#4C6B3C;color:#FFF;display:grid;place-items:center;font-size:32px;font-weight:600">512</div>
+                    <div style="height:110px;border-radius:8px;background:#EDE8DE"></div>
+                    <div style="height:110px;border-radius:8px;background:#E9EFE1;border:3px solid #4C6B3C;color:#2F4A24;display:grid;place-items:center;font-size:30px;font-weight:600">1024</div>
+                  </div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#6C6358">PILTANGENTER eller WASD · CTRL+Z ångrar ett drag</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:20px;flex:1">
+                  <div style="display:flex;gap:12px">
+                    <div style="flex:1;border:1px solid #E3DCD0;background:#FFF;border-radius:12px;padding:16px;text-align:center"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358">POÄNG</div><div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600">6 148</div></div>
+                    <div style="flex:1;border:1px solid #E3DCD0;background:#FFF;border-radius:12px;padding:16px;text-align:center"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358">BÄSTA</div><div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600">11 320</div></div>
+                  </div>
+                  <div style="display:flex;gap:12px">
+                    <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+                    <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Nytt spel</div>
+                  </div>
+                  <div style="background:#FFF;border:1px solid #E3DCD0;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px">
+                    <div style="font-size:20px;font-weight:600">Mer hjärngympa</div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #E3DCD0"><span style="font-size:19px">Dagens ord</span><span style="color:#B4531F;font-size:22px">→</span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #E3DCD0"><span style="font-size:19px">Sudoku</span><span style="color:#B4531F;font-size:22px">→</span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:19px">Minsvepare</span><span style="color:#B4531F;font-size:22px">→</span></div>
+                  </div>
+                  <div hidden="{{ adsHidden }}" style="width:336px;height:280px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS · VID SIDAN AV SPELYTAN</span><span>336 × 280 · 48 px luft</span></div>
+                </div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>300 × 600</span></div>
+            </div>
+          </div>
+          <div style="width:1280px;background:#FFFDF9;border:1px solid #C8C0B2;border-radius:16px;padding:28px 32px;margin-top:20px;font-size:18px;line-height:1.6;color:#3A342C">
+            <b>Får inte missas:</b> valören är alltid läsbar — brickfärgen är en varm ramp från <b>surface</b> till <b>accent</b> och vidare till <b>ok</b> för 512+, och texten byter till vit när ramp&shy;steget kräver det (kontrast ≥ 4,5:1 hela vägen). 1024 och 2048 får dessutom 3 px ram som formsignal. Svep kräver 24 px tröskel så att sidscroll inte tolkas som drag; med <span style="font-family:'IBM Plex Mono',monospace">prefers-reduced-motion</span> flyttas brickorna utan glidning. Poäng och bästa sparas i localStorage.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAds&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Presentation&quot;}}">
+const LP = { bg:'#F6F2EA', surface:'#FFFFFF', ink:'#1E1A15', muted:'#6C6358', line:'#E3DCD0', accent:'#B4531F', sel:'#F1E6D9', grid:'#D6CEBF', error:'#A2331A', errorFill:'#F6E2DB', absent:'#9A9186', absentFill:'#EDE8DE', edge:'#C8C0B2', nums:['#3E6187','#4C6B3C','#A2331A','#5A3E86','#8A4A17','#1F6B6B','#1E1A15','#6C6358'] };
+const DP = { bg:'#151210', surface:'#1F1B17', ink:'#F1ECE3', muted:'#A69C90', line:'#352E26', accent:'#E58A46', sel:'#2A241D', grid:'#3A322A', error:'#F2907A', errorFill:'#33201B', absent:'#5F574E', absentFill:'#241F1A', edge:'#4A4239', nums:['#7FA6CF','#6F9A55','#F2907A','#A98BD6','#D79A5A','#5FB3B3','#F1ECE3','#A69C90'] };
+
+class Component extends DCLogic {
+  msCell(p, kind, n, size) {
+    const base = { width: size + 'px', height: size + 'px', display: 'grid', placeItems: 'center',
+      fontSize: Math.round(size * 0.46) + 'px', fontWeight: 600, borderRadius: '4px', flex: 'none', lineHeight: 1 };
+    if (kind === 'covered') return { style: { ...base, background: p.surface, border: '1px solid ' + p.line, boxShadow: 'inset 0 -3px 0 ' + p.edge }, txt: '' };
+    if (kind === 'flag') return { style: { ...base, background: p.sel, border: '2px solid ' + p.accent, boxShadow: 'inset 0 -3px 0 ' + p.edge, color: p.accent }, txt: '▲' };
+    if (kind === 'mine') return { style: { ...base, background: p.errorFill, border: '3px solid ' + p.error, color: p.error }, txt: '✳' };
+    if (kind === 'num') return { style: { ...base, background: p.bg, border: '1px solid ' + p.grid, color: p.nums[n - 1] }, txt: String(n) };
+    return { style: { ...base, background: p.bg, border: '1px solid ' + p.grid }, txt: '' };
+  }
+  msRows(p, cols, rows, size, seed) {
+    let s = seed;
+    const rnd = () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648; };
+    const out = [];
+    for (let r = 0; r < rows; r++) {
+      const cells = [];
+      for (let c = 0; c < cols; c++) {
+        const v = rnd();
+        if (v < 0.30) cells.push(this.msCell(p, 'empty', 0, size));
+        else if (v < 0.50) cells.push(this.msCell(p, 'num', 1 + Math.floor(rnd() * 5), size));
+        else if (v < 0.55) cells.push(this.msCell(p, 'flag', 0, size));
+        else cells.push(this.msCell(p, 'covered', 0, size));
+      }
+      out.push({ cells });
+    }
+    return out;
+  }
+  mjTiles(p, variant) {
+    const layers = variant === 'compact' ? [[8, 6], [5, 4], [2, 2]] : [[12, 8], [8, 4], [4, 3], [2, 2]];
+    const w = variant === 'compact' ? 42 : 48, h = variant === 'compact' ? 54 : 62, gap = 2;
+    const faces = ['一','二','三','四','五','六','七','八','九','東','南','西','北','中','發','●','●●','▮','▮▮','●●●'];
+    const maxC = layers[0][0], maxR = layers[0][1];
+    const tiles = []; let i = 0;
+    layers.forEach(([cols, rows], li) => {
+      const x0 = Math.round((maxC - cols) / 2) * (w + gap) - li * 6;
+      const y0 = Math.round((maxR - rows) / 2) * (h + gap) - li * 6;
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+        const top = li === layers.length - 1;
+        const free = top || c === 0 || c === cols - 1;
+        const sel = li === layers.length - 2 && r === 0 && c === 0;
+        const face = faces[(i * 7 + li * 3) % faces.length];
+        const base = { position: 'absolute', left: (x0 + c * (w + gap)) + 'px', top: (y0 + r * (h + gap)) + 'px',
+          width: w + 'px', height: h + 'px', borderRadius: '6px', display: 'grid', placeItems: 'center',
+          fontSize: Math.round(w * 0.5) + 'px', zIndex: li * 10 + r, background: variant === 'compact' ? '#FFFFFF' : '#EFE9DD', color: '#1E1A15' };
+        let style;
+        if (sel) style = { ...base, border: '3px solid ' + p.accent, borderBottomWidth: '7px', background: p.sel, color: p.accent };
+        else if (free) style = { ...base, border: '2px solid ' + p.ink, borderBottomWidth: '7px' };
+        else style = { ...base, border: '1px solid ' + p.line, opacity: 0.72,
+          backgroundImage: 'repeating-linear-gradient(45deg, transparent 0 4px, rgba(30,26,21,.10) 4px 5px)' };
+        tiles.push({ style, face });
+        i++;
+      }
+    });
+    return tiles;
+  }
+  renderVals() {
+    return {
+      adsHidden: !(this.props.showAds ?? true),
+      mjMobile: this.mjTiles(LP, 'compact'),
+      mjDesktop: this.mjTiles(DP, 'classic'),
+      msMobile: this.msRows(LP, 9, 9, 36, 7),
+      msZoom: this.msRows(DP, 12, 16, 40, 21),
+      msDesktop: this.msRows(LP, 16, 16, 34, 13)
+    };
+  }
+}
+</script>
+</body>
+</html>
