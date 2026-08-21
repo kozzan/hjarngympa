@@ -122,8 +122,12 @@ Follow it rather than improvising. The rules most easily broken:
 ## Content and licensing
 
 Word lists derive from **SALDO** and the **Kelly list** (Språkbanken Text,
-Göteborgs universitet), both CC BY 4.0. **The attribution in the site footer
-is a licence condition — do not remove it.**
+Göteborgs universitet), both CC BY 4.0.
+
+**Attribution is a licence condition and lives on `/om/`.** CC BY 4.0 §3(a)(2)
+allows satisfying it by hyperlink, which is why it is not repeated in the
+footer of every page — the footer links to `/om/` instead. If that link or
+the `/om/` attribution ever goes, the site is out of licence.
 
 Two 5-letter lists exist for opposite reasons: `words5.txt` (952 curated
 common answers) is what the daily game can pick, and `words5all.txt` (13 779
