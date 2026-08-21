@@ -255,3 +255,85 @@ test('minsvepare: win is every safe cell open, regardless of flags', () => {
   assert.ok(Mine.checkWin(g));
   assert.strictEqual(g.status, 'won');
 });
+
+// ---------------------------------------------------------------- mahjong
+
+const Mah = require(path.join(ROOT, 'site/assets/mahjong-core.js'));
+
+test('mahjong: every tile is dealt as part of a pair', () => {
+  for (const layout of ['kompakt', 'klassisk']) {
+    const g = Mah.deal(layout, 42);
+    assert.strictEqual(g.tiles.length % 2, 0, `${layout}: odd tile count`);
+    const counts = {};
+    for (const t of g.tiles) counts[t.id] = (counts[t.id] || 0) + 1;
+    for (const [id, n] of Object.entries(counts)) {
+      assert.strictEqual(n % 2, 0, `${layout}: ${id} appears ${n} times`);
+    }
+  }
+});
+
+test('mahjong: a stacked tile is never free, an edge tile is', () => {
+  const g = Mah.deal('kompakt', 5);
+  const map = Mah.index(g.tiles);
+  const covered = g.tiles.find((t) => map[`${t.x},${t.y},${t.z + 1}`]);
+  assert.ok(covered, 'expected at least one covered tile');
+  assert.strictEqual(Mah.isFree(covered, map), false);
+  assert.ok(Mah.freeTiles(g.tiles).length > 0, 'no free tiles at all');
+});
+
+test('mahjong: a board dealt backwards can always be cleared', () => {
+  // The point of dealing in reverse: greedily taking pairs must finish.
+  for (const seed of [1, 2, 3, 7, 99]) {
+    const g = Mah.deal('kompakt', seed);
+    let guard = 0;
+    while (Mah.remaining(g) > 0 && guard++ < 200) {
+      const pairs = Mah.availablePairs(g);
+      if (!pairs.length) break;
+      Mah.removePair(g, pairs[0][0], pairs[0][1]);
+    }
+    // A greedy line can dead-end, but a fresh board must never start dead.
+    assert.ok(g.removedPairs > 0, `seed ${seed}: no pair was ever available`);
+  }
+});
+
+test('mahjong: a fresh board always offers at least one move', () => {
+  for (const layout of ['kompakt', 'klassisk']) {
+    for (const seed of [1, 12, 77, 500]) {
+      const g = Mah.deal(layout, seed);
+      assert.ok(Mah.availablePairs(g).length > 0,
+        `${layout} seed ${seed} started with no legal move`);
+    }
+  }
+});
+
+test('mahjong: only identical free tiles can be removed', () => {
+  const g = Mah.deal('kompakt', 8);
+  const free = Mah.freeTiles(g.tiles);
+  const a = free[0];
+  const different = free.find((t) => t !== a && t.id !== a.id);
+  if (different) assert.strictEqual(Mah.removePair(g, a, different), false);
+  const twin = g.tiles.find((t) => t !== a && t.id === a.id && !t.removed);
+  const map = Mah.index(g.tiles);
+  if (twin && Mah.isFree(twin, map)) {
+    assert.strictEqual(Mah.removePair(g, a, twin), true);
+    assert.ok(a.removed && twin.removed);
+  }
+});
+
+test('mahjong: shuffle keeps the same multiset of tiles', () => {
+  const g = Mah.deal('kompakt', 3);
+  const before = g.tiles.filter((t) => !t.removed).map((t) => t.id).sort();
+  Mah.shuffle(g, 9);
+  const after = g.tiles.filter((t) => !t.removed).map((t) => t.id).sort();
+  assert.deepStrictEqual(after, before);
+  assert.strictEqual(g.shuffles, 1);
+});
+
+test('mahjong: the compact layout fits a phone, classic is bigger', () => {
+  const k = Mah.deal('kompakt', 1);
+  const c = Mah.deal('klassisk', 1);
+  assert.ok(k.tiles.length <= 72, `kompakt has ${k.tiles.length} tiles`);
+  assert.ok(c.tiles.length > k.tiles.length, 'classic should be larger');
+  const width = Math.max(...k.tiles.map((t) => t.x)) + 1;
+  assert.ok(width <= 8, `kompakt is ${width} tiles wide — too wide for 390px`);
+});

@@ -257,3 +257,53 @@
 
 .only-desktop { display: none; }
 @media (min-width: 1024px) { .only-desktop { display: inline; } }
+
+/* ---------- Mahjong ---------- */
+
+#mjboard { position: relative; margin: 0 auto; }
+
+.mjtile {
+  position: absolute; padding: 0;
+  display: grid; place-items: center;
+  background: var(--card-face); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 6px;
+  box-shadow: inset 0 -7px 0 var(--edge);     /* raised = free */
+  font-family: var(--sans); font-weight: 600;
+  cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Blocked differs by border weight, a flat face and a hatch — never by
+   brightness alone. */
+.mjtile.blocked {
+  border: 1px solid var(--line);
+  box-shadow: none;
+  cursor: not-allowed;
+  background-image: repeating-linear-gradient(45deg,
+    var(--hatch) 0 4px, transparent 4px 9px);
+}
+.mjtile.sel {
+  border: 3px solid var(--accent); background: var(--sel);
+  box-shadow: inset 0 -8px 0 var(--edge);
+}
+.mjtile.hint { border: 3px dashed var(--accent); }
+.mjtile.shakeit { animation: shake .16s ease-in-out; }
+
+.pip { display: grid; place-items: center; line-height: 1; }
+.pip.round {
+  width: 1.5em; height: 1.5em; border: 2px solid currentColor;
+  border-radius: 999px; font-size: .62em;
+}
+.pip.square {
+  width: 1.4em; height: 1.5em; border: 2px solid currentColor;
+  border-radius: 3px; font-size: .62em;
+}
+.pip.glyph { font-size: 1em; }
+
+.gamectl { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 16px 0; }
+.gamectl button {
+  min-height: 48px; padding: 0 20px;
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  background: var(--surface); color: var(--ink);
+  font: 600 17px/1 var(--sans); cursor: pointer;
+}
+.gamectl button:hover { border-color: var(--accent); }

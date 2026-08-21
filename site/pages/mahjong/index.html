@@ -1,0 +1,85 @@
+<!--meta
+title: Mahjong gratis — spela mahjong solitaire online | hjärngympa
+desc: Spela mahjong solitaire gratis i webbläsaren. Kompakt bräde för mobil och klassiskt 144-brickors bräde för dator. Inget konto, ingen app.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game" style="max-width:760px">
+  <h1>Mahjong</h1>
+
+  <div class="seg" id="layoutsel" role="group" aria-label="Välj bräde">
+    <button type="button" data-layout="kompakt" aria-pressed="true">Kompakt · 72</button>
+    <button type="button" data-layout="klassisk" aria-pressed="false">Klassisk · 144</button>
+  </div>
+
+  <p class="mono game-meta" id="mj-meta">Delar ut…</p>
+
+  <div class="frame" id="frame">
+    <div id="mjboard" aria-label="Mahjongbräde"></div>
+  </div>
+
+  <div class="gamectl">
+    <button type="button" id="btn-hint">💡 Tips</button>
+    <button type="button" id="btn-shuffle">🔀 Blanda om</button>
+    <button type="button" id="btn-new">↻ Nytt spel</button>
+  </div>
+
+  <p class="mono">Tryck på två likadana lediga brickor för att ta bort dem</p>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>Brädet är rent!</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0:00</b><span>tid</span></div>
+      <div class="stat" data-stat><b>0</b><span>borttagna par</span></div>
+      <div class="stat" data-stat><b>0</b><span>omblandningar</span></div>
+    </div>
+    <div class="result-actions">
+      <button class="pill" type="button" data-again>Spela igen</button>
+    </div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/minsvepare/">Spela minsvepare i stället →</a>
+  </div>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Så spelar du</h2>
+    <p>Ta bort brickorna två och två genom att para ihop likadana. Brädet är
+    rent när alla brickor är borta.</p>
+    <p>Men du kan inte ta vilken bricka som helst. En bricka är
+    <strong>ledig</strong> bara om ingen bricka ligger ovanpå den, och om den
+    är fri på vänster <em>eller</em> höger sida. Lediga brickor har tjock kant
+    och en tydlig underkant som får dem att se upphöjda ut; blockerade brickor
+    är plana och skrafferade.</p>
+
+    <h2>Kompakt eller klassisk</h2>
+    <p>Det <strong>kompakta</strong> brädet har 72 brickor i tre lager och är
+    gjort för att rymmas på en mobilskärm utan att du behöver zooma — varje
+    bricka är fortfarande stor nog att träffa med tummen.</p>
+    <p>Det <strong>klassiska</strong> brädet har 144 brickor och är det du
+    känner igen. Det fungerar bäst på en större skärm.</p>
+
+    <h2>Tips och omblandning</h2>
+    <p>Fastnar du visar <strong>Tips</strong> ett par som går att ta just nu.
+    Det flyttar aldrig något åt dig — du gör draget själv.</p>
+    <p>Finns det inga drag alls kan du <strong>blanda om</strong> de brickor
+    som är kvar, men bara två gånger per spel. Antalet omblandningar visas i
+    resultatet, så det går att jämföra ärligt.</p>
+
+    <h2>Ett bra sätt att tänka</h2>
+    <p>Ta brickor från de översta lagren och från kanterna först — det öppnar
+    flest nya brickor. Har du fyra likadana synliga är det ofta rätt att ta
+    alla fyra direkt, annars riskerar du att de två sista låser varandra.</p>
+  </div>
+</div>
+
+<script src="/assets/mahjong-core.js"></script>
+<script src="/assets/mahjong.js"></script>
