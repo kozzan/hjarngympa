@@ -307,3 +307,135 @@
   font: 600 17px/1 var(--sans); cursor: pointer;
 }
 .gamectl button:hover { border-color: var(--accent); }
+
+/* ---------- Patiens ---------- */
+
+.pattop { display: grid; grid-template-columns: auto auto 1fr; gap: 10px; align-items: start; margin-bottom: 16px; }
+#foundations { display: flex; gap: 6px; justify-content: flex-end; }
+/* Foundations need a real card width, or four of them collapse into stamps. */
+.pslot { position: relative; width: 56px; flex: none; }
+#stockpile, #wastepile { width: 56px; }
+
+#patboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: start; }
+.pcol { position: relative; min-height: 92px; }
+
+.pcard {
+  position: relative;
+  width: 100%; aspect-ratio: .72;
+  background: var(--card-face); color: var(--ink);
+  border: 1px solid var(--ink); border-radius: 6px;
+  display: grid; align-content: start; justify-items: center;
+  padding: 3px 0; gap: 1px;
+  font-family: var(--sans); font-weight: 600; line-height: 1;
+  cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.pcol .pcard { position: absolute; left: 0; right: 0; }
+.pcard .rank { font-size: 17px; }
+.pcard .suit { font-size: 19px; }
+
+/* Red suits do not rely on colour alone — the rank is underlined too. */
+.pcard.red { color: var(--error); }
+.pcard.red .rank { text-decoration: underline; text-underline-offset: 2px; }
+
+.pcard.down {
+  background-image: repeating-linear-gradient(45deg,
+    var(--hatch) 0 4px, transparent 4px 9px);
+  background-color: var(--surface);
+  border-color: var(--line);
+}
+.pcard.empty {
+  background: transparent; border: 1px dashed var(--edge);
+  color: var(--absent);
+}
+.pcard.empty .ghost { font-size: 22px; }
+.pcard.sel {
+  border: 3px solid var(--accent); background: var(--sel);
+  transform: translateY(-6px); z-index: 5;
+}
+.pcard.target { border: 2px dashed var(--accent); }
+.pcard.target::after {
+  content: '▾'; position: absolute; bottom: 0; left: 0; right: 0;
+  text-align: center; color: var(--accent); font-size: 15px; line-height: 1;
+}
+
+#patstatus {
+  min-height: 44px; display: grid; align-items: center;
+  padding: 10px 14px; margin: 12px 0;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-card); font-size: 17px; color: var(--muted);
+  text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .pcard .rank { font-size: 22px; }
+  .pcard .suit { font-size: 28px; }
+  .pcol { min-height: 124px; }
+  .pslot, #stockpile, #wastepile { width: 88px; }
+}
+
+/* ---------- Minnesspel ---------- */
+
+#memboard { display: grid; gap: 10px; max-width: 460px; margin: 0 auto; }
+.memcard {
+  aspect-ratio: .82; min-height: 76px; padding: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--surface); color: var(--ink);
+  box-shadow: inset 0 -4px 0 var(--edge);
+  background-image: repeating-linear-gradient(45deg,
+    var(--hatch) 0 4px, transparent 4px 9px);
+  font-size: 30px; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.memcard.up {
+  border: 3px solid var(--accent); background: var(--sel);
+  background-image: none; color: var(--accent); box-shadow: none;
+}
+/* A matched pair keeps its tick permanently — not just a tint. */
+.memcard.matched {
+  border: 2px solid var(--ok); background: var(--ok-soft);
+  background-image: none; color: var(--ok); box-shadow: none;
+  cursor: default; position: relative;
+}
+.memcard.matched::after {
+  content: '✓'; position: absolute; top: 3px; right: 6px; font-size: 14px;
+}
+.memcard.bad {
+  border: 3px solid var(--error-border); background: var(--error-fill);
+  background-image: none; color: var(--error); position: relative;
+}
+.memcard.bad::after {
+  content: '△'; position: absolute; top: 3px; right: 6px; font-size: 14px;
+}
+@media (min-width: 1024px) { #memboard { max-width: 560px; } .memcard { font-size: 36px; } }
+
+/* ---------- 2048 ---------- */
+
+#g2048 {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  max-width: 420px; margin: 0 auto; padding: 8px;
+  background: var(--grid); border-radius: 12px;
+  touch-action: none;
+}
+.tile2048 {
+  aspect-ratio: 1; display: grid; place-items: center;
+  border-radius: 8px; background: var(--absent-fill);
+  font: 600 34px/1 var(--sans); color: var(--ink);
+}
+.tile2048.three { font-size: 28px; }
+.tile2048.four { font-size: 22px; }
+.tile2048.v2    { background: #FFFFFF; }
+.tile2048.v4    { background: #F3EADA; }
+.tile2048.v8    { background: #E9C89A; }
+.tile2048.v16   { background: #DDA265; }
+.tile2048.v32   { background: #C97A42; color: #fff; }
+.tile2048.v64   { background: #B4531F; color: #fff; }
+.tile2048.v128  { background: #8E3F14; color: #fff; }
+.tile2048.v256  { background: #7A3510; color: #fff; }
+.tile2048.v512  { background: #4C6B3C; color: #fff; }
+.tile2048.v1024 { background: var(--ok-soft); color: var(--ok); }
+.tile2048.v2048 { background: #4C6B3C; color: #fff; }
+/* The two milestones also take a border, so they read without colour. */
+.tile2048.milestone { border: 3px solid var(--ok); }
+@media (min-width: 1024px) { #g2048 { max-width: 480px; } }

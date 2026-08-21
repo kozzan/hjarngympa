@@ -1,0 +1,48 @@
+<!--meta
+title: Minnesspel gratis — memory online på svenska | hjärngympa
+desc: Spela minnesspel (memory) gratis i webbläsaren. Tre storlekar, tydliga symboler och inga konton. Fungerar lika bra i mobilen som på datorn.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 0.9
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+<div class="game">
+  <h1>Minnesspel</h1>
+  <div class="diffs">
+    <button class="chip" type="button" data-size="s4" aria-pressed="true">4×4</button>
+    <button class="chip" type="button" data-size="s5" aria-pressed="false">5×4</button>
+    <button class="chip" type="button" data-size="s6" aria-pressed="false">6×5 <span class="only-desktop">(dator)</span></button>
+  </div>
+  <p class="mono game-meta" id="mem-meta">Blandar…</p>
+  <div id="memboard" aria-label="Minnesspel"></div>
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>Alla par hittade!</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0:00</b><span>tid</span></div>
+      <div class="stat" data-stat><b>0</b><span>försök</span></div>
+      <div class="stat" data-stat><b>0</b><span>bästa</span></div>
+    </div>
+    <div class="result-actions"><button class="pill" type="button" data-again>Spela igen</button></div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/patiens/">Spela patiens i stället →</a>
+  </div>
+</div>
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+<div class="wrap" style="margin-top:48px"><div class="prose" style="margin:0 auto">
+<h2>Så spelar du</h2>
+<p>Vänd två kort i taget. Är de lika stannar de uppe — annars vänds de
+tillbaka och du får försöka igen. Målet är att hitta alla par på så få
+försök som möjligt.</p>
+<h2>Varför symboler och inte färger</h2>
+<p>Korten har tydligt olika former: stjärna, cirkel, triangel, ruta och så
+vidare. Det är medvetet — ett minnesspel som bara skiljer korten åt med färg
+går inte att spela för den som är färgblind. Här fungerar spelet lika bra i
+svartvitt.</p>
+<h2>Knepet</h2>
+<p>Vänd inte slumpmässigt. Gå systematiskt igenom brädet i en ordning du kan
+hålla i huvudet — rad för rad — så bygger du en karta i stället för att gissa.
+De flesta klarar 4×4 på runt tolv försök när de gör så.</p>
+</div></div>
+<script src="/assets/minnesspel.js"></script>

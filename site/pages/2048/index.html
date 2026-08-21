@@ -1,0 +1,44 @@
+<!--meta
+title: 2048 — spela gratis online på svenska | hjärngympa
+desc: Spela 2048 gratis i webbläsaren. Svep eller använd piltangenterna, slå ihop lika brickor och nå 2048. Poängen sparas lokalt.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 0.8
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+<div class="game">
+  <h1>2048</h1>
+  <p class="mono game-meta" id="g-meta">Startar…</p>
+  <div id="g2048" aria-label="2048-bräde"></div>
+  <div class="gamectl"><button type="button" id="btn-new">↻ Nytt spel</button></div>
+  <p class="mono">Piltangenter eller svep · slå ihop lika brickor</p>
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>2048!</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0</b><span>poäng</span></div>
+      <div class="stat" data-stat><b>0</b><span>bästa</span></div>
+      <div class="stat" data-stat><b>0</b><span>högsta bricka</span></div>
+    </div>
+    <div class="result-actions"><button class="pill" type="button" data-again>Spela igen</button></div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/minsvepare/">Spela minsvepare i stället →</a>
+  </div>
+</div>
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+<div class="wrap" style="margin-top:48px"><div class="prose" style="margin:0 auto">
+<h2>Så spelar du</h2>
+<p>Svep i någon riktning — eller använd piltangenterna — så glider alla
+brickor åt det hållet. Två brickor med samma tal slås ihop till en med
+dubbla värdet. Efter varje drag dyker en ny tvåa eller fyra upp.</p>
+<p>Målet är en bricka med 2048. Spelet tar slut när brädet är fullt och
+ingenting går att slå ihop.</p>
+<h2>Strategin som faktiskt fungerar</h2>
+<p>Välj ett hörn och håll din största bricka där. Svep aldrig i riktningen
+som skulle flytta den ur hörnet. De flesta som fastnar på 512 gör det för att
+de sveper uppåt och nedåt om vartannat och tappar hörnet.</p>
+<p>Bygg en fallande rad längs kanten — 512, 256, 128, 64 — så kan du kedja
+ihop flera sammanslagningar i ett enda drag.</p>
+</div></div>
+<script src="/assets/2048.js"></script>

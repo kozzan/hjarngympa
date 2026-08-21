@@ -337,3 +337,98 @@ test('mahjong: the compact layout fits a phone, classic is bigger', () => {
   const width = Math.max(...k.tiles.map((t) => t.x)) + 1;
   assert.ok(width <= 8, `kompakt is ${width} tiles wide — too wide for 390px`);
 });
+
+// ---------------------------------------------------------------- patiens
+
+const Pat = require(path.join(ROOT, 'site/assets/patiens-core.js'));
+
+test('patiens: the deal is a full 52-card deck, no duplicates', () => {
+  const g = Pat.deal(7);
+  const all = [...g.stock, ...g.tableau.flat()];
+  assert.strictEqual(all.length, 52);
+  assert.strictEqual(new Set(all.map((c) => c.id)).size, 52, 'duplicate card dealt');
+});
+
+test('patiens: tableau is 1..7 deep with only the last card face up', () => {
+  const g = Pat.deal(3);
+  g.tableau.forEach((col, i) => {
+    assert.strictEqual(col.length, i + 1, `column ${i} wrong depth`);
+    col.forEach((c, n) => {
+      assert.strictEqual(c.up, n === col.length - 1, `column ${i} card ${n} face wrong`);
+    });
+  });
+  assert.strictEqual(g.stock.length, 52 - 28);
+});
+
+test('patiens: tableau stacks only descend in alternating colours', () => {
+  const red = { rank: 7, red: true, up: true };
+  const black8 = { rank: 8, red: false, up: true };
+  const red8 = { rank: 8, red: true, up: true };
+  assert.ok(Pat.canStack(red, black8), 'red 7 on black 8 is legal');
+  assert.ok(!Pat.canStack(red, red8), 'same colour must be rejected');
+  assert.ok(!Pat.canStack({ rank: 6, red: true, up: true }, black8), 'must be exactly one lower');
+});
+
+test('patiens: only a king starts an empty column', () => {
+  assert.ok(Pat.canStack({ rank: 13, red: false }, null));
+  assert.ok(!Pat.canStack({ rank: 12, red: false }, null));
+});
+
+test('patiens: foundations build up by suit from the ace', () => {
+  const pile = [];
+  assert.ok(Pat.canFound({ rank: 1 }, pile));
+  assert.ok(!Pat.canFound({ rank: 2 }, pile));
+  pile.push({ rank: 1 });
+  assert.ok(Pat.canFound({ rank: 2 }, pile));
+  assert.ok(!Pat.canFound({ rank: 3 }, pile));
+});
+
+test('patiens: moving a card off a pile flips the one beneath it', () => {
+  const g = Pat.deal(11);
+  const col = g.tableau[3];
+  const card = Pat.top(col);
+  const beneath = col[col.length - 2];
+  assert.strictEqual(beneath.up, false);
+  // force a legal foundation move by emptying the suit pile and using an ace
+  card.rank = 1;
+  g.foundation[card.suit] = [];
+  assert.ok(Pat.moveToFoundation(g, card, { type: 'tableau', col: 3 }));
+  assert.strictEqual(beneath.up, true, 'card underneath should be turned up');
+});
+
+test('patiens: a run only moves when it is already a valid sequence', () => {
+  const g = Pat.deal(1);
+  g.tableau[0] = [
+    { rank: 8, red: false, up: true, suit: 'spader' },
+    { rank: 7, red: true, up: true, suit: 'hjarter' },
+    { rank: 6, red: false, up: true, suit: 'klover' }
+  ];
+  assert.strictEqual(Pat.movableRun(g, 0, 0).length, 3, 'valid run should move whole');
+  g.tableau[1] = [
+    { rank: 8, red: false, up: true, suit: 'spader' },
+    { rank: 7, red: false, up: true, suit: 'klover' }
+  ];
+  assert.strictEqual(Pat.movableRun(g, 1, 0), null, 'same-colour run must not move');
+});
+
+test('patiens: an exhausted stock recycles the waste so the game can finish', () => {
+  const g = Pat.deal(5);
+  let guard = 0;
+  while (g.stock.length && guard++ < 100) Pat.draw(g);
+  assert.strictEqual(g.stock.length, 0);
+  assert.ok(g.waste.length > 0);
+  assert.ok(Pat.draw(g), 'recycling should succeed');
+  assert.ok(g.stock.length > 0, 'waste should return to the stock');
+  assert.strictEqual(g.waste.length, 0);
+  assert.ok(g.stock.every((c) => !c.up), 'recycled cards must be face down');
+});
+
+test('patiens: the game is won only when all 52 reach the foundations', () => {
+  const g = Pat.deal(2);
+  for (const s of Object.keys(g.foundation)) {
+    g.foundation[s] = Array.from({ length: 13 }, (_, i) => ({ rank: i + 1 }));
+  }
+  assert.ok(Pat.checkWin(g));
+  assert.strictEqual(g.status, 'won');
+  assert.strictEqual(Pat.score(g), 520);
+});

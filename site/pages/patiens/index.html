@@ -1,0 +1,84 @@
+<!--meta
+title: Patiens gratis — spela klondike online | hjärngympa
+desc: Spela patiens (klondike) gratis i webbläsaren. Tryck för att välja och tryck för att lägga — inget pilligt dragande på mobilen. Inget konto behövs.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game" style="max-width:820px">
+  <h1>Patiens</h1>
+  <p class="mono game-meta" id="pat-meta">Delar ut…</p>
+
+  <div class="pattop">
+    <div id="stockpile" aria-label="Talong"></div>
+    <div id="wastepile" aria-label="Uppvänt kort"></div>
+    <div id="foundations" aria-label="Grundhögar"></div>
+  </div>
+
+  <div id="patboard" aria-label="Spelbord"></div>
+
+  <p id="patstatus" role="status">Tryck på ett kort för att välja det.</p>
+
+  <div class="gamectl">
+    <button type="button" id="btn-auto">⇧ Lägg upp allt</button>
+    <button type="button" id="btn-new">↻ Nytt spel</button>
+  </div>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>Utlagd!</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0:00</b><span>tid</span></div>
+      <div class="stat" data-stat><b>0</b><span>drag</span></div>
+      <div class="stat" data-stat><b>0</b><span>poäng</span></div>
+    </div>
+    <div class="result-actions">
+      <button class="pill" type="button" data-again>Spela igen</button>
+    </div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/mahjong/">Spela mahjong i stället →</a>
+  </div>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Så spelar du</h2>
+    <p>Målet är att flytta upp alla 52 kort till de fyra grundhögarna, en per
+    färg, i ordning från ess till kung.</p>
+    <p>På spelbordet bygger du <strong>nedåt i växlande färg</strong>: en röd
+    sjua går på en svart åtta. En tom kolumn kan bara fyllas med en kung.</p>
+
+    <h2>Tryck, dra inte</h2>
+    <p>Att dra kort med fingret på en telefon är pilligt, så här gör du så
+    här i stället: <strong>tryck på kortet du vill flytta</strong> — det lyfts
+    och får en tydlig ram — och <strong>tryck sedan på målet</strong>. Alla
+    giltiga mål markeras med streckad ram och en liten pil, så du ser direkt
+    vart kortet får ta vägen.</p>
+    <p>Ångrar du dig trycker du på kortet igen. Raden under bordet skriver ut
+    vad som är valt i klartext, så du aldrig behöver gissa.</p>
+    <p><strong>Dubbeltryck</strong> skickar ett kort direkt upp till
+    grundhögen om det får plats där.</p>
+
+    <h2>Talongen</h2>
+    <p>Tryck på talongen uppe till vänster för att vända ett kort i taget. När
+    den tar slut vänds högen tillbaka automatiskt, så du kan gå varv efter
+    varv tills spelet är löst eller låst.</p>
+
+    <h2>Knep som faktiskt hjälper</h2>
+    <ul>
+      <li>Vänd upp dolda kort så tidigt du kan — varje uppvänt kort är ett nytt drag.</li>
+      <li>Töm hellre en kort kolumn än en lång: du behöver en kung, och de är få.</li>
+      <li>Skynda inte upp alla ess och tvåor. Låga kort på bordet är ofta det
+      enda som håller en följd igång.</li>
+    </ul>
+  </div>
+</div>
+
+<script src="/assets/patiens-core.js"></script>
+<script src="/assets/patiens.js"></script>
