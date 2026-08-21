@@ -274,7 +274,7 @@
 
   buildKeyboard();
 
-  text('/data/words5.txt').then(function (body) {
+  text((window.BASE_PATH || '') + '/data/words5.txt').then(function (body) {
     answers = body.split('\n').filter(Boolean);
     puzzleNo = puzzleIndex();
     answer = answers[((puzzleNo % answers.length) + answers.length) % answers.length];
@@ -288,7 +288,7 @@
     if (status !== 'playing') showResult(status === 'won');
 
     // Guess validation is a nice-to-have; the game is playable without it.
-    return text('/data/words5all.txt').then(function (b) {
+    return text((window.BASE_PATH || '') + '/data/words5all.txt').then(function (b) {
       valid = new Set(b.split('\n').filter(Boolean));
     });
   }).catch(function (err) {

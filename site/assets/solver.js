@@ -26,7 +26,7 @@
   function load() {
     if (loading) return loading;
     countEl.textContent = 'Laddar ordlistan…';
-    loading = fetch('/data/words9.txt')
+    loading = fetch((window.BASE_PATH || '') + '/data/words9.txt')
       .then(function (r) {
         if (!r.ok) throw new Error('words9 ' + r.status);
         return r.text();

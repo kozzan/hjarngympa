@@ -18,7 +18,10 @@ from string import Template
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE, DIST = os.path.join(ROOT, "site"), os.path.join(ROOT, "dist")
-BASE_URL = "https://hjarngympa.se"
+BASE_URL = os.environ.get("BASE_URL", "https://hjarngympa.se")
+# Serving from a project path (kozzan.github.io/hjarngympa) until the real
+# domain is attached. Empty for a root domain, "/hjarngympa" for the preview.
+BASE_PATH = os.environ.get("BASE_PATH", "").rstrip("/")
 META_RE = re.compile(r"^<!--meta\s*(.*?)-->\s*", re.S)
 
 
@@ -60,13 +63,17 @@ def main():
             out = os.path.join(DIST, os.path.dirname(rel), "index.html")
             os.makedirs(os.path.dirname(out), exist_ok=True)
             page = layout.safe_substitute(
+                basepath=BASE_PATH,
                 title=html.escape(meta.get("title", "hjärngympa")),
                 desc=html.escape(meta.get("desc", "")),
-                canonical=BASE_URL + route,
+                canonical=BASE_URL + BASE_PATH + route,
                 bodyclass=meta.get("bodyclass", ""),
                 head=meta.get("head", ""),
                 body=body,
             )
+            if BASE_PATH:
+                page = page.replace('href="/', f'href="{BASE_PATH}/')
+                page = page.replace('src="/', f'src="{BASE_PATH}/')
             open(out, "w", encoding="utf-8").write(page)
             routes.append((route, meta.get("priority", "0.7")))
 
@@ -75,9 +82,21 @@ def main():
         if os.path.isdir(src):
             shutil.copytree(src, os.path.join(DIST, sub))
 
+    # CSS carries its own root-absolute url() references (the font files), and
+    # the HTML rewrite above never sees them.
+    if BASE_PATH:
+        for dirpath, _, files in os.walk(os.path.join(DIST, "assets")):
+            for fn in files:
+                if not fn.endswith(".css"):
+                    continue
+                f = os.path.join(dirpath, fn)
+                css = open(f, encoding="utf-8").read()
+                open(f, "w", encoding="utf-8").write(
+                    css.replace("url(/assets/", f"url({BASE_PATH}/assets/"))
+
     today = datetime.date.today().isoformat()
     urls = "\n".join(
-        f"  <url><loc>{BASE_URL}{r}</loc><lastmod>{today}</lastmod>"
+        f"  <url><loc>{BASE_URL}{BASE_PATH}{r}</loc><lastmod>{today}</lastmod>"
         f"<priority>{p}</priority></url>"
         for r, p in sorted(routes)
     )
@@ -86,7 +105,7 @@ def main():
         f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n'
     )
     open(os.path.join(DIST, "robots.txt"), "w", encoding="utf-8").write(
-        f"User-agent: *\nAllow: /\n\nSitemap: {BASE_URL}/sitemap.xml\n"
+        f"User-agent: *\nAllow: /\n\nSitemap: {BASE_URL}{BASE_PATH}/sitemap.xml\n"
     )
     # GitHub Pages serves this repo from a project path until the domain is
     # attached; .nojekyll stops it mangling paths that start with an underscore.

@@ -26,6 +26,9 @@ jobs:
         run: node --test tools/test.js
       - name: Build
         run: python3 tools/build.py
+        env:
+          BASE_PATH: ${{ vars.BASE_PATH }}
+          BASE_URL: ${{ vars.BASE_URL }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
