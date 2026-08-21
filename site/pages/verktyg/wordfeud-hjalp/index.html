@@ -1,0 +1,66 @@
+<!--meta
+title: Wordfeud-hjälp — hitta alla ord från dina brickor | hjärngympa
+desc: Skriv in dina Wordfeud-brickor och få alla svenska ord du kan lägga, sorterade på poäng. Stöd för blanka brickor. Gratis, utan konto.
+head: <link rel="stylesheet" href="/assets/solver.css">
+priority: 1.0
+-->
+<div class="wrap cols">
+  <div>
+    <h1>Wordfeud-hjälp</h1>
+    <p class="lead">Skriv in dina brickor så får du alla svenska ord du kan
+    lägga, sorterade på poäng.</p>
+
+    <form class="card search-card" id="solver">
+      <p class="mono">Skriv dina brickor. <code>*</code> eller <code>?</code> för blank.</p>
+      <div class="rack-row">
+        <input id="rack" name="rack" type="text" inputmode="latin"
+               autocomplete="off" autocapitalize="characters" spellcheck="false"
+               placeholder="GATRSN*" aria-label="Dina brickor">
+        <button type="button" id="clear" class="iconbtn" aria-label="Rensa">✕</button>
+      </div>
+      <div class="filters">
+        <label>Innehåller
+          <input id="contains" type="text" size="6" autocomplete="off"
+                 spellcheck="false" aria-label="Ordet innehåller">
+        </label>
+        <label>Max längd
+          <input id="maxlen" type="number" min="2" max="9" step="1"
+                 aria-label="Maximal längd">
+        </label>
+      </div>
+      <button class="pill" type="submit">Sök ord</button>
+    </form>
+
+    <p class="mono" id="count"></p>
+    <div id="results"></div>
+
+    <div class="prose" style="margin-top:48px">
+      <h2>Så funkar det</h2>
+      <p>Verktyget letar igenom alla svenska ord på upp till nio bokstäver och
+      visar dem du faktiskt kan bilda med brickorna du har. Poängen räknas med
+      Wordfeuds svenska brickvärden, och ord på sju bokstäver eller mer får
+      bingobonusen på 40 poäng.</p>
+      <p>Sökningen sker i din webbläsare. Ingenting du skriver skickas någonstans.</p>
+
+      <h2>Blanka brickor</h2>
+      <p>Skriv <code>*</code> eller <code>?</code> för varje blank bricka. En
+      blank kan bli vilken bokstav som helst, men den ger noll poäng — därför
+      räknar verktyget den som noll när det rangordnar orden. Har du
+      <code>GATRSN*</code> så hittas alltså både ord som använder blanken och
+      ord som klarar sig utan.</p>
+
+      <h2>Vad verktyget inte gör (än)</h2>
+      <p>Det här är en <em>brickelösare</em>: den utgår från dina sju brickor.
+      Den läser inte av spelplanen och räknar därför inte med bokstäver som
+      redan ligger där, eller med bonusrutor som dubbel ordpoäng. Det står på
+      listan.</p>
+    </div>
+  </div>
+
+  <aside>
+    <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>
+  </aside>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+<script src="/assets/solver.js"></script>

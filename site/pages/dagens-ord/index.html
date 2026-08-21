@@ -1,0 +1,62 @@
+<!--meta
+title: Dagens ord — gissa dagens svenska ord | hjärngympa
+desc: Spela Dagens ord gratis. Ett nytt svenskt fembokstavsord varje dag, sex försök. Inget konto, ingen app — spela direkt i webbläsaren.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game">
+  <h1>Dagens ord</h1>
+  <p class="mono game-meta" id="meta">Laddar…</p>
+
+  <div id="board" aria-label="Spelplan"></div>
+
+  <p class="mono kbd-hint">Skriv med tangentbordet · ENTER för att gissa · BACKSTEG för att radera</p>
+  <div id="keyboard" aria-label="Tangentbord"></div>
+  <p class="mono kbd-hint-mobile" style="font-size:13px">Du kan också skriva med ett fysiskt tangentbord.</p>
+
+  <div id="result" hidden>
+    <h2 data-h>Snyggt jobbat!</h2>
+    <p data-word></p>
+    <div class="stats">
+      <div class="stat"><b data-streak>0</b><span>dagar i rad</span></div>
+      <div class="stat"><b data-pct>0%</b><span>lösta</span></div>
+      <div class="stat"><b data-played>0</b><span>spelade</span></div>
+    </div>
+    <div class="result-actions">
+      <button class="pill" type="button" data-share>Dela resultat</button>
+    </div>
+    <p class="mono" data-countdown style="margin-top:20px"></p>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/sudoku/">Spela sudoku i stället →</a>
+  </div>
+</div>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+<div id="toast" hidden role="status"></div>
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Så spelar du</h2>
+    <p>Du har sex försök på dig att gissa dagens svenska ord. Ordet är alltid
+    fem bokstäver långt. Efter varje gissning får du veta hur nära du var:</p>
+    <ul>
+      <li><strong>Grön med ✓</strong> — rätt bokstav på rätt plats.</li>
+      <li><strong>Gul med streckad ram och →</strong> — bokstaven finns i ordet,
+      men på en annan plats.</li>
+      <li><strong>Grå med ×</strong> — bokstaven finns inte i ordet.</li>
+    </ul>
+    <p>Ett nytt ord dyker upp varje dag vid midnatt. Alla i Sverige får samma
+    ord samma dag, så det går att jämföra med vänner.</p>
+    <p>Orden är vanliga svenska ord — substantiv, verb och adjektiv som de
+    flesta känner igen. Inga namn, inga förkortningar och inga obskyra
+    böjningsformer. Du kan däremot gissa på vilket giltigt svenskt
+    fembokstavsord som helst.</p>
+  </div>
+</div>
+
+<script src="/assets/wordgame-core.js"></script>
+<script src="/assets/dagens-ord.js"></script>

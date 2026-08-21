@@ -1,0 +1,126 @@
+<!--meta
+title: Sudokuregler och lösningstekniker — från nybörjare till expert
+desc: Reglerna på trettio sekunder, och sedan teknikerna som faktiskt löser brädet: naked singles, hidden singles, pointing pairs och X-wing. Med exempel.
+priority: 0.8
+-->
+<div class="wrap cols">
+  <article class="prose">
+    <p class="mono">Artiklar · Sudoku</p>
+    <h1 style="font-size:clamp(36px,6vw,52px);text-wrap:pretty">Sudokuregler och lösningstekniker</h1>
+    <p class="byline mono">Uppdaterad 21 augusti 2026 · 7 min läsning</p>
+
+    <p class="lead">Sudoku har tre regler och tar trettio sekunder att lära sig.
+    Sedan tar det resten av livet att bli bra på. Den här guiden går från
+    reglerna till de tekniker som faktiskt behövs när brädet säger expert.</p>
+
+    <div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+    <h2>Reglerna</h2>
+    <p>Ett sudoku är ett rutnät på 9×9 rutor, uppdelat i nio block om 3×3.
+    Några rutor är ifyllda från början — de kallas <em>givna</em>. Din uppgift
+    är att fylla resten med siffrorna 1 till 9 så att tre villkor gäller
+    samtidigt:</p>
+    <ul>
+      <li>Varje <strong>rad</strong> innehåller 1–9 exakt en gång.</li>
+      <li>Varje <strong>kolumn</strong> innehåller 1–9 exakt en gång.</li>
+      <li>Varje <strong>block</strong> om 3×3 innehåller 1–9 exakt en gång.</li>
+    </ul>
+    <p>Det är hela spelet. Siffrorna har inget matematiskt värde — man
+    adderar aldrig något. Man skulle lika gärna kunna använda nio olika
+    färger eller nio bokstäver.</p>
+
+    <blockquote>Ett korrekt sudoku har alltid exakt en lösning, och den går
+    alltid att resonera sig fram till. Behöver du gissa är antingen brädet
+    trasigt eller så finns det en teknik du inte hittat än.</blockquote>
+
+    <h2>Börja alltid med blyerts</h2>
+    <p>Det största enskilda felet nybörjare gör är att fylla i siffror direkt
+    i huvudet och sedan tappa tråden. Erfarna lösare gör tvärtom: de skriver
+    upp <em>kandidater</em> — alla siffror som fortfarande skulle kunna passa i
+    en tom ruta — och arbetar sedan med att stryka bort dem.</p>
+    <p>Det låter omständligt, men det är det som gör de svårare teknikerna
+    möjliga över huvud taget. Utan kandidater ser du inte mönstren. I vårt
+    <a href="/sudoku/">sudoku</a> trycker du på <strong>Blyerts</strong> eller
+    tangenten <strong>P</strong> för att skriva in flera siffror i samma ruta.</p>
+
+    <h2>Teknik 1: naked single</h2>
+    <p>Den enklaste av alla. En ruta har bara <em>en</em> kandidat kvar — då är
+    den siffran svaret. Punkt.</p>
+    <p>Har du skrivit upp kandidaterna hittar du dessa direkt. Varje gång du
+    fyller i en siffra försvinner den som kandidat från hela raden, kolumnen
+    och blocket, vilket ofta skapar nya naked singles. På en lätt bana räcker
+    den här tekniken hela vägen.</p>
+
+    <h2>Teknik 2: hidden single</h2>
+    <p>Den här är viktigare, och den missas oftast. En ruta kan ha flera
+    kandidater kvar och <em>ändå</em> vara bestämd.</p>
+    <p>Titta på ett helt block. Om siffran 7 bara kan placeras i en enda ruta i
+    hela blocket — även om just den rutan också skulle kunna vara 3 eller 9 —
+    så måste den rutan vara 7. Sjuan måste ju stå <em>någonstans</em> i blocket,
+    och det finns bara en plats kvar.</p>
+    <p>Samma resonemang gäller rader och kolumner. Gå igenom en siffra i taget
+    och fråga: var kan denna siffra stå i den här raden? Bara på ett ställe? Då
+    är den löst.</p>
+
+    <div class="ad ad-336x280" style="margin:48px auto">ANNONS 336×280</div>
+
+    <h2>Teknik 3: pointing pairs</h2>
+    <p>Nu blir det intressant. Den här tekniken fyller inte i någon siffra —
+    den <em>stryker</em> kandidater, vilket är minst lika värdefullt.</p>
+    <p>Anta att i ett visst block kan siffran 4 bara stå i två rutor, och båda
+    ligger på samma rad. Du vet inte vilken av dem det blir. Men du vet att
+    fyran i det blocket hamnar på den raden. Alltså kan fyran inte stå någon
+    annanstans på den raden — i något av de andra två blocken. Stryk den där.</p>
+    <p>Ofta är det just en sådan strykning som skapar nästa hidden single.
+    Svåra sudokun löses nästan aldrig genom att man ser svaret direkt, utan
+    genom kedjor av strykningar som till slut lämnar en ruta med en kandidat.</p>
+
+    <h2>Teknik 4: naked pairs och triples</h2>
+    <p>Om två rutor i samma rad båda har exakt kandidaterna {3, 8} — inga
+    andra — så kommer de två rutorna att ta 3:an och 8:an mellan sig. Vilken
+    som får vilken vet du inte, men det spelar ingen roll: ingen annan ruta på
+    den raden kan vara 3 eller 8. Stryk dem överallt annars på raden.</p>
+    <p>Samma sak fungerar med tre rutor som tillsammans bara har tre
+    kandidater, även om ingen enskild ruta har alla tre.</p>
+
+    <h2>Teknik 5: X-wing</h2>
+    <p>Den första riktiga expertekniken, och den som får folk att ge upp i
+    onödan — den är enklare än ryktet.</p>
+    <p>Leta efter en siffra, säg 6, som i <strong>två olika rader</strong> bara
+    kan stå i <strong>samma två kolumner</strong>. Det bildar ett rektangelmönster
+    med fyra hörn.</p>
+    <p>Titta på vad det betyder. I rad A hamnar sexan i en av de två
+    kolumnerna. I rad B likaså. Och eftersom de inte kan stå i samma kolumn,
+    kommer de två sexorna att uppta båda kolumnerna — en var. Alltså kan
+    ingen <em>annan</em> ruta i de två kolumnerna vara 6. Stryk dem.</p>
+
+    <h2>Vad du gör när det tar stopp</h2>
+    <p>Kör du fast på en svår bana är det nästan alltid en av tre saker:</p>
+    <ul>
+      <li><strong>Du har missat en hidden single.</strong> Gå igenom siffra
+      för siffra, block för block. Tråkigt, men det är oftast där den sitter.</li>
+      <li><strong>Dina kandidater är inaktuella.</strong> Fyllde du i en siffra
+      utan att stryka den från grannarna? Gå ett varv och städa.</li>
+      <li><strong>Du behöver en strykningsteknik, inte en ifyllnadsteknik.</strong>
+      Leta efter pointing pairs och naked pairs innan du letar efter svar.</li>
+    </ul>
+    <p>Och gissa aldrig. Ett sudoku som kräver gissning är inte ett riktigt
+    sudoku — det är ett trasigt sudoku.</p>
+
+    <h2>Svårighetsgraderna</h2>
+    <p>Vad som gör en bana svår är inte antalet givna siffror, utan vilka
+    tekniker som krävs. Ungefär så här ser det ut:</p>
+    <ul>
+      <li><strong>Lätt</strong> — naked och hidden singles räcker hela vägen.</li>
+      <li><strong>Medel</strong> — du behöver pointing pairs för att komma vidare.</li>
+      <li><strong>Svår</strong> — naked pairs och triples krävs.</li>
+      <li><strong>Expert</strong> — X-wing och liknande mönster behövs minst en gång.</li>
+    </ul>
+
+    <p style="margin-top:32px"><a class="pill" href="/sudoku/">Testa direkt — spela sudoku</a></p>
+  </article>
+
+  <aside>
+    <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>
+  </aside>
+</div>

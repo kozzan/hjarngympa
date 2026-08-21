@@ -1,0 +1,57 @@
+/* Wordfeud-hjälp / solver pages */
+
+.search-card { border-radius: var(--r-panel); padding: 24px; margin-bottom: 24px; }
+.search-card .mono { margin: 0 0 12px; }
+
+.rack-row { display: flex; gap: 12px; align-items: center; }
+#rack {
+  flex: 1; min-width: 0; height: 64px;
+  border: 2px solid var(--accent); border-radius: 10px;
+  background: var(--bg); color: var(--ink);
+  font: 400 28px/1 var(--mono);
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 0 16px;
+}
+#rack::placeholder { color: var(--muted); opacity: .6; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.filters label {
+  display: flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: 17px; color: var(--muted);
+}
+.filters input {
+  width: 5em; min-width: 0; border: 0; background: transparent;
+  color: var(--ink); font: 600 17px/1 var(--sans);
+}
+.filters input:focus { outline: none; }
+.filters label:focus-within { border-color: var(--accent); background: var(--sel); }
+
+.group-head {
+  font-size: 19px; font-family: var(--sans); font-weight: 600;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 6px; margin: 32px 0 0;
+}
+.wordlist { list-style: none; margin: 0; padding: 0; }
+.wordlist li {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.wordlist .w {
+  font: 400 23px/1 var(--mono); letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink);
+}
+.wordlist .bingo { font-size: 15px; color: var(--muted); }
+.wordlist .p {
+  margin-left: auto;
+  font: 700 23px/1 var(--sans); color: var(--ok);
+}
+
+@media (min-width: 760px) {
+  #results { columns: 2; column-gap: 48px; }
+  .group-head { break-after: avoid; }
+  .wordlist { break-inside: avoid-column; }
+}

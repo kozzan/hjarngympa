@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="sv" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$title</title>
+<meta name="description" content="$desc">
+<link rel="canonical" href="$canonical">
+<meta property="og:title" content="$title">
+<meta property="og:description" content="$desc">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151210" media="(prefers-color-scheme: dark)">
+<link rel="preload" href="/assets/fonts/newsreader-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/sourcesans3-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/assets/app.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>
+/* Set the theme before first paint so there is no flash of the wrong one. */
+try {
+  var t = localStorage.getItem('theme');
+  if (t) document.documentElement.dataset.theme = t;
+} catch (e) {}
+</script>
+$head
+</head>
+<body class="$bodyclass">
+<a class="skip" href="#main">Hoppa till innehåll</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/">hjärngympa</a>
+    <nav class="nav">
+      <a href="/spel/">Spel</a>
+      <a href="/verktyg/wordfeud-hjalp/">Verktyg</a>
+      <a href="/artiklar/">Artiklar</a>
+    </nav>
+    <button class="iconbtn" id="theme-toggle" type="button"
+            aria-label="Byt mellan ljust och mörkt läge">☾</button>
+  </div>
+</header>
+
+<main id="main">
+$body
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <nav>
+      <a href="/spel/">Spel</a>
+      <a href="/artiklar/">Artiklar</a>
+      <a href="/om/">Om hjärngympa</a>
+      <a href="/integritetspolicy/">Integritetspolicy</a>
+      <button class="linklike" id="cmp-reopen" type="button">Cookieinställningar</button>
+    </nav>
+    <p>Ordlistan bygger på <a href="https://spraakbanken.gu.se/resurser/saldom"
+       rel="noopener">SALDO</a> och <a href="https://spraakbanken.gu.se/resurser/kelly"
+       rel="noopener">Kelly</a> från Språkbanken Text, Göteborgs universitet,
+       under <a href="https://creativecommons.org/licenses/by/4.0/deed.sv"
+       rel="license noopener">CC BY 4.0</a>.</p>
+  </div>
+</footer>
+
+<div class="cmp" id="cmp" hidden role="dialog" aria-modal="false"
+     aria-labelledby="cmp-title">
+  <div class="inner">
+    <div class="text">
+      <h2 id="cmp-title">Cookies och annonser</h2>
+      <p>Spelen här är gratis och betalas av annonser. Vi vill gärna använda
+         cookies för att visa annonser och mäta hur sajten används. Du väljer
+         själv — spelen fungerar likadant oavsett.</p>
+      <div class="links">
+        <a href="/integritetspolicy/">Integritetspolicy</a>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="pill pill-outline" id="cmp-reject" type="button">Neka alla</button>
+      <button class="pill" id="cmp-accept" type="button">Godkänn alla</button>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

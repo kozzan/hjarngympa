@@ -1,0 +1,62 @@
+<!--meta
+title: Sudoku gratis — spela online utan app | hjärngympa
+desc: Spela sudoku gratis direkt i webbläsaren. Fyra svårighetsgrader, blyertsanteckningar, ångra och full tangentbordsstyrning. Inget konto behövs.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game">
+  <h1>Sudoku</h1>
+
+  <div class="diffs">
+    <button class="chip" type="button" data-diff="latt" aria-pressed="true">Lätt</button>
+    <button class="chip" type="button" data-diff="medel" aria-pressed="false">Medel</button>
+    <button class="chip" type="button" data-diff="svar" aria-pressed="false">Svår</button>
+    <button class="chip" type="button" data-diff="expert" aria-pressed="false">Expert</button>
+  </div>
+
+  <p class="mono game-meta" id="sudoku-meta">Skapar spel…</p>
+
+  <div id="sudoku" role="grid" aria-label="Sudokubräde"></div>
+
+  <div class="controls">
+    <button id="btn-undo" type="button">↺ Ångra</button>
+    <button id="btn-pencil" type="button" aria-pressed="false">✎ Blyerts</button>
+    <button id="btn-erase" type="button">⌫ Radera</button>
+  </div>
+
+  <div class="pad" id="pad" aria-label="Siffror"></div>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+  <p class="mono">Piltangenter flyttar · 1–9 fyller i · 0 raderar · P för blyerts · Ctrl+Z ångrar</p>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Reglerna på trettio sekunder</h2>
+    <p>Ett sudoku är ett rutnät på 9×9 rutor, uppdelat i nio block om 3×3.
+    Målet är att fylla varje tom ruta med en siffra från 1 till 9 så att:</p>
+    <ul>
+      <li>varje <strong>rad</strong> innehåller siffrorna 1–9 exakt en gång,</li>
+      <li>varje <strong>kolumn</strong> innehåller siffrorna 1–9 exakt en gång,</li>
+      <li>varje <strong>block</strong> om 3×3 innehåller siffrorna 1–9 exakt en gång.</li>
+    </ul>
+    <p>Det krävs aldrig gissningar. Varje sudoku här har exakt en lösning, och
+    den går alltid att resonera sig fram till.</p>
+
+    <h2>Blyerts är hela knepet</h2>
+    <p>Erfarna lösare skriver in kandidater — alla siffror som skulle kunna
+    passa i en ruta — innan de bestämmer sig. Tryck på <strong>Blyerts</strong>
+    eller <strong>P</strong> och skriv in flera siffror i samma ruta. När en
+    ruta bara har en kandidat kvar är svaret givet.</p>
+
+    <p><a href="/artiklar/sudoku-regler/">Läs hela guiden till sudokuteknik →</a></p>
+  </div>
+</div>
+
+<script src="/assets/sudoku-core.js"></script>
+<script src="/assets/sudoku.js"></script>
