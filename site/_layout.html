@@ -33,16 +33,6 @@ gtag('consent', 'default', {
   analytics_storage: 'denied',
   wait_for_update: 500
 });
-try {
-  if (localStorage.getItem('consent') === 'all') {
-    gtag('consent', 'update', {
-      ad_storage: 'granted',
-      ad_user_data: 'granted',
-      ad_personalization: 'granted',
-      analytics_storage: 'granted'
-    });
-  }
-} catch (e) {}
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2838730195714407"
         crossorigin="anonymous"></script>
@@ -82,7 +72,7 @@ $body
       <a href="/artiklar/">Artiklar</a>
       <a href="/om/">Om hjärngympa</a>
       <a href="/integritetspolicy/">Integritetspolicy</a>
-      <button class="linklike" id="cmp-reopen" type="button">Cookieinställningar</button>
+      <button class="linklike" id="cmp-reopen" type="button" hidden>Cookieinställningar</button>
     </nav>
     <p>Ordlistan bygger på <a href="https://spraakbanken.gu.se/resurser/saldom"
        rel="noopener">SALDO</a> och <a href="https://spraakbanken.gu.se/resurser/kelly"
@@ -91,25 +81,6 @@ $body
        rel="license noopener">CC BY 4.0</a>.</p>
   </div>
 </footer>
-
-<div class="cmp" id="cmp" hidden role="dialog" aria-modal="false"
-     aria-labelledby="cmp-title">
-  <div class="inner">
-    <div class="text">
-      <h2 id="cmp-title">Cookies och annonser</h2>
-      <p>Spelen här är gratis och betalas av annonser. Vi vill gärna använda
-         cookies för att visa annonser och mäta hur sajten används. Du väljer
-         själv — spelen fungerar likadant oavsett.</p>
-      <div class="links">
-        <a href="/integritetspolicy/">Integritetspolicy</a>
-      </div>
-    </div>
-    <div class="actions">
-      <button class="pill pill-outline" id="cmp-reject" type="button">Neka alla</button>
-      <button class="pill" id="cmp-accept" type="button">Godkänn alla</button>
-    </div>
-  </div>
-</div>
 
 <script src="/assets/app.js"></script>
 </body>
