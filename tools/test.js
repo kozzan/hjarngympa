@@ -120,3 +120,28 @@ test('word lists contain no proper nouns or stray characters', () => {
   const bad = sample.filter((w) => !/^[a-zåäö]{2,9}$/.test(w));
   assert.deepStrictEqual(bad.slice(0, 5), []);
 });
+
+// --------------------------------------------------------------- build output
+
+const { execFileSync } = require('node:child_process');
+
+test('build emits absolute canonicals even when CI passes empty env vars', () => {
+  // GitHub Actions expands an unset repo variable to "", which is set-but-empty
+  // and silently beats a default arg. That shipped relative canonicals once.
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], {
+    cwd: ROOT,
+    env: { ...process.env, BASE_URL: '', BASE_PATH: '' },
+    stdio: 'pipe',
+  });
+  const home = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  const canonical = home.match(/<link rel="canonical" href="([^"]*)"/)[1];
+  assert.match(canonical, /^https:\/\//, `canonical must be absolute, got ${canonical}`);
+
+  const sitemap = fs.readFileSync(path.join(ROOT, 'dist/sitemap.xml'), 'utf8');
+  for (const loc of sitemap.match(/<loc>([^<]*)<\/loc>/g)) {
+    assert.match(loc, /<loc>https:\/\//, `sitemap loc must be absolute: ${loc}`);
+  }
+
+  const robots = fs.readFileSync(path.join(ROOT, 'dist/robots.txt'), 'utf8');
+  assert.match(robots, /Sitemap: https:\/\//);
+});

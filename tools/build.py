@@ -18,13 +18,15 @@ from string import Template
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE, DIST = os.path.join(ROOT, "site"), os.path.join(ROOT, "dist")
-BASE_URL = os.environ.get("BASE_URL", "https://hjarngympa.se")
+# `or` not a default arg: CI passes BASE_URL="" when the repo variable is
+# unset, and set-but-empty beats a default. That shipped relative canonicals.
+BASE_URL = os.environ.get("BASE_URL") or "https://hjarngympa.se"
 # Serving from a project path (kozzan.github.io/hjarngympa) until the real
 # domain is attached. Empty for a root domain, "/hjarngympa" for the preview.
-BASE_PATH = os.environ.get("BASE_PATH", "").rstrip("/")
+BASE_PATH = (os.environ.get("BASE_PATH") or "").rstrip("/")
 # Written into dist/ so the custom domain survives every deploy -- without it
 # GitHub Pages can drop the domain back to the github.io URL on a redeploy.
-CNAME = os.environ.get("CNAME", "hjarngympa.se")
+CNAME = os.environ.get("CNAME") or "hjarngympa.se"
 META_RE = re.compile(r"^<!--meta\s*(.*?)-->\s*", re.S)
 
 
@@ -48,6 +50,12 @@ def route_of(rel):
 
 
 def main():
+    if not BASE_URL.startswith(("http://", "https://")):
+        raise SystemExit(
+            f"BASE_URL must be absolute, got {BASE_URL!r}. "
+            "Relative canonicals and sitemap URLs are invalid and Google rejects them."
+        )
+
     layout = Template(open(os.path.join(SITE, "_layout.html"), encoding="utf-8").read())
     if os.path.exists(DIST):
         shutil.rmtree(DIST)
