@@ -1,0 +1,96 @@
+<!--meta
+title: Minsvepare — spela minesweeper gratis på svenska | hjärngympa
+desc: Spela minsvepare gratis direkt i webbläsaren. Fyra svårighetsgrader, flaggläge, ångra-fritt och full tangentbordsstyrning. Första klicket är alltid säkert.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game">
+  <h1>Minsvepare</h1>
+
+  <div class="diffs">
+    <button class="chip" type="button" data-diff="latt" aria-pressed="true">Lätt</button>
+    <button class="chip" type="button" data-diff="medel" aria-pressed="false">Medel</button>
+    <button class="chip" type="button" data-diff="svar" aria-pressed="false">Svår</button>
+    <button class="chip" type="button" data-diff="expert" aria-pressed="false">Expert <span class="only-desktop">(dator)</span></button>
+  </div>
+
+  <div class="seg" id="mode" role="group" aria-label="Välj läge">
+    <button type="button" data-mode="dig" aria-pressed="true">⛏ Gräv</button>
+    <button type="button" data-mode="flag" aria-pressed="false">▲ Flagga</button>
+  </div>
+
+  <p class="mono game-meta" id="mine-meta">Startar…</p>
+
+  <div class="frame" id="frame">
+    <div id="mineboard" role="grid" aria-label="Minfält"></div>
+  </div>
+
+  <div class="zoomctl" id="zoomctl">
+    <button type="button" data-zoom="center">⊕ Centrera</button>
+    <button type="button" data-zoom="out" aria-label="Zooma ut">－</button>
+    <button type="button" data-zoom="in" aria-label="Zooma in">＋</button>
+  </div>
+
+  <p class="mono">Piltangenter flyttar · Mellanslag gräver · F flaggar · C rensar runt en siffra</p>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>Rensat!</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0:00</b><span>tid</span></div>
+      <div class="stat" data-stat><b>–</b><span>ditt bästa</span></div>
+      <div class="stat" data-stat><b>0</b><span>rensade</span></div>
+    </div>
+    <div class="result-actions">
+      <button class="pill" type="button" data-again>Spela igen</button>
+    </div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/sudoku/">Spela sudoku i stället →</a>
+  </div>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Så spelar du</h2>
+    <p>Under fältet ligger ett antal minor. Din uppgift är att öppna alla rutor
+    som <em>inte</em> innehåller en mina. Siffran i en öppnad ruta säger hur
+    många minor som ligger i de åtta rutorna runt omkring.</p>
+    <p><strong>Första grävet är alltid säkert.</strong> Minorna placeras först
+    efter att du klickat, och aldrig i rutan du valde eller precis intill den —
+    du kan alltså aldrig förlora på första draget.</p>
+
+    <h2>Gräva och flagga</h2>
+    <p>Växla mellan <strong>⛏ Gräv</strong> och <strong>▲ Flagga</strong> med
+    knapparna ovanför fältet. Läget syns i raden under, så du slipper gissa
+    vilket som är aktivt. På datorn kan du också högerklicka för att flagga,
+    och på mobilen fungerar långtryck.</p>
+    <p>En flagga är en anteckning, inget annat — den skyddar rutan från att
+    grävas av misstag. Räknaren visar hur många flaggor du satt av det totala
+    antalet minor.</p>
+
+    <h2>Knepet som gör dig snabb</h2>
+    <p>Tryck på en <em>redan öppnad siffra</em> när du har satt exakt så många
+    flaggor runt den som siffran säger, så öppnas alla återstående grannar på
+    en gång. Det kallas att rensa, går på tangenten <strong>C</strong>, och är
+    skillnaden mellan att klicka sig igenom brädet och att faktiskt spela det.</p>
+    <p>Var försiktig: har du flaggat fel ruta öppnar rensningen en mina.</p>
+
+    <h2>Svårighetsgraderna</h2>
+    <ul>
+      <li><strong>Lätt</strong> — 9×9 med 10 minor. Får plats på en mobil utan zoom.</li>
+      <li><strong>Medel</strong> — 12×12 med 22 minor.</li>
+      <li><strong>Svår</strong> — 12×16 på mobil, 16×16 på dator, 40 minor.</li>
+      <li><strong>Expert</strong> — 30×16 med 99 minor. Kräver en större skärm.</li>
+    </ul>
+  </div>
+</div>
+
+<script src="/assets/minsvepare-core.js"></script>
+<script src="/assets/minsvepare.js"></script>

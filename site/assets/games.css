@@ -167,3 +167,93 @@
   .marks { font-size: 13px; }
   .pad { grid-template-columns: repeat(9, 1fr); }
 }
+
+/* ---------- shared: result panel for the new games ---------- */
+
+.result[hidden] { display: none; }
+.result {
+  margin-top: 32px; padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--r-panel);
+  text-align: center;
+}
+.result .icon {
+  width: 44px; height: 44px; margin: 0 auto 12px;
+  display: grid; place-items: center; border-radius: 999px;
+  font-size: 22px; font-weight: 700;
+}
+.result.win .icon { background: var(--ok-soft); color: var(--ok); border: 2px solid var(--ok); }
+.result.loss .icon { background: var(--error-fill); color: var(--error); border: 2px solid var(--error-border); }
+.result h2 { margin: 0 0 4px; }
+.result .sub { color: var(--muted); font-size: 18px; }
+
+/* ---------- shared: zoom frame ---------- */
+
+.frame {
+  border: 2px solid var(--line); border-radius: 12px;
+  background: var(--felt);
+  overflow: auto; -webkit-overflow-scrolling: touch;
+  max-height: 62vh; padding: 4px;
+  position: relative;
+}
+.zoomctl { display: flex; gap: 8px; justify-content: center; margin: 12px 0; }
+.zoomctl button {
+  min-width: 48px; height: 48px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  background: var(--surface); color: var(--ink);
+  font: 600 17px/1 var(--sans); cursor: pointer;
+}
+
+/* ---------- shared: segmented mode switch ---------- */
+
+.seg {
+  display: grid; grid-auto-flow: column; gap: 4px;
+  padding: 4px; margin: 0 auto 16px; max-width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+}
+.seg button {
+  min-height: 48px; border: 0; border-radius: var(--r-pill);
+  background: transparent; color: var(--ink);
+  font: 600 18px/1 var(--sans); cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+
+/* ---------- Minsvepare ---------- */
+
+#mineboard { display: grid; gap: 2px; justify-content: center; margin: 0 auto; }
+
+.mcell {
+  display: grid; place-items: center; padding: 0;
+  border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+  font-weight: 600; font-family: var(--sans);
+  box-shadow: inset 0 -3px 0 var(--edge);      /* raised — a shape, not a shadow */
+  cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.mcell.cursor { outline: 3px solid var(--accent); outline-offset: 2px; z-index: 1; }
+.mcell.open {
+  background: var(--bg); border-color: var(--grid);
+  box-shadow: none;                             /* sunken */
+  cursor: default;
+}
+.mcell.flagged { border: 2px solid var(--accent); background: var(--sel); color: var(--accent); }
+.mcell.unknown { border: 2px dashed var(--muted); color: var(--muted); }
+.mcell.mine { background: var(--error-fill); border: 3px solid var(--error-border); color: var(--error); }
+.mcell.boom { background: var(--error); border: 3px solid var(--error); color: #fff; }
+.mcell.wrongflag {
+  background: var(--absent-fill); color: var(--absent);
+  border: 2px solid var(--absent); text-decoration: line-through;
+}
+.mcell.goodflag { background: var(--ok-soft); border: 2px solid var(--ok); color: var(--ok); }
+
+/* Digit colours are reinforcement only — the numeral carries the meaning,
+   so the board stays readable in greyscale. */
+.mcell.n1 { color: var(--num-1); } .mcell.n2 { color: var(--num-2); }
+.mcell.n3 { color: var(--num-3); } .mcell.n4 { color: var(--num-4); }
+.mcell.n5 { color: var(--num-5); } .mcell.n6 { color: var(--num-6); }
+.mcell.n7 { color: var(--num-7); } .mcell.n8 { color: var(--num-8); }
+
+.only-desktop { display: none; }
+@media (min-width: 1024px) { .only-desktop { display: inline; } }

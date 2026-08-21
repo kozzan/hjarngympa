@@ -23,6 +23,14 @@
   --error-border: #A2331A;
   --ad-stripe: rgba(0, 0, 0, .035);
 
+  --felt: #EDE7DB;
+  --edge: #C8C0B2;
+  --hatch: rgba(30, 26, 21, .10);
+  --card-face: #FFFFFF;
+  --ok-soft: #E9EFE1;
+  --num-1: #3E6187; --num-2: #4C6B3C; --num-3: #A2331A; --num-4: #5A3E86;
+  --num-5: #8A4A17; --num-6: #1F6B6B; --num-7: #1E1A15; --num-8: #6C6358;
+
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -54,6 +62,13 @@
   --error: #F2907A;
   --error-fill: #33201B;
   --error-border: #C4553A;
+  --felt: #1A1713;
+  --edge: #4A4239;
+  --hatch: rgba(241, 236, 227, .10);
+  --card-face: #EFE9DD;
+  --ok-soft: #25301E;
+  --num-1: #7FA6CF; --num-2: #6F9A55; --num-3: #F2907A; --num-4: #A98BD6;
+  --num-5: #D79A5A; --num-6: #5FB3B3; --num-7: #F1ECE3; --num-8: #A69C90;
   --ad-stripe: rgba(255, 255, 255, .04);
 }
 
@@ -79,6 +94,13 @@
     --error: #F2907A;
     --error-fill: #33201B;
     --error-border: #C4553A;
+  --felt: #1A1713;
+    --edge: #4A4239;
+    --hatch: rgba(241, 236, 227, .10);
+    --card-face: #EFE9DD;
+    --ok-soft: #25301E;
+    --num-1: #7FA6CF; --num-2: #6F9A55; --num-3: #F2907A; --num-4: #A98BD6;
+    --num-5: #D79A5A; --num-6: #5FB3B3; --num-7: #F1ECE3; --num-8: #A69C90;
     --ad-stripe: rgba(255, 255, 255, .04);
   }
 }

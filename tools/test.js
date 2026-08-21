@@ -154,3 +154,104 @@ test('ads.txt names the publisher id in the exact format exchanges require', () 
     `malformed ads.txt line: ${ads}`);
   assert.ok(!ads.includes('ca-pub-'), 'ads.txt takes pub-, not ca-pub-');
 });
+
+// ------------------------------------------------------------- minsvepare
+
+const Mine = require(path.join(ROOT, 'site/assets/minsvepare-core.js'));
+
+test('minsvepare: the first dig is always safe, whatever the seed', () => {
+  // The whole fairness of the game rests on this.
+  for (let seed = 1; seed <= 60; seed++) {
+    const g = Mine.create('latt');
+    const first = seed % (g.w * g.h);
+    Mine.dig(g, first, Mine.makeRng(seed));
+    assert.ok(!g.mines[first], `seed ${seed}: first dig hit a mine`);
+    assert.notStrictEqual(g.status, 'lost', `seed ${seed}: lost on move one`);
+  }
+});
+
+test('minsvepare: the first dig also clears its neighbours, so it opens an area', () => {
+  const g = Mine.create('latt');
+  Mine.dig(g, 40, Mine.makeRng(7));
+  for (const n of Mine.neighbours(40, g.w, g.h)) {
+    assert.ok(!g.mines[n], `neighbour ${n} of the first dig held a mine`);
+  }
+  assert.strictEqual(g.counts[40], 0, 'first cell should have no adjacent mines');
+});
+
+test('minsvepare: exactly the requested number of mines is placed', () => {
+  for (const level of ['latt', 'medel', 'svar', 'expert']) {
+    const g = Mine.create(level);
+    Mine.dig(g, 0, Mine.makeRng(3));
+    assert.strictEqual(Object.keys(g.mines).length, g.mineCount, level);
+  }
+});
+
+test('minsvepare: counts match the mines actually adjacent', () => {
+  const g = Mine.create('medel');
+  Mine.dig(g, 0, Mine.makeRng(11));
+  for (let i = 0; i < g.w * g.h; i++) {
+    if (g.mines[i]) { assert.strictEqual(g.counts[i], -1); continue; }
+    const n = Mine.neighbours(i, g.w, g.h).filter((x) => g.mines[x]).length;
+    assert.strictEqual(g.counts[i], n, `count wrong at ${i}`);
+  }
+});
+
+test('minsvepare: flood fill stops at digits and never crosses a flag', () => {
+  const g = Mine.create('latt');
+  Mine.dig(g, 40, Mine.makeRng(5));
+  for (const i of Object.keys(g.revealed)) {
+    assert.ok(!g.mines[i], `flood fill revealed a mine at ${i}`);
+  }
+  // every opened zero must have opened all of its neighbours
+  for (const i of Object.keys(g.revealed).map(Number)) {
+    if (g.counts[i] !== 0) continue;
+    for (const n of Mine.neighbours(i, g.w, g.h)) {
+      assert.ok(g.revealed[n], `zero at ${i} left neighbour ${n} closed`);
+    }
+  }
+});
+
+test('minsvepare: a flagged cell cannot be dug', () => {
+  const g = Mine.create('latt');
+  Mine.dig(g, 0, Mine.makeRng(9));
+  const target = Object.keys(g.revealed).length < 81 ? 80 : 1;
+  delete g.revealed[target];
+  Mine.cycleMark(g, target);
+  assert.strictEqual(g.marks[target], 'flag');
+  assert.deepStrictEqual(Mine.dig(g, target), []);
+  assert.ok(!g.revealed[target]);
+});
+
+test('minsvepare: mark cycles flag -> uncertain -> clear', () => {
+  const g = Mine.create('latt');
+  assert.strictEqual(Mine.cycleMark(g, 5), 'flag');
+  assert.strictEqual(Mine.cycleMark(g, 5), 'unknown');
+  assert.strictEqual(Mine.cycleMark(g, 5), null);
+  assert.strictEqual(Mine.flagCount(g), 0);
+});
+
+test('minsvepare: chord only fires when flags equal the digit', () => {
+  const g = Mine.create('latt');
+  Mine.dig(g, 40, Mine.makeRng(2));
+  const digit = Object.keys(g.revealed).map(Number).find((i) => g.counts[i] > 0);
+  assert.ok(digit !== undefined, 'expected at least one revealed digit');
+  // no flags yet, so chording must do nothing
+  assert.deepStrictEqual(Mine.chord(g, digit), []);
+  // flag the actual mines around it, then chord must open the rest
+  const nb = Mine.neighbours(digit, g.w, g.h);
+  nb.filter((n) => g.mines[n]).forEach((n) => Mine.cycleMark(g, n));
+  Mine.chord(g, digit, Mine.makeRng(2));
+  for (const n of nb) {
+    if (!g.mines[n]) assert.ok(g.revealed[n], `chord left ${n} closed`);
+  }
+  assert.notStrictEqual(g.status, 'lost', 'correct chord must not lose');
+});
+
+test('minsvepare: win is every safe cell open, regardless of flags', () => {
+  const g = Mine.create('latt');
+  Mine.dig(g, 0, Mine.makeRng(4));
+  for (let i = 0; i < g.w * g.h; i++) if (!g.mines[i]) g.revealed[i] = true;
+  assert.ok(Mine.checkWin(g));
+  assert.strictEqual(g.status, 'won');
+});
