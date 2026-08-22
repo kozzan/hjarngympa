@@ -23,8 +23,12 @@ priority: 1.0
 
   <p class="mono game-meta" id="mine-meta">Startar…</p>
 
-  <div class="frame" id="frame">
-    <div id="mineboard" role="grid" aria-label="Minfält"></div>
+  <div class="framewrap">
+    <div class="frame" id="frame">
+      <div id="mineboard" role="grid" aria-label="Minfält"></div>
+    </div>
+    <canvas id="minimap" width="120" height="120" hidden
+            aria-label="Översikt av minfältet"></canvas>
   </div>
 
   <div class="zoomctl" id="zoomctl">

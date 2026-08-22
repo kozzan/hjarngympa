@@ -439,3 +439,17 @@
 /* The two milestones also take a border, so they read without colour. */
 .tile2048.milestone { border: 3px solid var(--ok); }
 @media (min-width: 1024px) { #g2048 { max-width: 480px; } }
+
+/* ---------- Minsvepare minimap ---------- */
+
+.framewrap { position: relative; }
+#minimap {
+  position: absolute; top: 10px; right: 10px; z-index: 6;
+  background: var(--surface);
+  border: 2px solid var(--ink); border-radius: 8px;
+  cursor: pointer; touch-action: none;
+  /* Small enough not to cover the board, big enough to aim at. */
+  width: 96px; height: 96px;
+}
+#minimap[hidden] { display: none; }
+@media (min-width: 1024px) { #minimap { width: 120px; height: 120px; } }
