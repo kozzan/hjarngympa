@@ -159,7 +159,7 @@ a { color: var(--accent); }
   color: var(--ink); text-decoration: none;
   margin-right: auto;
 }
-.nav { display: none; gap: 24px; margin-right: auto; }
+.nav { display: none; gap: 24px; }
 .nav a { color: var(--ink); text-decoration: none; font-size: 19px; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--accent); }
 .iconbtn {
@@ -173,7 +173,6 @@ a { color: var(--accent); }
 
 @media (min-width: 900px) {
   .nav { display: flex; }
-  .brand { margin-right: 32px; }
 }
 
 /* ---------- layout ---------- */
@@ -278,7 +277,15 @@ main { padding: 24px 0 64px; }
   font-size: 17px; color: var(--muted);
 }
 .site-foot a { color: var(--muted); }
-.site-foot nav { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 16px; }
+.site-foot nav { display: flex; flex-wrap: wrap; gap: 16px 24px; }
+
+/* The audience skews 45+, so nav links get the full 48 px tap target the
+   design rules ask for. Text size is unchanged; only the hit area grows. */
+.nav a,
+.site-foot nav a,
+.site-foot nav .linklike {
+  display: inline-flex; align-items: center; min-height: 48px;
+}
 
 /* ---------- article ---------- */
 
