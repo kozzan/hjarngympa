@@ -436,16 +436,14 @@
 .tile2048.milestone { border: 3px solid var(--ok); }
 @media (min-width: 1024px) { #g2048 { max-width: 480px; } }
 
-/* ---------- Minsvepare minimap ---------- */
+/* ---------- Minsvepare: the board gets the full measure ----------
 
-.framewrap { position: relative; }
-#minimap {
-  position: absolute; top: 10px; right: 10px; z-index: 6;
-  background: var(--surface);
-  border: 2px solid var(--ink); border-radius: 8px;
-  cursor: pointer; touch-action: none;
-  /* Small enough not to cover the board, big enough to aim at. */
-  width: 96px; height: 96px;
-}
-#minimap[hidden] { display: none; }
-@media (min-width: 1024px) { #minimap { width: 120px; height: 120px; } }
+   Cells never go below a 40 px tap target, so an expert field is 30 x 42 px =
+   1260 px wide. In the shared 560 px game column that hid over half the board
+   and needed a minimap to navigate. Widening the column shows nearly all of it
+   and the minimap stops being necessary. Only the board wants the extra room —
+   the controls and the result panel stay at the narrow measure. */
+
+.game-wide { max-width: 1180px; }
+.game-wide .frame { max-height: 78vh; }
+.game-wide .result { max-width: 560px; margin-left: auto; margin-right: auto; }

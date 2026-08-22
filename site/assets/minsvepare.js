@@ -13,7 +13,6 @@
   var panel = document.getElementById('result');
   var modeWrap = document.getElementById('mode');
   var zoomWrap = document.getElementById('zoomctl');
-  var mapEl = document.getElementById('minimap');
 
   var g = null, mode = 'dig', cell = 44, started = 0, timer = null, cursor = 0;
 
@@ -58,61 +57,6 @@
     for (var i = 0; i < g.w * g.h; i++) frag.appendChild(cellEl(i));
     boardEl.appendChild(frag);
     paintMeta();
-    drawMap();
-  }
-
-  /* The minimap only earns its space when the board actually overflows the
-     frame; on a 9x9 the whole field is already visible. */
-  function mapNeeded() {
-    return boardEl.scrollWidth > frame.clientWidth + 4 ||
-           boardEl.scrollHeight > frame.clientHeight + 4;
-  }
-
-  function drawMap() {
-    if (!g || !mapEl || !mapEl.getContext) return;
-    if (!mapNeeded()) { mapEl.hidden = true; return; }
-    mapEl.hidden = false;
-
-    var css = getComputedStyle(document.documentElement);
-    var tok = function (n) { return css.getPropertyValue(n).trim(); };
-    var W = mapEl.width, H = mapEl.height;
-    var ctx = mapEl.getContext('2d');
-    var s = Math.min(W / g.w, H / g.h);
-    var ox = (W - g.w * s) / 2, oy = (H - g.h * s) / 2;
-
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = tok('--bg') || '#F6F2EA';
-    ctx.fillRect(0, 0, W, H);
-
-    for (var i = 0; i < g.w * g.h; i++) {
-      var x = ox + (i % g.w) * s, y = oy + ((i / g.w) | 0) * s;
-      var fill;
-      if (g.marks[i] === 'flag') fill = tok('--accent');
-      else if (g.revealed[i]) fill = g.mines[i] ? tok('--error') : tok('--surface');
-      else fill = tok('--edge');
-      ctx.fillStyle = fill || '#999';
-      ctx.fillRect(x, y, Math.max(1, s - 0.5), Math.max(1, s - 0.5));
-    }
-
-    // viewport rectangle
-    var vx = ox + (frame.scrollLeft / boardEl.scrollWidth) * (g.w * s);
-    var vy = oy + (frame.scrollTop / boardEl.scrollHeight) * (g.h * s);
-    var vw = (frame.clientWidth / boardEl.scrollWidth) * (g.w * s);
-    var vh = (frame.clientHeight / boardEl.scrollHeight) * (g.h * s);
-    ctx.strokeStyle = tok('--ink') || '#1E1A15';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(vx + 1, vy + 1, Math.min(vw, g.w * s) - 2, Math.min(vh, g.h * s) - 2);
-  }
-
-  /* Tapping or dragging the minimap scrolls the board there. */
-  function mapJump(e) {
-    if (!g || mapEl.hidden) return;
-    var r = mapEl.getBoundingClientRect();
-    var px = (e.clientX - r.left) / r.width;
-    var py = (e.clientY - r.top) / r.height;
-    frame.scrollLeft = px * boardEl.scrollWidth - frame.clientWidth / 2;
-    frame.scrollTop = py * boardEl.scrollHeight - frame.clientHeight / 2;
-    drawMap();
   }
 
   function cellEl(i) {
@@ -347,19 +291,6 @@
     var next = fitCell(g.w);
     if (Math.abs(next - cell) > 4) { cell = next; render(); }
   });
-
-  if (mapEl) {
-    var dragging = false;
-    mapEl.addEventListener('pointerdown', function (e) {
-      dragging = true;
-      mapJump(e);                       // jump first; capture is best-effort
-      try { mapEl.setPointerCapture(e.pointerId); } catch (err) {}
-    });
-    mapEl.addEventListener('pointermove', function (e) { if (dragging) mapJump(e); });
-    mapEl.addEventListener('pointerup', function () { dragging = false; });
-    mapEl.addEventListener('pointercancel', function () { dragging = false; });
-  }
-  frame.addEventListener('scroll', drawMap, { passive: true });
 
   setMode('dig');
   newGame('latt');
