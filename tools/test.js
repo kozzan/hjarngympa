@@ -474,3 +474,48 @@ test('the og image exists, is really 1200x630 and stays small enough to fetch', 
   assert.strictEqual(png.readUInt32BE(20), 630);
   assert.ok(png.length < 200 * 1024, `og.png is ${Math.round(png.length / 1024)} KB`);
 });
+
+// ------------------------------------------------------- structured data
+
+test('every JSON-LD block parses and only carries absolute URLs', () => {
+  // A trailing comma here is invisible until Search Console rejects the page
+  // weeks later, so parse the built output with a real parser.
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+
+  const pages = [];
+  (function walk(dir) {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.name.endsWith('.html')) pages.push(p);
+    }
+  })(path.join(ROOT, 'dist'));
+
+  const absolute = (node, where) => {
+    if (Array.isArray(node)) return node.forEach((n) => absolute(n, where));
+    if (!node || typeof node !== 'object') return;
+    for (const [k, v] of Object.entries(node)) {
+      if ((k === 'url' || k === '@id') && typeof v === 'string') {
+        // build.py rewrites href="/ and src="/ for BASE_PATH but never looks
+        // inside a JSON string, so a root-relative URL here ships broken.
+        assert.match(v, /^https:\/\//, `${where}: ${k} must be absolute, got ${v}`);
+      }
+      absolute(v, where);
+    }
+  };
+
+  let blocks = 0;
+  for (const p of pages) {
+    const html = fs.readFileSync(p, 'utf8');
+    const re = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g;
+    for (const m of html.matchAll(re)) {
+      const rel = path.relative(ROOT, p);
+      const ld = JSON.parse(m[1]); // throws on a trailing comma
+      assert.strictEqual(ld['@context'], 'https://schema.org', `${rel}: @context`);
+      assert.ok(ld['@type'], `${rel}: missing @type`);
+      absolute(ld, rel);
+      blocks++;
+    }
+  }
+  assert.strictEqual(blocks, 9, 'seven games + homepage + the sudoku article');
+});
