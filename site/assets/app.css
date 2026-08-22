@@ -159,7 +159,7 @@ a { color: var(--accent); }
   color: var(--ink); text-decoration: none;
   margin-right: auto;
 }
-.nav { display: none; gap: 24px; margin-right: auto; }
+.nav { display: none; gap: 24px; }
 .nav a { color: var(--ink); text-decoration: none; font-size: 19px; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--accent); }
 .iconbtn {
@@ -173,7 +173,6 @@ a { color: var(--accent); }
 
 @media (min-width: 900px) {
   .nav { display: flex; }
-  .brand { margin-right: 32px; }
 }
 
 /* ---------- layout ---------- */
