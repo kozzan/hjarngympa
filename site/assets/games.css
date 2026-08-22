@@ -288,16 +288,12 @@
 .mjtile.hint { border: 3px dashed var(--accent); }
 .mjtile.shakeit { animation: shake .16s ease-in-out; }
 
-.pip { display: grid; place-items: center; line-height: 1; }
-.pip.round {
-  width: 1.5em; height: 1.5em; border: 2px solid currentColor;
-  border-radius: 999px; font-size: .62em;
+.pip {
+  display: grid; place-items: center; line-height: 1;
+  width: 66%; height: 66%;
 }
-.pip.square {
-  width: 1.4em; height: 1.5em; border: 2px solid currentColor;
-  border-radius: 3px; font-size: .62em;
-}
-.pip.glyph { font-size: 1em; }
+.pip svg { display: block; }
+.pip .cjk { font-size: 1.5em; line-height: 1; }
 
 .gamectl { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 16px 0; }
 .gamectl button {

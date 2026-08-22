@@ -432,3 +432,14 @@ test('patiens: the game is won only when all 52 reach the foundations', () => {
   assert.strictEqual(g.status, 'won');
   assert.strictEqual(Pat.score(g), 520);
 });
+
+test('mahjong: all 34 faces render distinctly, dots and bamboo as real pips', () => {
+  const Faces = require(path.join(ROOT, 'site/assets/mahjong-faces.js'));
+  const seen = new Set();
+  for (const t of Mah.tileTypes()) seen.add(Faces.render(t.group, t.face));
+  assert.strictEqual(seen.size, 34, 'two motifs render identically');
+  for (let n = 1; n <= 9; n++) {
+    assert.strictEqual((Faces.dots(n).match(/<circle/g) || []).length, n, `${n} dots`);
+    assert.strictEqual((Faces.bamboo(n).match(/<line/g) || []).length, n, `${n} bamboo`);
+  }
+});

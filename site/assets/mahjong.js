@@ -40,14 +40,8 @@
 
   // ---- rendering ---------------------------------------------------------
 
-  /* ponytail: faces are a CJK glyph plus a shape ring rather than a 34-file
-     SVG set. Circles get a round outline, bamboo a square one, so the suits
-     differ by shape and not only by motif. Swap in real SVG art later if it
-     is ever worth the bytes. */
   function faceHtml(t) {
-    if (t.group === 'cirklar') return '<span class="pip round">' + t.face.slice(1) + '</span>';
-    if (t.group === 'bambu') return '<span class="pip square">' + t.face.slice(1) + '</span>';
-    return '<span class="pip glyph">' + t.face + '</span>';
+    return '<span class="pip">' + window.MahjongFaces.render(t.group, t.face) + '</span>';
   }
 
   function render() {
