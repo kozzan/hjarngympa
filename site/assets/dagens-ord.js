@@ -240,7 +240,7 @@
     }).join('\n');
     return 'hjärngympa — Dagens ord ' + puzzleNo + '\n' +
       (status === 'won' ? guesses.length : 'X') + '/' + ROWS + '\n\n' + grid +
-      '\n\nhjarngympa.se/dagens-ord/';
+      '\n\nhttps://hjarngympa.se/dagens-ord/';
   }
 
   function tick() {
