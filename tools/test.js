@@ -443,3 +443,34 @@ test('mahjong: all 34 faces render distinctly, dots and bamboo as real pips', ()
     assert.strictEqual((Faces.bamboo(n).match(/<line/g) || []).length, n, `${n} bamboo`);
   }
 });
+
+// ------------------------------------------------------------- social cards
+
+test('build emits absolute og:image and og:url even on the CI empty-env path', () => {
+  // Same trap as the canonical test: a relative og:image renders as a blank
+  // card in Messenger, Facebook and Discord, which is where the shared
+  // Dagens ord grids go. Absolute or nothing.
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], {
+    cwd: ROOT,
+    env: { ...process.env, BASE_URL: '', BASE_PATH: '' },
+    stdio: 'pipe',
+  });
+  const page = fs.readFileSync(path.join(ROOT, 'dist/dagens-ord/index.html'), 'utf8');
+  const prop = (p) => page.match(new RegExp(`<meta property="${p}" content="([^"]*)"`))[1];
+
+  assert.match(prop('og:image'), /^https:\/\/.*\/assets\/og\.png$/, 'og:image must be absolute');
+  assert.match(prop('og:url'), /^https:\/\/[^/]+\/dagens-ord\/$/, 'og:url must be absolute');
+  assert.strictEqual(prop('og:image:width'), '1200');
+  assert.strictEqual(prop('og:image:height'), '630');
+  assert.ok(prop('og:image:alt').length > 10, 'og:image:alt must say something');
+  assert.match(page, /<meta name="twitter:card" content="summary_large_image">/);
+});
+
+test('the og image exists, is really 1200x630 and stays small enough to fetch', () => {
+  const png = fs.readFileSync(path.join(ROOT, 'site/assets/og.png'));
+  assert.strictEqual(png.subarray(1, 4).toString(), 'PNG', 'must be a PNG -- Facebook will not render SVG');
+  // IHDR is the first chunk: width and height are big-endian at bytes 16 and 20.
+  assert.strictEqual(png.readUInt32BE(16), 1200);
+  assert.strictEqual(png.readUInt32BE(20), 630);
+  assert.ok(png.length < 200 * 1024, `og.png is ${Math.round(png.length / 1024)} KB`);
+});

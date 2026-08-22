@@ -28,6 +28,12 @@ BASE_PATH = (os.environ.get("BASE_PATH") or "").rstrip("/")
 # GitHub Pages can drop the domain back to the github.io URL on a redeploy.
 CNAME = os.environ.get("CNAME") or "hjarngympa.se"
 META_RE = re.compile(r"^<!--meta\s*(.*?)-->\s*", re.S)
+# Social card, 1200x630. A committed static asset, not generated here: making
+# a PNG at build time would mean a dependency, and the build is stdlib-only.
+# Redraw it by screenshotting an HTML mock at that size, e.g.
+#   google-chrome --headless --window-size=1200,630 --screenshot=og.png og.html
+# A page may override it with `image: /assets/x.png` in its meta block.
+OG_IMAGE = "/assets/og.png"
 
 # Ad slots are authored as sized placeholder divs so the pages stay readable.
 # The real <ins> is injected here, INSIDE the sized box, so the reserved
@@ -97,6 +103,7 @@ def main():
                 title=html.escape(meta.get("title", "hjärngympa")),
                 desc=html.escape(meta.get("desc", "")),
                 canonical=BASE_URL + BASE_PATH + route,
+                image=BASE_URL + BASE_PATH + (meta.get("image") or OG_IMAGE),
                 bodyclass=meta.get("bodyclass", ""),
                 head=meta.get("head", ""),
                 body=body,
