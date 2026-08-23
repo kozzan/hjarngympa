@@ -134,6 +134,7 @@
     b[0].querySelector('b').textContent = score;
     b[1].querySelector('b').textContent = best;
     b[2].querySelector('b').textContent = Math.max.apply(null, grid);
+    if (window.markPlayed) window.markPlayed(panel);
     panel.hidden = false;
     say(didWin ? 'Du nådde 2048!' : 'Spelet är slut.');
   }

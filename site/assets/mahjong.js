@@ -198,6 +198,7 @@
     boxes[0].querySelector('b').textContent = fmt(secs);
     boxes[1].querySelector('b').textContent = g.removedPairs;
     boxes[2].querySelector('b').textContent = g.shuffles;
+    if (window.markPlayed) window.markPlayed(panel);
     panel.hidden = false;
     say(won ? 'Du klarade det!' : 'Slut på drag.');
   }

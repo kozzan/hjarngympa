@@ -271,6 +271,7 @@
     b[0].querySelector('b').textContent = fmt(secs);
     b[1].querySelector('b').textContent = g.moves;
     b[2].querySelector('b').textContent = Core.score(g);
+    if (window.markPlayed) window.markPlayed(panel);
     panel.hidden = false;
     say('Du klarade patiensen!');
   }

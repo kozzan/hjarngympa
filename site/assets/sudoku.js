@@ -7,14 +7,16 @@
 
   var LABEL = { latt: 'Lätt', medel: 'Medel', svar: 'Svår', expert: 'Expert' };
 
+  var KEY = 'sudoku';
   var gridEl = document.getElementById('sudoku');
   var padEl = document.getElementById('pad');
   var metaEl = document.getElementById('sudoku-meta');
   var live = document.getElementById('live');
+  var panel = document.getElementById('result');
 
   var puzzle = [], board = [], marks = [], solution = [];
   var selected = -1, pencil = false, errors = 0, difficulty = 'latt';
-  var seed = 1, puzzleId = 0, started = 0, undoStack = [];
+  var seed = 1, puzzleId = 0, started = 0, undoStack = [], solved = false;
 
   var Core = window.SudokuCore;
   var GIVENS = Core.GIVENS;
@@ -30,8 +32,9 @@
     solution = made.solution;
     board = puzzle.slice();
     marks = Array.from({ length: 81 }, function () { return []; });
-    selected = -1; errors = 0; undoStack = [];
+    selected = -1; errors = 0; undoStack = []; solved = false;
     started = Date.now();
+    if (panel) panel.hidden = true;
     render();
     say('Nytt spel, svårighetsgrad ' + LABEL[difficulty]);
   }
@@ -96,10 +99,52 @@
     metaEl.textContent = LABEL[difficulty] + ' · #' + puzzleId +
       ' · Fel ' + errors + ' · ' + left + ' kvar';
 
-    if (left === 0 && bad.size === 0) {
+    if (left === 0 && bad.size === 0 && !solved) {
+      solved = true;
       say('Klart! Sudokut är löst.');
       metaEl.textContent = 'Löst! · ' + LABEL[difficulty] + ' · #' + puzzleId;
+      finish();
     }
+  }
+
+  // ---- result ------------------------------------------------------------
+
+  function fmt(s) {
+    return (s / 60 | 0) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+  }
+
+  /* Best time per difficulty, local only. A single "best" across all four
+     would just record the last time someone finished an easy one. */
+  function finish() {
+    if (!panel) return;
+    var secs = Math.floor((Date.now() - started) / 1000);
+    var bestKey = 'best_' + difficulty;
+    var st = {};
+    try { st = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+    var prev = st[bestKey];
+    if (!prev || secs < prev) st[bestKey] = secs;
+    st.solved = (st.solved || 0) + 1;
+    try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
+
+    panel.className = 'result win';
+    panel.querySelector('[data-icon]').textContent = '✓';
+    panel.querySelector('[data-h]').textContent = 'Löst!';
+    panel.querySelector('[data-sub]').textContent = (!prev || secs < prev)
+      ? 'Nytt personbästa på ' + LABEL[difficulty].toLowerCase() + '.'
+      : 'Klart på ' + fmt(secs) + ' med ' + errors + ' fel.';
+    var b = panel.querySelectorAll('[data-stat]');
+    b[0].querySelector('b').textContent = fmt(secs);
+    b[1].querySelector('b').textContent = fmt(st[bestKey]);
+    b[2].querySelector('b').textContent = errors;
+    if (window.markPlayed) window.markPlayed(panel);
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  if (panel) {
+    panel.addEventListener('click', function (e) {
+      if (e.target.closest('[data-again]')) newGame();
+    });
   }
 
   function say(m) { if (live) live.textContent = m; }

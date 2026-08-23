@@ -278,6 +278,7 @@
     boxes[2].querySelector('b').textContent =
       won ? g.mineCount : Core.flagCount(g);
     boxes[2].querySelector('span').textContent = won ? 'rensade' : 'flaggor';
+    if (window.markPlayed) window.markPlayed(panel);
     panel.hidden = false;
     say(won ? 'Du vann!' : 'Du träffade en mina.');
   }

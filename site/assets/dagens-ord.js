@@ -227,6 +227,10 @@
     panel.querySelector('[data-streak]').textContent = st.streak;
     panel.querySelector('[data-pct]').textContent = pct + '%';
     panel.querySelector('[data-played]').textContent = st.played;
+    // The panel already shows this game's own daily streak, so only the
+    // site-wide count is bumped -- two streak numbers side by side reads
+    // as a bug.
+    if (window.markPlayed) window.markPlayed(null);
     panel.hidden = false;
     tick();
     panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
