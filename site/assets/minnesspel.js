@@ -130,6 +130,7 @@
     bx[0].querySelector('b').textContent = fmt(secs);
     bx[1].querySelector('b').textContent = tries;
     bx[2].querySelector('b').textContent = st[bk];
+    if (window.markPlayed) window.markPlayed(panel);
     panel.hidden = false;
     say('Klart!');
   }

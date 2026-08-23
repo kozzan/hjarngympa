@@ -98,6 +98,7 @@
 .stat { padding: 12px 8px; border: 1px solid var(--line); border-radius: var(--r-card); }
 .stat b { display: block; font: 600 30px/1.1 var(--serif); }
 .stat span { font-size: 15px; color: var(--muted); }
+.streakline { margin: 0 0 20px; font-size: 18px; color: var(--muted); }
 .result-actions { display: grid; gap: 12px; }
 
 /* ---------- Sudoku ---------- */

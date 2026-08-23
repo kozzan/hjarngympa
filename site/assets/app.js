@@ -26,6 +26,31 @@
     });
   }
 
+  // ---- streak ------------------------------------------------------------
+  // One "dagar i rad" count for the whole site, in localStorage. No account,
+  // no server, nothing to cheat -- it only ever compares you to yourself.
+  var SKEY = 'streak';
+
+  window.markPlayed = function (panel) {
+    if (!window.StreakCore) return;
+    var st = {};
+    try { st = JSON.parse(localStorage.getItem(SKEY)) || {}; } catch (e) {}
+    st = window.StreakCore.bump(st, new Date());
+    try { localStorage.setItem(SKEY, JSON.stringify(st)); } catch (e) {}
+    if (!panel) return;
+
+    var line = panel.querySelector('.streakline');
+    if (!line) {
+      line = document.createElement('p');
+      line.className = 'streakline';
+      panel.insertBefore(line, panel.querySelector('.result-actions'));
+    }
+    line.textContent = st.n === 1
+      ? 'Första dagen i en ny svit. Kom tillbaka i morgon.'
+      : '\uD83D\uDD25 ' + st.n + ' dagar i rad' +
+        (st.n < st.best ? ' \u00b7 ditt b\u00e4sta \u00e4r ' + st.best : '');
+  };
+
   // ---- ads ---------------------------------------------------------------
   // AdSense needs exactly one push per <ins>. Pushing twice for the same
   // element is a policy violation, so mounted slots are marked.

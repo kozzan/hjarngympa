@@ -519,3 +519,39 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
   }
   assert.strictEqual(blocks, 9, 'seven games + homepage + the sudoku article');
 });
+
+// ---------------------------------------------------------------- streak ---
+
+const Streak = require(path.join(ROOT, 'site/assets/streak-core.js'));
+
+test('streak: a second game the same day does not double-count', () => {
+  const st = Streak.bump({}, new Date(2026, 7, 23, 9, 0));
+  assert.strictEqual(st.n, 1);
+  assert.strictEqual(Streak.bump(st, new Date(2026, 7, 23, 23, 0)).n, 1);
+});
+
+test('streak: yesterday extends, and across a month boundary too', () => {
+  let st = Streak.bump({}, new Date(2026, 6, 30));
+  st = Streak.bump(st, new Date(2026, 6, 31));
+  st = Streak.bump(st, new Date(2026, 7, 1));
+  assert.strictEqual(st.n, 3);
+});
+
+test('streak: a skipped day starts over at one but keeps the best', () => {
+  let st = Streak.bump({}, new Date(2026, 7, 1));
+  st = Streak.bump(st, new Date(2026, 7, 2));
+  st = Streak.bump(st, new Date(2026, 7, 5));
+  assert.strictEqual(st.n, 1);
+  assert.strictEqual(st.best, 2);
+});
+
+test('streak: late night and just after midnight are two days, not one', () => {
+  const st = Streak.bump({}, new Date(2026, 7, 23, 23, 50));
+  assert.strictEqual(Streak.bump(st, new Date(2026, 7, 24, 0, 10)).n, 2);
+});
+
+test('streak: the count survives a stored value from an unrelated day', () => {
+  const st = Streak.bump({ day: 0, n: 99, best: 99 }, new Date(2026, 7, 23));
+  assert.strictEqual(st.n, 1);
+  assert.strictEqual(st.best, 99);
+});

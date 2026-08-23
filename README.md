@@ -9,7 +9,7 @@ Live: **https://hjarngympa.se**
 
 ```bash
 python3 tools/build.py            # site/pages/** -> dist/
-node --test tools/test.js         # 46 checks; CI runs this before every deploy
+node --test tools/test.js         # 51 checks; CI runs this before every deploy
 cd dist && python3 -m http.server 8765
 ```
 
