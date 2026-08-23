@@ -106,6 +106,7 @@ def main():
                 image=BASE_URL + BASE_PATH + (meta.get("image") or OG_IMAGE),
                 bodyclass=meta.get("bodyclass", ""),
                 head=meta.get("head", ""),
+                ogtype=meta.get("ogtype", "website"),
                 body=body,
             )
             page = mount_ads(page)
