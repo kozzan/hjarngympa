@@ -22,8 +22,19 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151210" media="(prefers-color-scheme: dark)">
+<!-- The ad and consent scripts are on other origins and are fetched by
+     adsbygoogle.js, so the browser only learns about them late. Warming the
+     connections early cuts a DNS+TLS handshake off each on a mobile link. -->
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+<link rel="preconnect" href="https://fundingchoicesmessages.google.com" crossorigin>
+<!-- All four faces are needed for the first paint, so all four are preloaded.
+     Without this the two below are discovered only after fonts.css has parsed,
+     which put them on a three-deep critical chain: HTML -> fonts.css -> woff2.
+     Preloading costs no extra bytes; they were already being fetched. -->
 <link rel="preload" href="/assets/fonts/newsreader-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/sourcesans3-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/sourcesans3-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibmplexmono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <link rel="stylesheet" href="/assets/app.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
