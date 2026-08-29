@@ -15,7 +15,22 @@
   var result = document.getElementById('result');
   if (!K || !boardEl) return;
 
-  var FAN = 34, FAN_TOP = 48, FAN_TIGHT = 26;
+  /* The fan is derived from the rendered card, not fixed in pixels: the card
+     narrows as the viewport does, and a fixed 34 px strip on a short card
+     would push the longest column off-screen. Seeing all eight columns at
+     once is the point of the layout. */
+  /* Must agree with the @container rule in games.css — the board's own width,
+     not the window's. */
+  function oneRow() { return (boardEl.clientWidth || 360) >= 376; }
+
+  function metrics() {
+    var gap = 3, w = boardEl.clientWidth || 360;
+    if (w >= 700) gap = 8;
+    var per = oneRow() ? 8 : 4;
+    var cardW = (w - gap * (per - 1)) / per;
+    var cardH = cardW / 0.72;
+    return { cardH: cardH, fan: Math.max(18, cardH * 0.34), tight: Math.max(15, cardH * 0.27) };
+  }
 
   var st, history, sel, started, timer;
 
@@ -114,17 +129,18 @@
 
     renderMeter();
 
-    // Board: two banks of four, joined into one row of eight by CSS ≥1024px.
+    // Eight columns in one row; CSS folds them into two banks under 390 px,
+    // where an eighth of the width would be too small a card to tap.
     boardEl.innerHTML = '';
-    var banks = [['A–D', 0, 4], ['E–H', 4, 8]];
-    banks.forEach(function (bank) {
+    var m = metrics();
+    [['A–D', 0, 4], ['E–H', 4, 8]].forEach(function (bank) {
       var label = document.createElement('p');
       label.className = 'kbanklabel mono';
       label.textContent = 'KOLUMN ' + bank[0];
       boardEl.appendChild(label);
       var wrap = document.createElement('div');
       wrap.className = 'kbank';
-      for (var ci = bank[1]; ci < bank[2]; ci++) wrap.appendChild(colEl(ci));
+      for (var ci = bank[1]; ci < bank[2]; ci++) wrap.appendChild(colEl(ci, m));
       boardEl.appendChild(wrap);
     });
 
@@ -140,7 +156,7 @@
     checkEnd();
   }
 
-  function colEl(ci) {
+  function colEl(ci, m) {
     var col = st.cols[ci];
     var wrap = document.createElement('div');
     wrap.className = 'pcol';
@@ -152,13 +168,13 @@
       if (sel) e.classList.add('target');
       e.dataset.col = ci;
       wrap.appendChild(e);
-      wrap.style.minHeight = '92px';
+      wrap.style.minHeight = Math.round(m.cardH) + 'px';
       return wrap;
     }
 
     var run = K.runLength(col);
     var limit = K.maxMove(st, ci);
-    var step = col.length > 7 ? FAN_TIGHT : FAN;
+    var step = col.length > 7 ? m.tight : m.fan;
     var y = 0;
     for (var i = 0; i < col.length; i++) {
       var isSel = sel && sel.kind === 'col' && sel.col === ci &&
@@ -183,9 +199,10 @@
       // does not clip its suit glyph.
       var nextSel = sel && sel.kind === 'col' && sel.col === ci &&
                     (i + 1) >= col.length - sel.count;
-      y += (i === col.length - 1 ? FAN_TOP : step) + (nextSel ? 6 : 0);
+      y += step + (nextSel ? 6 : 0);
     }
-    wrap.style.minHeight = (y + 40) + 'px';
+    // The last card shows in full, so the column is the fan plus one card.
+    wrap.style.minHeight = Math.round(y - step + m.cardH) + 'px';
     return wrap;
   }
 
@@ -331,6 +348,11 @@
       if (sel) tryTo('cell', i);
       else if (st.cells[i]) { sel = { kind: 'cell', cell: i, count: 1 }; render(); }
     }
+  });
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(render, 150);
   });
 
   setInterval(function () { if (started && result && result.hidden) render(); }, 1000);
