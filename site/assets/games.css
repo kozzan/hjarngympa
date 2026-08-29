@@ -448,3 +448,79 @@
 .game-wide { max-width: 1180px; }
 .game-wide .frame { max-height: 78vh; }
 .game-wide .result { max-width: 560px; margin-left: auto; margin-right: auto; }
+
+/* ---- Kungen (FreeCell) ------------------------------------------------- */
+
+/* Eight columns do not fit at 320 px without shrinking the card below the
+   40 px floor, and side-scrolling would hide half the board at exactly the
+   moment the player is planning a move — in FreeCell every card is visible
+   information. So the board splits into two banks of four and grows
+   vertically, which is the gesture the phone already owns. */
+.kbank { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; align-items: start; }
+.kbank + .kbanklabel { margin-top: 20px; }
+.kbanklabel { font: 400 15px/1 var(--mono); color: var(--muted); margin: 0 0 8px; letter-spacing: .08em; }
+
+.ktop { display: grid; gap: 16px; margin-bottom: 16px; }
+.kcells, .kfound { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.kgroup > .mono { margin: 0 0 6px; color: var(--muted); font-size: 15px; letter-spacing: .08em; }
+
+/* Free cells are sunken wells; foundations are bordered and rounder. The two
+   must never be told apart by colour alone. */
+.kcell {
+  border-radius: 4px;
+  box-shadow: inset 0 3px 0 var(--edge);
+  background: var(--surface); border: 1px solid var(--line);
+}
+.kfound .pcard.empty { border-radius: 10px; }
+.kgroup.full > .mono { color: var(--near); }
+.kgroup.stuck > .mono { color: var(--error); }
+.kcells.full { outline: 2px solid var(--near); outline-offset: 4px; border-radius: 6px; }
+.kcells.stuck { outline: 2px solid var(--error); outline-offset: 4px; border-radius: 6px; }
+
+/* The supermove meter. Permanent, never hidden, never abbreviated — a player
+   who cannot see the limit reads a refused move as a broken game. */
+.kmeter {
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); padding: 12px 14px; margin-bottom: 16px;
+}
+.kmeter b { font: 600 19px/1.3 var(--sans); display: block; }
+.kmeter span { font: 400 15px/1.4 var(--mono); color: var(--muted); letter-spacing: .04em; }
+
+/* Cards past the movable limit while a run is selected. Same hatch as a
+   face-down card elsewhere, so "not available" reads the same way everywhere. */
+.pcard.beyond {
+  background-image: repeating-linear-gradient(45deg,
+    var(--hatch) 0 4px, transparent 4px 9px);
+}
+.pcard.bad { border: 3px solid var(--error); background: var(--error-fill); }
+@media (prefers-reduced-motion: no-preference) {
+  .pcard.bad { animation: kshake .16s linear; }
+}
+@keyframes kshake {
+  0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@media (min-width: 1024px) {
+  /* Room for one row of eight; the bank split and its labels go away. */
+  .kbanklabel { display: none; }
+  .kboard { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; align-items: start; }
+  .kboard .kbank { display: contents; }
+  .ktop { grid-template-columns: auto auto; justify-content: start; gap: 24px; }
+  .kgroup + .kgroup { border-left: 1px solid var(--line); padding-left: 24px; }
+}
+
+/* In a fanned column only the top ~34 px of a covered card shows, and the
+   shared .pcard stacks rank above suit — so the suit fell outside the strip
+   and ♠ could not be told from ♣ on any covered card. Lay the strip out
+   horizontally here so both read at a glance. */
+.kbank .pcol .pcard {
+  grid-auto-flow: column; justify-content: center; align-content: start;
+  gap: 6px; padding-top: 6px;
+}
+.kbank .pcol .pcard .suit { font-size: 19px; }
+.kbank .pcol .pcard.empty { grid-auto-flow: row; }
+@media (min-width: 1024px) {
+  .kboard .pcol .pcard .suit { font-size: 28px; }
+  .kboard .pcol .pcard .rank { font-size: 22px; }
+}

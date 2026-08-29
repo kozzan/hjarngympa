@@ -517,7 +517,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 11, 'seven games + homepage + two articles + korsordshjälp');
+  assert.strictEqual(blocks, 12, 'eight games + homepage + two articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
@@ -630,4 +630,177 @@ test('korsord: the 8.6 MB words.txt is not deployed, only the length shards', ()
   const biggest = Math.max(...sizes);
   assert.ok(biggest < 2 * 1024 * 1024,
     `biggest shard is ${(biggest / 1024 / 1024).toFixed(1)} MB — sharding broke`);
+});
+
+// -------------------------------------------------------------- kungen ---
+
+const Kungen = require(path.join(ROOT, 'site/assets/kungen-core.js'));
+
+/* Build a card by suit index and rank so states can be written by hand. */
+function kcard(suitIndex, rank) {
+  const s = Kungen.SUITS[suitIndex];
+  return { suit: s.s, glyph: s.g, red: s.red, suitIndex, rank,
+           label: String(rank), id: s.s + '-' + rank };
+}
+const SPADER = 0, HJARTER = 1, RUTER = 2, KLOVER = 3;
+
+/* Empty board, then place what a test needs. */
+function kblank() {
+  return { seed: 1, cells: [null, null, null, null],
+           foundations: [[], [], [], []],
+           cols: [[], [], [], [], [], [], [], []], moves: 0 };
+}
+
+test('kungen: the deal is 52 unique cards over 8 columns, 7/7/7/7/6/6/6/6', () => {
+  const st = Kungen.deal(2104);
+  assert.deepStrictEqual(st.cols.map((c) => c.length), [7, 7, 7, 7, 6, 6, 6, 6]);
+  const ids = new Set(st.cols.flat().map((c) => c.id));
+  assert.strictEqual(ids.size, 52);
+});
+
+test('kungen: an empty column takes any card, not just a king', () => {
+  // The Klondike rule does not apply here. Getting this wrong makes most of
+  // the deals unwinnable and is the obvious mistake after writing patiens.
+  const st = kblank();
+  st.cols[0] = [kcard(HJARTER, 5)];
+  assert.ok(Kungen.canPlaceOnCol(kcard(HJARTER, 5), st, 1), 'a five must be allowed');
+  assert.ok(Kungen.canPlaceOnCol(kcard(SPADER, 13), st, 1), 'a king too');
+  assert.ok(Kungen.canPlaceOnCol(kcard(RUTER, 1), st, 1), 'and an ace');
+});
+
+test('kungen: the tableau only stacks down in alternating colour', () => {
+  const st = kblank();
+  st.cols[0] = [kcard(SPADER, 8)];                       // black eight
+  assert.ok(Kungen.canPlaceOnCol(kcard(HJARTER, 7), st, 0), 'red seven on black eight');
+  assert.ok(!Kungen.canPlaceOnCol(kcard(KLOVER, 7), st, 0), 'black on black must fail');
+  assert.ok(!Kungen.canPlaceOnCol(kcard(HJARTER, 6), st, 0), 'wrong rank must fail');
+});
+
+test('kungen: the movable count is (free cells + 1) x 2^(empty columns)', () => {
+  const st = kblank();
+  st.cols[0] = [kcard(SPADER, 5)];                       // 7 empty columns
+  assert.strictEqual(Kungen.freeCells(st), 4);
+  assert.strictEqual(Kungen.emptyCols(st), 7);
+  st.cols.forEach((c, i) => { if (i > 0) c.push(kcard(SPADER, 2)); });
+  assert.strictEqual(Kungen.emptyCols(st), 0);
+  assert.strictEqual(Kungen.maxMove(st), 5);             // (4 + 1) x 1
+  st.cells[0] = kcard(KLOVER, 9);
+  assert.strictEqual(Kungen.maxMove(st), 4);             // (3 + 1) x 1
+  st.cols[7] = [];
+  assert.strictEqual(Kungen.maxMove(st), 8);             // (3 + 1) x 2
+});
+
+test('kungen: moving into an empty column does not count that column', () => {
+  // The column being filled cannot also stage cards. Without this the player
+  // is offered a run one card too long whenever a column is empty, and the
+  // refusal that follows looks arbitrary.
+  const st = kblank();
+  for (let i = 0; i < 6; i++) st.cols[i] = [kcard(SPADER, 2)];
+  st.cols[6] = [];
+  st.cols[7] = [];                                       // two empty columns
+  assert.strictEqual(Kungen.maxMove(st), 20);            // (4 + 1) x 2^2
+  assert.strictEqual(Kungen.maxMove(st, 6), 10);         // into an empty: 2^1
+  assert.strictEqual(Kungen.maxMove(st, 0), 20);         // onto a card: unchanged
+});
+
+test('kungen: a run only moves when it is already a valid sequence', () => {
+  const st = kblank();
+  st.cols[0] = [kcard(SPADER, 8), kcard(HJARTER, 7), kcard(KLOVER, 6)];
+  assert.strictEqual(Kungen.runLength(st.cols[0]), 3);
+  st.cols[1] = [kcard(SPADER, 8), kcard(KLOVER, 7)];     // same colour, broken
+  assert.strictEqual(Kungen.runLength(st.cols[1]), 1);
+  st.cols[2] = [kcard(HJARTER, 9)];
+  assert.ok(Kungen.moveRun(st, 0, 3, 2), 'a real run onto a red nine');
+  assert.strictEqual(Kungen.moveRun(st, 1, 2, 2), null, 'a broken run must not move');
+});
+
+test('kungen: a run longer than the movable count is refused', () => {
+  const st = kblank();
+  st.cols[0] = [kcard(SPADER, 6), kcard(HJARTER, 5), kcard(KLOVER, 4),
+                kcard(RUTER, 3), kcard(SPADER, 2)];
+  st.cols[1] = [kcard(HJARTER, 7)];
+  for (let i = 2; i < 8; i++) st.cols[i] = [kcard(KLOVER, 10)];
+  st.cells = [kcard(SPADER, 9), kcard(SPADER, 10), kcard(SPADER, 11), null];
+  assert.strictEqual(Kungen.maxMove(st), 2);             // one free cell
+  assert.strictEqual(Kungen.moveRun(st, 0, 4, 1), null, 'four is too many');
+});
+
+test('kungen: foundations build up from the ace in one suit', () => {
+  const st = kblank();
+  assert.ok(Kungen.canPlaceOnFoundation(kcard(HJARTER, 1), st), 'ace starts it');
+  assert.ok(!Kungen.canPlaceOnFoundation(kcard(HJARTER, 2), st), 'not a two first');
+  st.foundations[HJARTER] = [kcard(HJARTER, 1)];
+  assert.ok(Kungen.canPlaceOnFoundation(kcard(HJARTER, 2), st), 'then the two');
+  assert.ok(!Kungen.canPlaceOnFoundation(kcard(RUTER, 2), st), 'not another suit');
+});
+
+test('kungen: the game is won only when all 52 cards are home', () => {
+  const st = kblank();
+  for (let s = 0; s < 4; s++) {
+    for (let r = 1; r <= 13; r++) st.foundations[s].push(kcard(s, r));
+  }
+  assert.ok(Kungen.isWon(st));
+  st.foundations[SPADER].pop();
+  assert.ok(!Kungen.isWon(st), '51 cards is not a win');
+});
+
+test('kungen: a locked position is detected so the panel can offer undo', () => {
+  // Every column headed by a card that stacks on nothing, all cells full and
+  // none of them playable, no aces available.
+  const st = kblank();
+  st.cells = [kcard(SPADER, 5), kcard(SPADER, 7), kcard(SPADER, 9), kcard(SPADER, 11)];
+  st.foundations = [[], [], [], []];
+  for (let i = 0; i < 8; i++) st.cols[i] = [kcard(KLOVER, 13 - i)];
+  st.cols[0] = [kcard(KLOVER, 13), kcard(KLOVER, 4)];
+  assert.strictEqual(Kungen.freeCells(st), 0);
+  assert.strictEqual(Kungen.hasMove(st), false);
+
+  // Freeing one cell is enough to make a move exist again.
+  st.cells[0] = null;
+  assert.strictEqual(Kungen.hasMove(st), true);
+});
+
+test('kungen: 40 games of random legal play never corrupt the state', () => {
+  // Unit tests check each rule in isolation; this checks they compose. Every
+  // move returns a fresh state, so a bad slice would duplicate or drop cards
+  // and only show up after a long game. It also cross-checks hasMove()
+  // against the real move generator — that flag decides whether the player
+  // is told the board is locked, so a wrong answer strands them.
+  for (let seed = 1; seed <= 40; seed++) {
+    let st = Kungen.deal(seed);
+    for (let step = 0; step < 120; step++) {
+      const all = [].concat(
+        st.cols.reduce((a, c) => a.concat(c), []),
+        st.cells.filter(Boolean),
+        st.foundations.reduce((a, f) => a.concat(f), [])
+      );
+      assert.strictEqual(all.length, 52, `seed ${seed} step ${step}: card count`);
+      assert.strictEqual(new Set(all.map((c) => c.id)).size, 52,
+        `seed ${seed} step ${step}: duplicate cards`);
+      if (Kungen.isWon(st)) break;
+
+      const moves = [];
+      for (let i = 0; i < 8; i++) {
+        if (st.cols[i].length && Kungen.canPlaceOnFoundation(Kungen.top(st.cols[i]), st)) {
+          moves.push(Kungen.toFoundation(st, 'col', i));
+        }
+        const run = Kungen.runLength(st.cols[i]);
+        for (let n = 1; n <= run; n++) {
+          for (let j = 0; j < 8; j++) if (i !== j) moves.push(Kungen.moveRun(st, i, n, j));
+        }
+        for (let j = 0; j < 4; j++) moves.push(Kungen.toCell(st, i, j));
+      }
+      for (let i = 0; i < 4; i++) {
+        if (st.cells[i] && Kungen.canPlaceOnFoundation(st.cells[i], st)) {
+          moves.push(Kungen.toFoundation(st, 'cell', i));
+        }
+        for (let j = 0; j < 8; j++) moves.push(Kungen.fromCell(st, i, j));
+      }
+      const legal = moves.filter(Boolean);
+      assert.strictEqual(Kungen.hasMove(st), legal.length > 0,
+        `seed ${seed} step ${step}: hasMove disagreed with ${legal.length} legal moves`);
+      if (!legal.length) break;
+      st = legal[(step * 7 + seed) % legal.length];   // deterministic walk
+    }
+  }
 });

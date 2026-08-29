@@ -19,7 +19,7 @@ All user-facing copy is in Swedish. Code, comments and commits are English.
 
 ```bash
 python3 tools/build.py            # site/pages/** -> dist/
-node --test tools/test.js         # 59 checks; CI runs this before every deploy
+node --test tools/test.js         # 70 checks; CI runs this before every deploy
 cd dist && python3 -m http.server 8765
 ```
 
@@ -39,7 +39,6 @@ site/data/            generated word lists — do not hand-edit
 tools/build.py        the whole build; stdlib only, no dependencies
 tools/test.js         node:test, no framework
 docs/design/          Claude Design handoffs — the visual source of truth
-                      (HANDOFF-kungen.md is spec-only; /kungen/ is not built)
 docs/superpowers/     the original design spec, with the keyword research
 ```
 
@@ -77,6 +76,15 @@ Keep these behaviours; they are what makes each game fair.
   (`(8-5)/2 = 1.5`) means no tile ever sits squarely on another, nothing is
   ever covered, and the game is trivially solvable. This shipped once.
 - **Patiens: an exhausted stock recycles the waste**, or the game cannot finish.
+- **Kungen: an empty column takes any card**, not just a king. Carrying the
+  Klondike rule over makes most deals unwinnable, and it is the obvious mistake
+  to make right after writing patiens.
+- **Kungen: moving into an empty column does not count that column** towards
+  `(free cells + 1) x 2^(empty columns)` — the column being filled cannot also
+  stage cards. Get it wrong and the player is offered a run one card too long
+  whenever a column is empty, and the refusal then looks arbitrary. Silent or
+  arbitrary refusal is the defining bug of a FreeCell clone, so every refusal
+  names the attempted count, the possible count and the fix.
 - **Dagens ord: duplicate letters mark correctly.** Exact matches claim their
   letter before a "near" does — guessing a word with two of a letter must not
   light up both when the answer has one.
@@ -213,5 +221,5 @@ is real is the fastest way to lose them.
 
 - Board-aware Wordfeud solving — v1 solves a rack only.
 - Result panels are wired per game but there is no shared JS component; each
-  game fills the same markup itself. Fine at seven games, worth extracting at
+  game fills the same markup itself. Fine at eight games, worth extracting at
   ten.
