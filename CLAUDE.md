@@ -171,7 +171,9 @@ deliberately off; leave it off.
 per-screen specs. Follow them rather than improvising.
 
 - **Colour is never the only signal.** Word-game tiles carry `✓ → ×` corner
-  marks; sudoku conflicts carry `△`; minesweeper digits carry the numeral with
+  marks, and so do the dagens ord keyboard keys — the keyboard is the summary
+  a player reads instead of re-checking every past guess, so it must not fall
+  back on fill tone either; sudoku conflicts carry `△`; minesweeper digits carry the numeral with
   colour as reinforcement only, so the board reads in greyscale; mahjong
   free-vs-blocked differs by border weight, a raised bottom edge and a hatch,
   never brightness; patience red suits underline the rank; memory uses 12

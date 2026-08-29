@@ -82,6 +82,17 @@
 .key.wide { flex: 0 0 52px; max-width: 56px; font-size: 17px; }
 .key[data-key="gå"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .key.outline { background: transparent; }
+/* The same ✓ → × the tiles carry. The keyboard is the summary a player reads
+   instead of re-checking every past guess, so it is the wrong place to make
+   someone rely on fill tone: `near` had a dashed border, but `ok` and `absent`
+   were told apart by colour alone. Small, because it reinforces a fill and a
+   border rather than carrying the state by itself. */
+.key { position: relative; }
+.key[data-mark]::after {
+  content: attr(data-mark);
+  position: absolute; top: 2px; right: 3px;
+  font: 700 10px/1 var(--sans); opacity: .9;
+}
 .key.ok { background: var(--ok); color: var(--ok-ink); border-color: var(--ok); }
 .key.near { background: var(--near-soft); color: var(--near-ink); border: 2px dashed var(--near); }
 .key.absent { background: var(--absent-fill); color: var(--absent); }

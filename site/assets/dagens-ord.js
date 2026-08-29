@@ -130,7 +130,12 @@
     Array.prototype.forEach.call(keyboard.querySelectorAll('.key'), function (k) {
       var v = k.dataset.key;
       k.classList.remove('ok', 'near', 'absent');
-      if (best[v]) k.classList.add(best[v]);
+      if (best[v]) {
+        k.classList.add(best[v]);
+        k.dataset.mark = MARKS[best[v]];       // colour is never the only signal
+      } else {
+        delete k.dataset.mark;
+      }
     });
   }
 
