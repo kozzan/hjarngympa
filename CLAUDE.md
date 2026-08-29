@@ -180,6 +180,19 @@ per-screen specs. Follow them rather than improvising.
   The audience skews 45+.
 - **Tap targets are measured in rendered pixels, not board coordinates.**
   Minsvepare never draws a cell below 40px; the frame scrolls instead.
+- **A board that has to be scrolled cannot be planned on.** Kungen shows all
+  eight columns at once wherever the card can stay usable, because in FreeCell
+  every card is information. Splitting the board — sideways *or* into stacked
+  banks — hides half of it at the moment the player is deciding.
+- **Size a board from its own container, not the viewport.** `@container`, not
+  `@media`: a viewport query cannot see padding or a sidebar, so it guesses
+  wrong about the room the cards actually have. Kungen's threshold is derived
+  from the type floor — 8 columns need 44px each to fit a 17px rank beside a
+  19px suit, hence 376px — and `.pcol` carries a hard `min-width: 40px` so a
+  wrong threshold overflows visibly instead of silently shipping a 29px card.
+- **Fluid boxes need fluid type.** A card sized in `1fr` with its text fixed in
+  px overflows at the narrow end. Kungen's rank and suit are `clamp()`ed
+  against `cqw` and floored at the 17/19px minimum.
 - **Light and dark both**, via `:root` tokens and a `[data-theme]` override.
   The theme is set before first paint to avoid a flash.
 - Honour `prefers-reduced-motion`.
