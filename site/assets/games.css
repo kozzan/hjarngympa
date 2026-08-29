@@ -64,15 +64,22 @@
 .row.shake { animation: shake .16s ease-in-out; }
 
 #keyboard { display: grid; gap: 8px; margin-bottom: 16px; }
-.krow { display: flex; gap: 6px; justify-content: center; }
+/* The top row is 11 keys (qwertyuiopå). At a 30px floor plus 6px gaps that row
+   could not compress below 390px, so on a 320-390px phone it was wider than
+   the screen and pushed the page sideways. Keys shrink to fit instead: the row
+   is never wider than its container, and 44px stays the cap so they do not
+   sprawl on a tablet. Around 26px on the narrowest phone is what the OS
+   keyboard does too — 11 keys at the 48px control minimum would need 528px,
+   which no phone in portrait has. */
+.krow { display: flex; gap: 4px; justify-content: center; max-width: 100%; }
 .key {
-  min-width: 30px; flex: 1 1 30px; max-width: 44px; height: 52px;
+  min-width: 0; flex: 1 1 0; max-width: 44px; height: 52px;
   border: 1px solid var(--line); border-radius: 6px;
   background: var(--surface); color: var(--ink);
   font: 600 17px/1 var(--sans); text-transform: uppercase;
   cursor: pointer;
 }
-.key.wide { flex: 0 0 56px; max-width: 56px; font-size: 15px; }
+.key.wide { flex: 0 0 52px; max-width: 56px; font-size: 17px; }
 .key[data-key="gå"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .key.outline { background: transparent; }
 .key.ok { background: var(--ok); color: var(--ok-ink); border-color: var(--ok); }
