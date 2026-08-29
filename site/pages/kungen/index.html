@@ -1,0 +1,125 @@
+<!--meta
+title: Kungen — spela patiensen FreeCell gratis online | hjärngympa
+desc: Spela Kungen gratis i webbläsaren — patiensen där alla kort ligger uppvända och nästan varje giv går att lösa. Tryck för att välja och tryck för att lägga. Inget konto behövs.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game" style="max-width:900px">
+  <h1>Kungen</h1>
+  <p class="lead">Även kallad FreeCell. Alla kort syns från början — det är
+  ordningen du flyttar dem i som avgör.</p>
+  <p class="mono game-meta" id="kmeta">Delar ut…</p>
+
+  <div class="ktop">
+    <div class="kgroup">
+      <p class="mono" id="kcelllabel">FRIA CELLER 0/4</p>
+      <div class="kcells" id="kcells" aria-label="Fria celler"></div>
+    </div>
+    <div class="kgroup">
+      <p class="mono">ESS-HÖGAR</p>
+      <div class="kfound" id="kfound" aria-label="Ess-högar"></div>
+    </div>
+  </div>
+
+  <div class="kmeter" id="kmeter" aria-label="Antal kort du kan flytta"></div>
+
+  <div id="kboard" aria-label="Spelbord"></div>
+
+  <p id="kstatus" role="status">Tryck på ett kort för att välja det.</p>
+
+  <div class="gamectl">
+    <button type="button" id="btn-undo">↺ Ångra</button>
+    <button type="button" id="btn-same">⇱ Samma giv igen</button>
+    <button type="button" id="btn-new">↻ Ny giv</button>
+  </div>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>Löst!</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0:00</b><span>tid</span></div>
+      <div class="stat" data-stat><b>0</b><span>drag</span></div>
+      <div class="stat" data-stat><b>0</b><span>poäng</span></div>
+    </div>
+    <div class="result-actions">
+      <button class="pill" type="button" data-again>Ny giv</button>
+    </div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/patiens/">Spela harpan i stället →</a>
+  </div>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Så spelar du</h2>
+    <p>Alla 52 kort ligger uppvända från start. Ingenting är dolt och ingenting
+    hänger på tur — nästan varje giv går att lösa, och det är i vilken ordning
+    du flyttar korten som avgörandet ligger.</p>
+
+    <p>På bordet bygger du <strong>nedåt i växlande färg</strong>: en röd sjua
+    går på en svart åtta. <strong>En tom kolumn tar emot vilket kort som
+    helst</strong> — inte bara en kung, som i harpan. Det är den viktigaste
+    skillnaden mellan spelen, och den som är lättast att spela fel.</p>
+
+    <p>De fyra <strong>fria cellerna</strong> rymmer ett kort var och är ditt
+    andrum. Ju fler som står tomma, desto längre svit kan du flytta i ett drag —
+    därför är fyra fulla celler nästan alltid en dyr position. Raden ovanför
+    bordet räknar ut exakt hur många kort du kan flytta just nu.</p>
+
+    <p>Målet är de fyra <strong>ess-högarna</strong>: ess, tvåa, trea och vidare
+    upp till kung, en hög per färg. Får du upp alla 52 är given löst.</p>
+
+    <h2>Kungen eller harpan?</h2>
+    <p>Båda är patienser, men de spelas olika. I <a href="/patiens/">harpan</a>
+    ligger de flesta korten dolda och du vänder från talongen — där finns ett
+    mått av tur. I Kungen syns allt, det finns ingen talong, och en giv som
+    känns låst är nästan alltid möjlig att lösa om du backar några drag. Det är
+    därför spelet inte har någon förlust: det har lägen du behöver backa ur.</p>
+
+    <h2>Knep som faktiskt hjälper</h2>
+    <ul>
+      <li>Töm en kolumn tidigt om du kan. En tom kolumn dubblar hur lång svit du
+      kan flytta, och det är det starkaste du kan äga.</li>
+      <li>Spara cellerna. Att parkera kort där känns produktivt, men varje
+      upptagen cell kortar nästa drag.</li>
+      <li>Skynda inte upp alla ess och tvåor. Låga kort på bordet är ofta det
+      enda som håller en följd igång.</li>
+      <li>Leta efter esset som ligger djupast och planera bakåt därifrån.</li>
+    </ul>
+  </div>
+</div>
+
+<script src="/assets/kungen-core.js"></script>
+<script src="/assets/kungen.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Kungen",
+  "alternateName": ["FreeCell", "Kungen patiens"],
+  "description": "Kungen (FreeCell) — patiensen där alla kort ligger uppvända och nästan varje giv går att lösa.",
+  "url": "https://hjarngympa.se/kungen/",
+  "inLanguage": "sv-SE",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any / webbläsare",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "SEK"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>
