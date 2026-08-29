@@ -193,6 +193,12 @@ per-screen specs. Follow them rather than improvising.
 - **Fluid boxes need fluid type.** A card sized in `1fr` with its text fixed in
   px overflows at the narrow end. Kungen's rank and suit are `clamp()`ed
   against `cqw` and floored at the 17/19px minimum.
+- **A `min-width` on a repeated element is a floor on the whole row.** Dagens
+  ord's keyboard held `min-width: 30px` on 11 keys, so the top row could not
+  compress below 390px and ran off the side of every phone. Keys shrink to fit
+  now, capped at 44px. The ≥48px tap-target rule is for controls, not keyboard
+  keys — 11 keys at 48px needs 528px, which no phone has in portrait, and the
+  OS keyboard makes the same trade.
 - **Light and dark both**, via `:root` tokens and a `[data-theme]` override.
   The theme is set before first paint to avoid a flash.
 - Honour `prefers-reduced-motion`.
