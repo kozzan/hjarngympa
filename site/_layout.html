@@ -27,14 +27,13 @@
      connections early cuts a DNS+TLS handshake off each on a mobile link. -->
 <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
 <link rel="preconnect" href="https://fundingchoicesmessages.google.com" crossorigin>
-<!-- All four faces are needed for the first paint, so all four are preloaded.
-     Without this the two below are discovered only after fonts.css has parsed,
-     which put them on a three-deep critical chain: HTML -> fonts.css -> woff2.
-     Preloading costs no extra bytes; they were already being fetched. -->
+<!-- Only the two faces that paint above the fold: Newsreader 600 sets the h1,
+     which is the LCP element, and Source Sans 400 sets the body. Everything
+     else uses font-display: swap and is not needed for the first paint, so
+     preloading it would only take bandwidth from the CSS that is. On a phone
+     the constraint is bytes, not request depth. -->
 <link rel="preload" href="/assets/fonts/newsreader-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/sourcesans3-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/sourcesans3-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/ibmplexmono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <link rel="stylesheet" href="/assets/app.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">

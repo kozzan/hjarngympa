@@ -34,7 +34,7 @@ README.md for that command.
 ```
 site/_layout.html     shared shell: head, header, footer, consent, ad tag
 site/pages/**         one file per route, each with a <!--meta --> block
-site/assets/          css, js, self-hosted fonts (6 faces, latin subset only)
+site/assets/          css, js, self-hosted fonts (6 static faces, latin subset)
 site/data/            generated word lists — do not hand-edit
 tools/build.py        the whole build; stdlib only, no dependencies
 tools/test.js         node:test, no framework
@@ -104,6 +104,20 @@ Length is the only axis a shard can key on: a crossword always knows the slot
 length and often does not know the first letter. Solvers load word lists
 lazily and never load a list a page does not need. A test asserts `words.txt`
 stays out of `dist`.
+
+**Google Fonts hands out variable woff2, and one per weight is the same file.**
+`newsreader-500`/`-600` were byte-identical, as were `sourcesans3-400`/`-600`,
+so the browser fetched the same bytes from two URLs and every fetch carried a
+weight axis the site never varies. `tools/build-fonts.py` pins each file to the
+one weight `fonts.css` uses (169.6 KB -> 76.9 KB). Re-run it after any refresh
+from Google Fonts, and check `md5sum site/assets/fonts/*.woff2` for repeats.
+
+**Preload only what paints above the fold.** Every face is `font-display: swap`,
+so none of them block the first paint — preloading one takes bandwidth from the
+3 KB of CSS that does block it. On a phone the constraint is bytes, not request
+depth. The `h1` is the LCP element and is set in Newsreader 600, so that file's
+size *is* the FCP-to-LCP gap: the page paints in Georgia, then re-paints when
+the font lands, and Chrome re-records LCP on the repaint.
 
 **`render()` replaces DOM nodes.** Most games rebuild their board on every
 move, so any cached element reference goes stale. Re-query after a render.
