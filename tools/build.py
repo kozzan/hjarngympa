@@ -74,6 +74,32 @@ def route_of(rel):
     return "/" + (d + "/" if d else "")
 
 
+def build_length_shards(src, out_dir, lengths=range(2, 16)):
+    """Cut words.txt into one file per word length: len2.txt .. len15.txt.
+
+    Korsordshjalp always knows the length of the slot it is filling and often
+    does not know the first letter, so length is the only axis a shard can be
+    keyed on. The biggest shard is ~330 KB over the wire once GitHub Pages
+    gzips it, against 2.3 MB for the whole list.
+
+    Named len<N>.txt, not words<N>.txt: words9.txt already means "every word up
+    to 9 letters" and the two must not be confused.
+    """
+    if not os.path.isfile(src):
+        return
+    buckets = {n: [] for n in lengths}
+    with open(src, encoding="utf-8") as fh:
+        for line in fh:
+            w = line.strip()
+            b = buckets.get(len(w))
+            if b is not None:
+                b.append(w)
+    os.makedirs(out_dir, exist_ok=True)
+    for n, words in buckets.items():
+        with open(os.path.join(out_dir, f"len{n}.txt"), "w", encoding="utf-8") as fh:
+            fh.write("\n".join(words) + "\n")
+
+
 def main():
     if not BASE_URL.startswith(("http://", "https://")):
         raise SystemExit(
@@ -119,7 +145,13 @@ def main():
     for sub in ("assets", "data"):
         src = os.path.join(SITE, sub)
         if os.path.isdir(src):
-            shutil.copytree(src, os.path.join(DIST, sub))
+            # words.txt is the 8.6 MB source the length shards are cut from. No
+            # page fetches it, so shipping it would only invite someone to.
+            shutil.copytree(src, os.path.join(DIST, sub),
+                            ignore=shutil.ignore_patterns("words.txt"))
+
+    build_length_shards(os.path.join(SITE, "data", "words.txt"),
+                        os.path.join(DIST, "data"))
 
     # CSS carries its own root-absolute url() references (the font files), and
     # the HTML rewrite above never sees them.

@@ -517,7 +517,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 10, 'seven games + homepage + two articles');
+  assert.strictEqual(blocks, 11, 'seven games + homepage + two articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
@@ -554,4 +554,80 @@ test('streak: the count survives a stored value from an unrelated day', () => {
   const st = Streak.bump({ day: 0, n: 99, best: 99 }, new Date(2026, 7, 23));
   assert.strictEqual(st.n, 1);
   assert.strictEqual(st.best, 99);
+});
+
+// ------------------------------------------------------------- korsord ---
+
+const Kors = require(path.join(ROOT, 'site/assets/korsord-core.js'));
+
+test('korsord: a blank matches any letter, a known letter is fixed', () => {
+  const words = ['korsord', 'kirsord', 'korsare', 'kalsord'];
+  const r = Kors.search(words, 'k_rs_rd');
+  assert.deepStrictEqual(r.shown, ['korsord', 'kirsord']);
+  assert.strictEqual(r.total, 2);
+});
+
+test('korsord: regex metacharacters in the pattern cannot escape the match', () => {
+  // '(' would throw and '+' would change the grammar if the input reached the
+  // RegExp unescaped. Both must be treated as one ordinary character.
+  assert.doesNotThrow(() => Kors.toRegex('a(b'));
+  assert.deepStrictEqual(Kors.search(['a(b', 'axb', 'ab'], 'a(b').shown, ['a(b']);
+  assert.deepStrictEqual(Kors.search(['a+b', 'aab'], 'a+b').shown, ['a+b']);
+});
+
+test('korsord: every blank character people type means the same thing', () => {
+  const words = ['hus'];
+  for (const p of ['h_s', 'h?s', 'h.s', 'h s']) {
+    assert.deepStrictEqual(Kors.search(words, p).shown, ['hus'], `blank ${p}`);
+  }
+});
+
+test('korsord: a decomposed å matches a composed one', () => {
+  // 'å' arrives as U+00E5 from one keyboard and as 'a' + U+030A from another.
+  const composed = 'rått';
+  const decomposed = 'rått';
+  assert.notStrictEqual(composed, decomposed);
+  assert.deepStrictEqual(Kors.search([composed], decomposed).shown, [composed]);
+  assert.strictEqual(Kors.lengthOf(decomposed), 4);
+});
+
+test('korsord: lengths without a shard are refused, not fetched', () => {
+  assert.strictEqual(Kors.isSearchable('a'), false);
+  assert.strictEqual(Kors.isSearchable('a'.repeat(16)), false);
+  assert.strictEqual(Kors.isSearchable('a'.repeat(15)), true);
+  assert.strictEqual(Kors.search(['a'], 'a').searchable, false);
+});
+
+test('korsord: the cap limits what is rendered but not the reported total', () => {
+  const words = Array.from({ length: 500 }, (_, i) => 'ab' + String(i).padStart(3, '0'));
+  const r = Kors.search(words, '_____', 200);
+  assert.strictEqual(r.total, 500);
+  assert.strictEqual(r.shown.length, 200);
+});
+
+test('korsord: case and surrounding space do not change the result', () => {
+  assert.deepStrictEqual(Kors.search(['hus'], '  H_S  ').shown, ['hus']);
+});
+
+test('korsord: the 8.6 MB words.txt is not deployed, only the length shards', () => {
+  // The whole point of sharding. If words.txt ever lands in dist again someone
+  // will fetch it, and it will be an 8.6 MB download on a phone.
+  const dist = path.join(ROOT, 'dist/data');
+  assert.ok(!fs.existsSync(path.join(dist, 'words.txt')),
+    'words.txt must not ship — nothing fetches it and its presence invites use');
+
+  for (let n = Kors.MIN_LEN; n <= Kors.MAX_LEN; n++) {
+    const shard = path.join(dist, `len${n}.txt`);
+    assert.ok(fs.existsSync(shard), `missing shard len${n}.txt`);
+  }
+
+  // Biggest shard is ~1.2 MB raw / ~330 KB gzipped. Well under the whole list;
+  // a regression here means the sharding silently stopped working.
+  const sizes = [];
+  for (let n = Kors.MIN_LEN; n <= Kors.MAX_LEN; n++) {
+    sizes.push(fs.statSync(path.join(dist, `len${n}.txt`)).size);
+  }
+  const biggest = Math.max(...sizes);
+  assert.ok(biggest < 2 * 1024 * 1024,
+    `biggest shard is ${(biggest / 1024 / 1024).toFixed(1)} MB — sharding broke`);
 });

@@ -1,0 +1,93 @@
+<!--meta
+title: Korsordshjälp — hitta ordet från de bokstäver du redan har
+desc: Skriv in ordets längd och de bokstäver du fått fram, så får du alla svenska ord som passar. Gratis, utan konto, och sökningen sker i din egen webbläsare.
+head: <link rel="stylesheet" href="/assets/solver.css">
+priority: 1.0
+-->
+<div class="wrap cols">
+  <div>
+    <h1>Korsordshjälp</h1>
+    <p class="lead">Skriv ett understreck för varje bokstav du saknar, och
+    bokstäverna du redan har på sin plats.</p>
+
+    <form class="card search-card" id="korsord">
+      <p class="mono">Till exempel <code>k_rs__d</code> för ett sjubokstavsord
+      som börjar på k.</p>
+      <div class="rack-row">
+        <input id="pattern" name="pattern" type="text" inputmode="latin"
+               autocomplete="off" autocapitalize="none" spellcheck="false"
+               placeholder="k_rs__d" aria-label="Mönster">
+      </div>
+      <button class="pill" type="submit">Sök ord</button>
+    </form>
+
+    <p class="mono" id="kcount"></p>
+    <ul id="kresults" class="wordlist"></ul>
+
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+
+    <div class="prose" style="margin-top:48px">
+      <h2>Så skriver du mönstret</h2>
+      <p>Ett tecken per ruta. Bokstäverna du redan fått fram skriver du som de
+      är, och för varje tom ruta skriver du <code>_</code>. Har du ett ord på
+      sex bokstäver där du vet att andra bokstaven är <strong>a</strong> och
+      sista är <strong>n</strong>, skriver du <code>_a___n</code>.</p>
+      <p>Går det lika bra med <code>?</code>, <code>.</code> eller mellanslag i
+      stället för understreck — verktyget förstår alla fyra.</p>
+
+      <h2>Längden är det viktiga</h2>
+      <p>Antalet tecken du skriver är antalet bokstäver i ordet, så mönstret
+      måste vara exakt så långt som rutorna i korsordet. Det är också det som
+      gör sökningen snabb: verktyget hämtar bara ordlistan för just den
+      längden i stället för hela ordförrådet.</p>
+      <p>Ord från två till femton bokstäver går att söka på.</p>
+
+      <h2>Sökningen stannar i din webbläsare</h2>
+      <p>Ordlistan laddas ner till din enhet och genomsöks där. Ingenting du
+      skriver skickas till någon server, och vi sparar inte vad du söker på.</p>
+
+      <h2>Om du får för många träffar</h2>
+      <p>Ett mönster med bara en känd bokstav kan matcha flera tusen ord, och
+      då är listan inte till mycket hjälp. Lös en korsande rad först — varje
+      extra bokstav du fyller i skär bort de allra flesta alternativen.</p>
+
+      <h2>Ordlistan</h2>
+      <p>Orden kommer från SALDO och Kelly-listan, båda från Språkbanken Text
+      vid Göteborgs universitet. Det är ett brett ordförråd med både
+      grundformer och böjningar, så en del träffar är ord du aldrig skulle
+      sätta i ett korsord. Mer om källorna står på <a href="/om/">om-sidan</a>.</p>
+    </div>
+  </div>
+
+  <aside>
+    <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>
+  </aside>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+<script src="/assets/korsord-core.js"></script>
+<script src="/assets/korsord.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Korsordshjälp",
+  "description": "Hitta svenska ord som passar ett korsordsmönster — skriv längden och de bokstäver du redan har.",
+  "url": "https://hjarngympa.se/verktyg/korsordshjalp/",
+  "inLanguage": "sv-SE",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any / webbläsare",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "SEK"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>

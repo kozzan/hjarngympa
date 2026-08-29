@@ -19,7 +19,7 @@ All user-facing copy is in Swedish. Code, comments and commits are English.
 
 ```bash
 python3 tools/build.py            # site/pages/** -> dist/
-node --test tools/test.js         # 51 checks; CI runs this before every deploy
+node --test tools/test.js         # 59 checks; CI runs this before every deploy
 cd dist && python3 -m http.server 8765
 ```
 
@@ -97,8 +97,13 @@ DNS is still propagating, GitHub silently fails to request the certificate and
 never tries again. Fix: remove and re-add the custom domain. Symptom:
 `https_certificate` is `null` and the server presents a `*.github.io` cert.
 
-**`site/data/words.txt` is 8.6 MB.** Only the solvers load word lists, and only
-lazily. Never load the full list on a page that does not need it.
+**`site/data/words.txt` is 8.6 MB and never ships.** `tools/build.py` excludes
+it from `dist` and cuts it into `len2.txt`…`len15.txt` instead — korsordshjälp
+fetches exactly one shard (330 KB gzipped at worst) for the length it needs.
+Length is the only axis a shard can key on: a crossword always knows the slot
+length and often does not know the first letter. Solvers load word lists
+lazily and never load a list a page does not need. A test asserts `words.txt`
+stays out of `dist`.
 
 **`render()` replaces DOM nodes.** Most games rebuild their board on every
 move, so any cached element reference goes stale. Re-query after a render.
@@ -192,7 +197,6 @@ is real is the fastest way to lose them.
 ## Not built yet
 
 - Board-aware Wordfeud solving — v1 solves a rack only.
-- Korsordshjälp — would be the first consumer of the full `words.txt`.
 - Result panels are wired per game but there is no shared JS component; each
   game fills the same markup itself. Fine at seven games, worth extracting at
   ten.
