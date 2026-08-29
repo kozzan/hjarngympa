@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #D9D3C8; }
+  a { color: #B4531F; text-decoration: none; }
+  a:hover { color: #8E3F14; text-decoration: underline; }
+  * { box-sizing: border-box; }
+</style>
+</helmet>
+
+<section style="display:flex;flex-direction:column;gap:64px;padding:72px;font-family:'Source Sans 3',sans-serif;color:#221D17">
+  <div id="1a" style="display:flex;flex-direction:column;gap:56px">
+
+    <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;background:#221D17;color:#F6F2EA;padding:6px 12px;border-radius:6px">1A</div>
+      <div>
+        <div style="font-family:'Newsreader',serif;font-size:46px;font-weight:600;line-height:1.05">Kungen · /kungen/</div>
+        <div style="font-size:19px;color:#5F574C;margin-top:6px">FreeCell i befintligt system — inga nya tokens. 320 · 390 · 1280, ljust &amp; mörkt.</div>
+      </div>
+    </div>
+
+    <!-- ══ BESLUT ══ -->
+    <div style="background:#FFFDF9;border:1px solid #C8C0B2;border-radius:20px;padding:48px;display:flex;flex-direction:column;gap:32px;max-width:1280px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.16em;color:#7A7264">BESLUT PÅ DE TRE PROBLEMEN</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">1 · Åtta kolumner på 320 px</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty"><b>Två bankar om fyra kolumner, staplade.</b> Kortet krymper inte: 46 × 64 px vid 320, 52 × 72 px vid 390 — samma kort som /patiens/. Fyra kolumner får 4 × 46 + 3 × 6 = 202 px och gott om marginal; bank A–D ligger över bank E–H med 20 px luft och en mono-etikett per bank. Facket är oförändrat 34 px synlig kant per överlappat kort.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Varför inte sidoscroll: i FreeCell ligger all information framme samtidigt, och ett drag går ofta mellan kolumn 2 och kolumn 7. Vågrät scroll skulle dölja halva brädet i just det ögonblick man planerar. Att stapla kostar höjd — och lodrät scroll är den gest telefonen redan äger.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Vid 1024 px och uppåt återgår brädet till <b>en rad om åtta</b> kolumner med 88 × 124 px-kort. Zoomramen <span style="font-family:'IBM Plex Mono',monospace">.frame</span> behövs inte här — inget krymps under 40 px.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">2 · Supermove, synliggjord</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty"><b>En lugn, permanent mätare</b> sitter mellan cellerna och brädet: &quot;<b>Du kan flytta 3 kort</b>&quot; med räkningen utskriven i mono — <span style="font-family:'IBM Plex Mono',monospace">(2 FRIA CELLER + 1) × INGEN TOM KOLUMN</span>. Talet uppdateras direkt vid varje drag, så spelaren ser resursen växa och krympa i stället för att gissa.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Vid nekat drag: <b>inget tyst avslag.</b> Sekvensen skakar 160 ms, får 3 px <b>error</b>-ram och △, och statusraden byter till &quot;<b>3 kort är för många just nu — du kan flytta 1.</b> Alla fyra celler är upptagna. Lägg ett kort på en ess-hög först.&quot; Meddelandet nämner alltid både det försökta och det möjliga talet, och pekar på åtgärden.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Mätaren är också målmarkering: när ett kort är valt tonas de kort i sekvensen som <i>ryms</i> normalt, och de som faller utanför får rastret <b>hatch</b> — gränsen syns på brädet, inte bara i en siffra.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">3 · Fria celler mot ess-högar</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Två grupper som aldrig får förväxlas, skilda på fyra sätt: <b>form</b> (celler har 4 px radie och rak insänkt botten, ess-högarna 8 px och ram), <b>etikett</b> (mono <span style="font-family:'IBM Plex Mono',monospace">FRIA CELLER 2/4</span> mot <span style="font-family:'IBM Plex Mono',monospace">ESS-HÖGAR</span>), <b>innehåll</b> (tom cell visar ○, tom ess-hög visar sin färgsymbol i <b>absent</b>) och <b>plats</b> — 24 px glugg och en 1 px lodrät linje emellan.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Kostnaden görs synlig utan att tjata: räknaren <span style="font-family:'IBM Plex Mono',monospace">2/4</span> står alltid framme, och vid <span style="font-family:'IBM Plex Mono',monospace">4/4</span> får gruppen 2 px <b>near</b>-ram, glyfen ▲ och raden &quot;Alla celler upptagna — du kan flytta 1 kort&quot;. Ingen modal, ingen varning, ingen blinkning: bara ett läge som ser trängt ut.</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid #E3DCD0;padding-top:24px;font-size:18px;line-height:1.6;color:#3A342C"><b>Inga nya tokens.</b> Allt är befintligt: <span style="font-family:'IBM Plex Mono',monospace">felt card-face edge hatch sel accent ok near error absent</span> plus den delade <span style="font-family:'IBM Plex Mono',monospace">.result .seg .gamectl .diffs</span>. Kortens fack, understrykning under valören och tryck-välj är oförändrade från /patiens/.</div>
+    </div>
+
+    <!-- ══ MOBIL ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">01 · MOBIL</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">320 px · LJUST · KORT VALT, GILTIGT MÅL</div>
+          <div style="width:320px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 12px;border-bottom:1px solid #E3DCD0;background:#FFF">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:21px;font-weight:600">Kungen</div>
+              <div style="display:flex"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☾</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 12px 0">
+              <div style="height:100px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>320 × 100 · reserverad höjd</span></div>
+            </div>
+            <div style="padding:16px 12px 0">
+              <div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600;line-height:1.1">Kungen</div>
+              <div style="font-size:17px;color:#6C6358;margin-top:2px">Även kallad FreeCell · giv #2104</div>
+            </div>
+            <div style="padding:12px 12px 8px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">
+              <span>⏱ 05:12</span><span>DRAG 41</span><span>POÄNG 240</span>
+            </div>
+
+            <div style="margin:0 12px;background:#EDE7DB;border:1px solid #E3DCD0;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:12px">
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.06em;color:#6C6358;margin-bottom:5px">FRIA CELLER 2/4</div>
+                <div style="display:flex;gap:6px">
+                  <div style="width:60px;height:48px;border-radius:4px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:17px;font-weight:600;line-height:1;display:flex;gap:3px;align-items:flex-start">9<span style="font-size:20px;line-height:1">♠</span></div>
+                  <div style="width:60px;height:48px;border-radius:4px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:17px;font-weight:600;line-height:1;display:flex;gap:3px;align-items:flex-start"><span style="text-decoration:underline">D</span><span style="font-size:20px;line-height:1;text-decoration:underline">♥</span></div>
+                  <div style="width:60px;height:48px;border-radius:4px;background:#E5DFD2;border:1px solid #C8C0B2;box-shadow:inset 0 3px 0 #C8C0B2;display:grid;place-items:center;font-size:19px;color:#9A9186">○</div>
+                  <div style="width:60px;height:48px;border-radius:4px;background:#E5DFD2;border:1px solid #C8C0B2;box-shadow:inset 0 3px 0 #C8C0B2;display:grid;place-items:center;font-size:19px;color:#9A9186">○</div>
+                </div>
+              </div>
+              <div style="height:1px;background:#D6CEBF"></div>
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.06em;color:#6C6358;margin-bottom:5px">ESS-HÖGAR</div>
+                <div style="display:flex;gap:6px">
+                  <div style="width:60px;height:48px;border-radius:10px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:17px;font-weight:600;line-height:1;display:flex;gap:3px;align-items:flex-start">3<span style="font-size:20px;line-height:1">♠</span></div>
+                  <div style="width:60px;height:48px;border-radius:10px;background:#FFF;border:1px solid #C8C0B2;padding:3px 5px;font-size:17px;font-weight:600;line-height:1;display:flex;gap:3px;align-items:flex-start"><span style="text-decoration:underline">2</span><span style="font-size:20px;line-height:1;text-decoration:underline">♥</span></div>
+                  <div style="width:60px;height:48px;border-radius:10px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:20px;color:#9A9186">♦</div>
+                  <div style="width:60px;height:48px;border-radius:10px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:20px;color:#9A9186">♣</div>
+                </div>
+              </div>
+
+              <div style="background:#FFF;border:1px solid #E3DCD0;border-radius:8px;padding:10px 12px">
+                <div style="font-size:18px;font-weight:600">Du kan flytta 3 kort</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6C6358;line-height:1.35;margin-top:2px">(2 FRIA CELLER + 1) × INGEN TOM KOLUMN</div>
+              </div>
+
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;color:#6C6358;margin-bottom:5px">KOLUMN A–D</div>
+                <div style="display:flex;gap:6px">
+                  <sc-for list="{{ colsA320 }}" as="col" hint-placeholder-count="4">
+                    <div style="{{ col.wrap }}">
+                      <sc-for list="{{ col.cards }}" as="c" hint-placeholder-count="6">
+                        <div style="{{ c.style }}"><span style="{{ c.rankStyle }}">{{ c.rank }}</span><span style="{{ c.suitStyle }}">{{ c.suit }}</span><span style="{{ c.markStyle }}">{{ c.mark }}</span></div>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;color:#6C6358;margin-bottom:5px">KOLUMN E–H</div>
+                <div style="display:flex;gap:6px">
+                  <sc-for list="{{ colsB320 }}" as="col" hint-placeholder-count="4">
+                    <div style="{{ col.wrap }}">
+                      <sc-for list="{{ col.cards }}" as="c" hint-placeholder-count="6">
+                        <div style="{{ c.style }}"><span style="{{ c.rankStyle }}">{{ c.rank }}</span><span style="{{ c.suitStyle }}">{{ c.suit }}</span><span style="{{ c.markStyle }}">{{ c.mark }}</span></div>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:14px 12px 0">
+              <div style="background:#FFF;border:1px solid #E3DCD0;border-radius:10px;padding:13px 14px;font-size:18px;line-height:1.5"><b>9♠ 8♥ 7♣ valt — 3 kort.</b> Tryck på ett markerat mål, eller på sviten igen för att avmarkera.</div>
+            </div>
+            <div style="padding:12px 12px 8px;display:flex;gap:6px">
+              <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+              <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">☞ Tips</div>
+              <div style="flex:1;height:56px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Ny giv</div>
+            </div>
+
+            <div style="padding:16px 12px 28px;display:flex;flex-direction:column;gap:12px">
+              <div style="font-family:'Newsreader',serif;font-size:25px;font-weight:600">Så spelar du</div>
+              <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Alla 52 kort ligger öppet från början — ingenting är gömt, och nästan varje giv går att lösa. Det som avgör är i vilken ordning du flyttar.</div>
+              <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Bygg kolumnerna <b>nedåt i växlande färg</b>: en svart nia går på en röd tia. En tom kolumn tar emot vilket kort som helst.</div>
+              <div style="font-size:19px;line-height:1.6;text-wrap:pretty">De fyra <b>fria cellerna</b> rymmer ett kort var och är ditt andrum. Ju fler du har lediga, desto längre sviter kan du flytta i ett svep — därför är fyra fyllda celler nästan alltid ett dyrt läge.</div>
+              <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Målet är de fyra <b>ess-högarna</b>: ess först, sedan uppåt till kung, en hög per färg.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">390 px · MÖRKT · NEKAT DRAG, ALLA CELLER UPPTAGNA</div>
+          <div style="width:390px;background:#151210;color:#F1ECE3;border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #352E26;background:#1F1B17">
+              <div style="width:48px;height:48px;display:grid;place-items:center;font-size:24px">←</div>
+              <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600">Kungen</div>
+              <div style="display:flex"><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">☀</div><div style="width:48px;height:48px;display:grid;place-items:center;font-size:20px">?</div></div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:12px 16px 0">
+              <div style="height:100px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS</span><span>320 × 100</span></div>
+            </div>
+            <div style="padding:16px 16px 0">
+              <div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600;line-height:1.1">Kungen</div>
+              <div style="font-size:17px;color:#A69C90;margin-top:2px">Även kallad FreeCell · giv #2104</div>
+            </div>
+            <div style="padding:12px 16px 8px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:17px;color:#A69C90">
+              <span>⏱ 06:48</span><span>DRAG 57</span><span>POÄNG 210</span>
+            </div>
+
+            <div style="margin:0 16px;background:#1A1713;border:1px solid #352E26;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.06em;color:#C69B36;margin-bottom:5px">▲ FRIA CELLER 4/4</div>
+                  <div style="display:flex;gap:4px;border:2px solid #C69B36;border-radius:6px;padding:3px">
+                    <div style="width:34px;height:48px;border-radius:4px;background:#EFE9DD;color:#1E1A15;border:1px solid #4A4239;padding:2px 3px;font-size:15px;font-weight:600;line-height:1">9<div style="font-size:19px;margin-top:-1px">♠</div></div>
+                    <div style="width:34px;height:48px;border-radius:4px;background:#EFE9DD;color:#1E1A15;border:1px solid #4A4239;padding:2px 3px;font-size:15px;font-weight:600;line-height:1"><span style="text-decoration:underline">D</span><div style="font-size:19px;margin-top:-1px;text-decoration:underline">♥</div></div>
+                    <div style="width:34px;height:48px;border-radius:4px;background:#EFE9DD;color:#1E1A15;border:1px solid #4A4239;padding:2px 3px;font-size:15px;font-weight:600;line-height:1">4<div style="font-size:19px;margin-top:-1px">♣</div></div>
+                    <div style="width:34px;height:48px;border-radius:4px;background:#EFE9DD;color:#1E1A15;border:1px solid #4A4239;padding:2px 3px;font-size:15px;font-weight:600;line-height:1"><span style="text-decoration:underline">7</span><div style="font-size:19px;margin-top:-1px;text-decoration:underline">♦</div></div>
+                  </div>
+                </div>
+                <div style="width:1px;align-self:stretch;background:#352E26"></div>
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.06em;color:#A69C90;margin-bottom:5px">ESS-HÖGAR</div>
+                  <div style="display:flex;gap:4px;padding:3px">
+                    <div style="width:34px;height:48px;border-radius:8px;background:#EFE9DD;color:#1E1A15;border:1px solid #4A4239;padding:2px 3px;font-size:15px;font-weight:600;line-height:1">5<div style="font-size:19px;margin-top:-1px">♠</div></div>
+                    <div style="width:34px;height:48px;border-radius:8px;background:#EFE9DD;color:#1E1A15;border:1px solid #4A4239;padding:2px 3px;font-size:15px;font-weight:600;line-height:1"><span style="text-decoration:underline">2</span><div style="font-size:19px;margin-top:-1px;text-decoration:underline">♥</div></div>
+                    <div style="width:34px;height:48px;border-radius:8px;border:1px dashed #4A4239;display:grid;place-items:center;font-size:19px;color:#5F574E">♦</div>
+                    <div style="width:34px;height:48px;border-radius:8px;border:1px dashed #4A4239;display:grid;place-items:center;font-size:19px;color:#5F574E">♣</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background:#33201B;border:2px solid #C4553A;border-radius:8px;padding:11px 13px;display:flex;align-items:center;gap:10px">
+                <div style="width:30px;height:30px;border-radius:999px;border:2px solid #C4553A;color:#F2907A;display:grid;place-items:center;font-size:16px;flex:none">△</div>
+                <div style="font-size:18px;line-height:1.4"><b>3 kort är för många just nu — du kan flytta 1.</b> Alla fyra celler är upptagna. Lägg ett kort på en ess-hög eller i en kolumn först.</div>
+              </div>
+
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;color:#A69C90;margin-bottom:5px">KOLUMN A–D</div>
+                <div style="display:flex;gap:8px">
+                  <sc-for list="{{ colsA390 }}" as="col" hint-placeholder-count="4">
+                    <div style="{{ col.wrap }}">
+                      <sc-for list="{{ col.cards }}" as="c" hint-placeholder-count="6">
+                        <div style="{{ c.style }}"><span style="{{ c.rankStyle }}">{{ c.rank }}</span><span style="{{ c.suitStyle }}">{{ c.suit }}</span><span style="{{ c.markStyle }}">{{ c.mark }}</span></div>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;color:#A69C90;margin-bottom:5px">KOLUMN E–H</div>
+                <div style="display:flex;gap:8px">
+                  <sc-for list="{{ colsB390 }}" as="col" hint-placeholder-count="4">
+                    <div style="{{ col.wrap }}">
+                      <sc-for list="{{ col.cards }}" as="c" hint-placeholder-count="6">
+                        <div style="{{ c.style }}"><span style="{{ c.rankStyle }}">{{ c.rank }}</span><span style="{{ c.suitStyle }}">{{ c.suit }}</span><span style="{{ c.markStyle }}">{{ c.mark }}</span></div>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:14px 16px 8px;display:flex;gap:8px">
+              <div style="flex:1;height:56px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+              <div style="flex:1;height:56px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">☞ Tips</div>
+              <div style="flex:1;height:56px;border:1px solid #352E26;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Ny giv</div>
+            </div>
+            <div style="padding:8px 16px 28px;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A69C90;text-align:center">Röd färg = understruken symbol · dubbeltryck lägger på ess-högen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DESKTOP ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">02 · DESKTOP 1280 · LJUST · EN RAD OM ÅTTA</div>
+      <div style="width:1280px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+        <div style="background:#FFF;border-bottom:1px solid #E3DCD0;padding:20px 48px;display:flex;align-items:center;gap:40px">
+          <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600">hjärngympa<span style="color:#B4531F">.se</span></div>
+          <div style="display:flex;gap:28px;font-size:19px"><span style="color:#B4531F;font-weight:600">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+          <div style="margin-left:auto"></div>
+          <div style="width:48px;height:48px;border:1px solid #E3DCD0;border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:48px">
+          <div style="display:flex;flex-direction:column;gap:24px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <div>
+                <div style="font-family:'Newsreader',serif;font-size:38px;font-weight:600">Kungen</div>
+                <div style="font-size:18px;color:#6C6358">Även kallad FreeCell</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:#6C6358">GIV #2104 · ⏱ 05:12 · DRAG 41 · POÄNG 240</div>
+            </div>
+
+            <div style="background:#EDE7DB;border:1px solid #E3DCD0;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;align-items:flex-start;gap:24px">
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.06em;color:#6C6358;margin-bottom:8px">FRIA CELLER 2/4</div>
+                  <div style="display:flex;gap:10px">
+                    <div style="width:88px;height:124px;border-radius:4px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:22px;font-weight:600;line-height:1">9<div style="font-size:28px;margin-top:2px">♠</div></div>
+                    <div style="width:88px;height:124px;border-radius:4px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:22px;font-weight:600;line-height:1"><span style="text-decoration:underline">D</span><div style="font-size:28px;margin-top:2px;text-decoration:underline">♥</div></div>
+                    <div style="width:88px;height:124px;border-radius:4px;background:#E5DFD2;border:1px solid #C8C0B2;box-shadow:inset 0 3px 0 #C8C0B2;display:grid;place-items:center;font-size:26px;color:#9A9186">○</div>
+                    <div style="width:88px;height:124px;border-radius:4px;background:#E5DFD2;border:1px solid #C8C0B2;box-shadow:inset 0 3px 0 #C8C0B2;display:grid;place-items:center;font-size:26px;color:#9A9186">○</div>
+                  </div>
+                </div>
+                <div style="width:1px;align-self:stretch;background:#D6CEBF;margin-top:26px"></div>
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.06em;color:#6C6358;margin-bottom:8px">ESS-HÖGAR</div>
+                  <div style="display:flex;gap:10px">
+                    <div style="width:88px;height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:22px;font-weight:600;line-height:1">3<div style="font-size:28px;margin-top:2px">♠</div></div>
+                    <div style="width:88px;height:124px;border-radius:8px;background:#FFF;border:1px solid #C8C0B2;padding:6px 8px;font-size:22px;font-weight:600;line-height:1"><span style="text-decoration:underline">2</span><div style="font-size:28px;margin-top:2px;text-decoration:underline">♥</div></div>
+                    <div style="width:88px;height:124px;border-radius:8px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:34px;color:#9A9186">♦</div>
+                    <div style="width:88px;height:124px;border-radius:8px;border:1px dashed #C8C0B2;display:grid;place-items:center;font-size:34px;color:#9A9186">♣</div>
+                  </div>
+                </div>
+                <div style="margin-left:auto;background:#FFF;border:1px solid #E3DCD0;border-radius:12px;padding:16px 20px;min-width:230px">
+                  <div style="font-size:21px;font-weight:600">Du kan flytta 3 kort</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358;margin-top:4px;line-height:1.4">(2 FRIA CELLER + 1)<br>× INGEN TOM KOLUMN</div>
+                  <div style="font-size:17px;color:#6C6358;margin-top:8px;line-height:1.45">Fler lediga celler eller tomma kolumner ger längre svit.</div>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <sc-for list="{{ colsDesk }}" as="col" hint-placeholder-count="8">
+                  <div style="{{ col.wrap }}">
+                    <sc-for list="{{ col.cards }}" as="c" hint-placeholder-count="7">
+                      <div style="{{ c.style }}"><span style="{{ c.rankStyle }}">{{ c.rank }}</span><span style="{{ c.suitStyle }}">{{ c.suit }}</span><span style="{{ c.markStyle }}">{{ c.mark }}</span></div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:#FFF;border:1px solid #E3DCD0;border-radius:10px;padding:14px 18px;font-size:19px"><b>9♠ 8♥ 7♣ valt — 3 kort.</b> Tryck på ett markerat mål, eller på sviten igen för att avmarkera.</div>
+            <div style="display:flex;gap:12px">
+              <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↺ Ångra</div>
+              <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">☞ Tips</div>
+              <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">↻ Ny giv</div>
+              <div style="height:56px;padding:0 26px;border:1px solid #E3DCD0;background:#FFF;border-radius:10px;display:grid;place-items:center;font-size:17px;font-weight:600">⇱ Samma giv igen</div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#6C6358">PILTANGENTER väljer kolumn · MELLANSLAG tar/lägger · 1–4 fria celler · A lägger på ess-högen · CTRL+Z ångrar</div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:860px;margin-top:8px">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">Så spelar du</div>
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Alla 52 kort ligger öppet från början — ingenting är gömt, och nästan varje giv går att lösa. Det som avgör är i vilken ordning du flyttar.</div>
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Bygg kolumnerna <b>nedåt i växlande färg</b>: en svart nia går på en röd tia. En tom kolumn tar emot vilket kort som helst — till skillnad från patiens, där bara kungar får flytta in.</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty;margin-top:52px">De fyra <b>fria cellerna</b> rymmer ett kort var och är ditt andrum. Ju fler du har lediga, desto längre sviter kan du flytta i ett svep — därför är fyra fyllda celler nästan alltid ett dyrt läge.</div>
+                <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Målet är de fyra <b>ess-högarna</b>: ess först, sedan uppåt till kung, en hög per färg. När alla 52 kort ligger där är given löst.</div>
+              </div>
+            </div>
+
+            <div hidden="{{ adsHidden }}" style="width:336px;height:280px;margin-top:16px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS · UNDER SPELYTAN</span><span>336 × 280 · 40 px luft</span></div>
+          </div>
+          <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS</span><span>300 × 600 · bort under 1024 px</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TILLSTÅND ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">03 · TILLSTÅND &amp; RESULTAT</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div style="width:660px;background:#FFFDF9;border:1px solid #C8C0B2;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:28px">
+          <div>
+            <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-bottom:6px">Fri cell · fyra tillstånd</div>
+            <div style="font-size:18px;color:#6C6358;margin-bottom:18px">Rak 4 px radie och insänkt överkant skiljer cellen från ess-högens 8 px och ram.</div>
+            <div style="display:flex;gap:18px;flex-wrap:wrap">
+              <div style="text-align:center;width:104px"><div style="width:68px;height:96px;margin:0 auto;border-radius:4px;background:#E5DFD2;border:1px solid #C8C0B2;box-shadow:inset 0 3px 0 #C8C0B2;display:grid;place-items:center;font-size:24px;color:#9A9186">○</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">tom<br>○ + insänkt</div></div>
+              <div style="text-align:center;width:104px"><div style="width:68px;height:96px;margin:0 auto;border-radius:4px;background:#FFF;border:1px solid #C8C0B2;padding:5px 7px;font-size:19px;font-weight:600;line-height:1">9<div style="font-size:24px;margin-top:2px">♠</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">upptagen<br>vanligt kort</div></div>
+              <div style="text-align:center;width:104px"><div style="width:68px;height:96px;margin:0 auto;border-radius:4px;background:#F1E6D9;border:2px dashed #B4531F;display:grid;place-items:center;font-size:24px;color:#B4531F;position:relative">○<span style="position:absolute;bottom:3px;right:5px;font-size:14px">▾</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">giltigt mål<br>streckad + ▾</div></div>
+              <div style="text-align:center;width:104px"><div style="width:68px;height:96px;margin:0 auto;border-radius:4px;background:#E5DFD2;border:1px solid #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px);display:grid;place-items:center;font-size:24px;color:#9A9186">○</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">ej möjlig nu<br>raster</div></div>
+              <div style="text-align:center;width:104px"><div style="width:68px;height:96px;margin:0 auto;border-radius:4px;background:#FFF;border:1px solid #C8C0B2;padding:5px 7px;font-size:19px;font-weight:600;line-height:1;outline:3px solid #B4531F;outline-offset:2px">4<div style="font-size:24px;margin-top:2px">♣</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3">tangentfokus<br>3 px accent</div></div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid #E3DCD0;padding-top:24px">
+            <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-bottom:6px">Cellgruppens läge</div>
+            <div style="font-size:18px;color:#6C6358;margin-bottom:18px">Kostnaden syns i räknaren och i ramen — aldrig i en modal.</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:center;gap:16px"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6C6358;width:130px;flex:none">0–2 UPPTAGNA</div><div style="display:flex;gap:4px;padding:3px;border:2px solid transparent"><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#E5DFD2;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#E5DFD2;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#E5DFD2;border:1px solid #C8C0B2"></div></div><div style="font-size:18px">Neutralt. Räknaren står framme.</div></div>
+              <div style="display:flex;align-items:center;gap:16px"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#B98A22;width:130px;flex:none">▲ 4/4</div><div style="display:flex;gap:4px;padding:3px;border:2px solid #B98A22;border-radius:6px"><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div></div><div style="font-size:18px">2 px <b>near</b>-ram + ▲ i etiketten.</div></div>
+              <div style="display:flex;align-items:center;gap:16px"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#A2331A;width:130px;flex:none">△ INGA DRAG</div><div style="display:flex;gap:4px;padding:3px;border:2px solid #A2331A;border-radius:6px;background:#F6E2DB"><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div><div style="width:26px;height:36px;border-radius:3px;background:#FFF;border:1px solid #C8C0B2"></div></div><div style="font-size:18px">Låst läge: erbjud <b>Ångra</b> i statusraden.</div></div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid #E3DCD0;padding-top:24px">
+            <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-bottom:6px">Svit &amp; supermove</div>
+            <div style="font-size:18px;color:#6C6358;margin-bottom:18px">Gränsen ritas på brädet: det som ryms tonas normalt, resten får raster.</div>
+            <div style="display:flex;gap:28px;align-items:flex-start">
+              <div>
+                <div style="display:flex;flex-direction:column">
+                  <div style="width:68px;height:34px;border-radius:6px 6px 0 0;background:#F1E6D9;border:3px solid #B4531F;border-bottom:none;padding:3px 6px;font-size:17px;font-weight:600;color:#B4531F;line-height:1">9<span style="margin-left:3px">♠</span></div>
+                  <div style="width:68px;height:34px;border-radius:0;background:#F1E6D9;border:3px solid #B4531F;border-top:none;border-bottom:none;padding:3px 6px;font-size:17px;font-weight:600;color:#B4531F;line-height:1"><span style="text-decoration:underline">8</span><span style="margin-left:3px;text-decoration:underline">♥</span></div>
+                  <div style="width:68px;height:52px;border-radius:0 0 6px 6px;background:#F1E6D9;border:3px solid #B4531F;border-top:none;padding:3px 6px;font-size:17px;font-weight:600;color:#B4531F;line-height:1">7<span style="margin-left:3px">♣</span></div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3;width:96px">ryms<br>3 av 5</div>
+              </div>
+              <div>
+                <div style="display:flex;flex-direction:column">
+                  <div style="width:68px;height:34px;border-radius:6px 6px 0 0;background:#FFF;border:1px solid #C8C0B2;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px);padding:3px 6px;font-size:17px;font-weight:600;color:#9A9186;line-height:1">6<span style="margin-left:3px;text-decoration:underline">♦</span></div>
+                  <div style="width:68px;height:52px;border-radius:0 0 6px 6px;background:#FFF;border:1px solid #C8C0B2;border-top:none;background-image:repeating-linear-gradient(45deg,transparent 0 4px,rgba(30,26,21,.10) 4px 5px);padding:3px 6px;font-size:17px;font-weight:600;color:#9A9186;line-height:1">5<span style="margin-left:3px">♣</span></div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3;width:96px">utanför<br>gränsen</div>
+              </div>
+              <div>
+                <div style="display:flex;flex-direction:column">
+                  <div style="width:68px;height:34px;border-radius:6px 6px 0 0;background:#F6E2DB;border:3px solid #A2331A;border-bottom:none;padding:3px 6px;font-size:17px;font-weight:600;color:#A2331A;line-height:1">9<span style="margin-left:3px">♠</span></div>
+                  <div style="width:68px;height:52px;border-radius:0 0 6px 6px;background:#F6E2DB;border:3px solid #A2331A;border-top:none;padding:3px 6px;font-size:17px;font-weight:600;color:#A2331A;line-height:1;position:relative">8<span style="margin-left:3px;text-decoration:underline">♥</span><span style="position:absolute;bottom:2px;right:4px;font-size:14px">△</span></div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7A7264;margin-top:8px;line-height:1.3;width:96px">nekat drag<br>skak 160 ms + △</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid #E3DCD0;padding-top:24px;font-size:18px;line-height:1.6;color:#3A342C">
+            <b>Får inte missas:</b> supermove-talet måste räknas om <i>före</i> varje avslag och stå i meddelandet — tyst nekande är felet som gör att spelare tror att spelet är trasigt. Fria celler och ess-högar får aldrig ha samma form eller radie. Kort behåller <b>card-face</b> ljust i mörkt läge, röda symboler bär understrykning under valören. Tom kolumn tar vilket kort som helst — säg det i &quot;Så spelar du&quot;, annars spelar Klondike-vana besökare fel. Ingen annons inom 40 px från brädet, och statusraden ligger alltid mellan brädet och knapparna så att den läses utan att man tappar handen.
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">RESULTAT · 390 px · VINST (LJUST) &amp; LÅST LÄGE (MÖRKT)</div>
+          <div style="display:flex;gap:24px">
+            <div style="width:390px;background:#F6F2EA;color:#1E1A15;border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+              <div style="margin:16px;background:#FFF;border:2px solid #4C6B3C;border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:20px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:44px;height:44px;border-radius:999px;background:#E9EFE1;border:2px solid #4C6B3C;display:grid;place-items:center;font-size:22px;color:#4C6B3C;flex:none">✓</div>
+                  <div>
+                    <div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600;line-height:1.1">Löst!</div>
+                    <div style="font-size:18px;color:#6C6358">Giv #2104 · alla 52 kort hemma</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:12px">
+                  <div style="flex:1;border:1px solid #E3DCD0;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">05:12</div><div style="font-size:16px;color:#6C6358">tid</div></div>
+                  <div style="flex:1;border:1px solid #E3DCD0;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">58</div><div style="font-size:16px;color:#6C6358">drag</div></div>
+                  <div style="flex:1;border:1px solid #E3DCD0;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">640</div><div style="font-size:16px;color:#6C6358">poäng</div></div>
+                </div>
+                <div style="height:56px;background:#B4531F;color:#FFF;border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">Ny giv</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#6C6358;text-align:center">TVÅ CELLER OANVÄNDA HELA GIVEN</div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="padding:0 16px">
+                <div style="height:280px;border:1px dashed #E3DCD0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.035) 8px,rgba(0,0,0,.035) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#6C6358"><span>ANNONS · EFTER OMGÅNG</span><span>336 × 280</span></div>
+              </div>
+              <div style="padding:16px 16px 28px"><div style="height:56px;border:1px solid #E3DCD0;border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Prova patiens →</div></div>
+            </div>
+            <div style="width:390px;background:#151210;color:#F1ECE3;border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+              <div style="margin:16px;background:#1F1B17;border:2px solid #C69B36;border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:20px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:44px;height:44px;border-radius:999px;background:#312817;border:2px solid #C69B36;display:grid;place-items:center;font-size:22px;color:#E8C67A;flex:none">▲</div>
+                  <div>
+                    <div style="font-family:'Newsreader',serif;font-size:28px;font-weight:600;line-height:1.15">Inga drag kvar</div>
+                    <div style="font-size:18px;color:#A69C90">Given är inte förlorad — backa några drag.</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:12px">
+                  <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">06:48</div><div style="font-size:16px;color:#A69C90">tid</div></div>
+                  <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">57</div><div style="font-size:16px;color:#A69C90">drag</div></div>
+                  <div style="flex:1;border:1px solid #352E26;border-radius:10px;padding:14px;text-align:center"><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:600">210</div><div style="font-size:16px;color:#A69C90">poäng</div></div>
+                </div>
+                <div style="height:56px;background:#E58A46;color:#1B1410;border-radius:999px;display:grid;place-items:center;font-size:20px;font-weight:600">↺ Ångra sista draget</div>
+                <div style="height:56px;border:1px solid #352E26;border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">↻ Ny giv</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#A69C90;text-align:center">SAMMA GIV IGEN: TRYCK R</div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="padding:0 16px">
+                <div style="height:280px;border:1px dashed #352E26;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#A69C90"><span>ANNONS · EFTER OMGÅNG</span><span>336 × 280</span></div>
+              </div>
+              <div style="padding:16px 16px 28px"><div style="height:56px;border:1px solid #352E26;border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600">Prova sudoku →</div></div>
+            </div>
+          </div>
+          <div style="width:804px;font-size:18px;color:#3A342C;margin-top:14px;line-height:1.55">Delad <span style="font-family:'IBM Plex Mono',monospace">.result</span>: rubrik, enrads utfall, tre statlådor (<b>tid / drag / poäng</b> som /patiens/), accentpill, 336 × 280 och outline-korslänk. Kungen har ingen förlust — bara <b>låst läge</b>, ramat i <b>near</b> med ▲, och primärknappen är <b>Ångra</b>, inte ny giv: nästan varje giv går att lösa och spelaren ska inte tappa den.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600},&quot;showAds&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Presentation&quot;}}">
+const L = { face:'#FFFFFF', ink:'#1E1A15', edge:'#C8C0B2', accent:'#B4531F', sel:'#F1E6D9', muted:'#9A9186', errFill:'#F6E2DB', errLine:'#A2331A', errInk:'#A2331A' };
+const D = { face:'#EFE9DD', ink:'#1E1A15', edge:'#4A4239', accent:'#E58A46', sel:'#F1E6D9', muted:'#9A9186', errFill:'#F6E2DB', errLine:'#A2331A', errInk:'#A2331A' };
+
+const DEAL = [
+  [['K','♣',0],['7','♥',1],['5','♠',0],['4','♦',1],['D','♣',0],['6','♥',1]],
+  [['3','♦',1],['10','♠',0],['5','♥',1],['J','♣',0],['2','♦',1],['8','♠',0]],
+  [['9','♥',1],['4','♠',0],['9','♠',0],['8','♥',1],['7','♣',0],['10','♥',1]],
+  [['J','♦',1],['2','♣',0],['8','♣',0],['3','♠',0],['10','♦',1],['7','♠',0]],
+  [['6','♠',0],['J','♥',1],['4','♣',0],['9','♦',1],['3','♥',1],['10','♣',0]],
+  [['5','♦',1],['K','♠',0],['7','♦',1],['2','♥',1],['8','♦',1],['D','♠',0]],
+  [['6','♣',0],['4','♥',1],['J','♠',0],['6','♦',1],['K','♥',1],['3','♣',0]],
+  [['2','♠',0],['D','♥',1],['5','♣',0],['9','♣',0],['K','♦',1],['D','♦',1]]
+];
+
+class Component extends DCLogic {
+  cols(p, opts) {
+    // fan = visible edge per overlapped card (34 px per Handoff §3), top card keeps full height
+    const { w, h, fan, per, perCol, from, count, selCol, selFrom, targetCol, mode } = opts;
+    const err = mode === 'error';
+    const out = [];
+    for (let i = 0; i < count; i++) {
+      const src = DEAL[from + i];
+      const n = Math.min((perCol && perCol[i]) || per, src.length);
+      const cards = [];
+      for (let j = 0; j < n; j++) {
+        const [r, s, red] = src[j];
+        const last = j === n - 1;
+        const sel = selCol === i && j >= selFrom;
+        const tgt = targetCol === i && last;
+        // the card directly above a lifted selection keeps its full 34 px strip: it gains the 6 px the lift takes
+        const aboveSel = selCol === i && !err && j === selFrom - 1;
+        const base = {
+          width: w + 'px', height: (last ? h : fan + (aboveSel ? 6 : 0)) + 'px',
+          borderRadius: last ? '6px' : '6px 6px 0 0', background: p.face, color: p.ink,
+          border: '1px solid ' + p.edge, borderBottom: last ? '1px solid ' + p.edge : 'none',
+          padding: '3px 5px', fontSize: Math.round(w * 0.34) + 'px',
+          fontWeight: 600, lineHeight: 1, flex: 'none', display: 'flex', gap: '2px',
+          alignItems: 'flex-start', position: 'relative'
+        };
+        let style = base, mark = '', markStyle = {};
+        if (sel && err) style = { ...base, background: p.errFill, border: '3px solid ' + p.errLine, borderBottom: last ? '3px solid ' + p.errLine : 'none', color: p.errInk };
+        else if (sel) style = { ...base, background: p.sel, border: '3px solid ' + p.accent, borderBottom: last ? '3px solid ' + p.accent : 'none', color: p.accent, top: '-6px' };
+        else if (tgt) style = { ...base, border: '2px dashed ' + p.accent, borderBottom: '2px dashed ' + p.accent };
+        if (sel && err && last) { mark = '△'; }
+        else if (tgt) { mark = '▾'; }
+        if (mark) markStyle = { position: 'absolute', bottom: '2px', right: '4px',
+          fontSize: Math.round(w * 0.28) + 'px', color: err ? p.errInk : p.accent, lineHeight: 1 };
+        cards.push({
+          style, rank: r, suit: s, mark, markStyle,
+          rankStyle: { textDecoration: red ? 'underline' : 'none' },
+          suitStyle: { fontSize: Math.round(w * 0.42) + 'px', textDecoration: red ? 'underline' : 'none', lineHeight: 1 }
+        });
+      }
+      out.push({ wrap: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }, cards });
+    }
+    return out;
+  }
+  renderVals() {
+    return {
+      adsHidden: !(this.props.showAds ?? true),
+      colsA320: this.cols(L, { w: 46, h: 64, fan: 34, per: 5, from: 0, count: 4, selCol: 2, selFrom: 2, targetCol: 3 }),
+      colsB320: this.cols(L, { w: 46, h: 64, fan: 34, per: 4, from: 4, count: 4, selCol: -1, selFrom: 9, targetCol: -1 }),
+      colsA390: this.cols(D, { w: 52, h: 72, fan: 34, per: 5, from: 0, count: 4, selCol: 2, selFrom: 2, targetCol: -1, mode: 'error' }),
+      colsB390: this.cols(D, { w: 52, h: 72, fan: 34, per: 4, from: 4, count: 4, selCol: -1, selFrom: 9, targetCol: -1 }),
+      colsDesk: this.cols(L, { w: 88, h: 124, fan: 48, per: 6, perCol: { 2: 5, 3: 5 }, from: 0, count: 8, selCol: 2, selFrom: 2, targetCol: 3 })
+    };
+  }
+}
+</script>
+</body>
+</html>

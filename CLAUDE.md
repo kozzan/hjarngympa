@@ -39,6 +39,7 @@ site/data/            generated word lists — do not hand-edit
 tools/build.py        the whole build; stdlib only, no dependencies
 tools/test.js         node:test, no framework
 docs/design/          Claude Design handoffs — the visual source of truth
+                      (HANDOFF-kungen.md is spec-only; /kungen/ is not built)
 docs/superpowers/     the original design spec, with the keyword research
 ```
 
