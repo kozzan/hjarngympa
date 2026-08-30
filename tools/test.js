@@ -517,7 +517,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 13, 'nine games + homepage + two articles + korsordshjälp');
+  assert.strictEqual(blocks, 14, 'ten games + homepage + two articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
@@ -963,4 +963,125 @@ test('spindelharpan: a move that completes a suit collects it without being aske
   assert.strictEqual(next.foundations.length, 1, 'the finished suit leaves on its own');
   assert.strictEqual(next.cols[0].length, 1, 'only the hidden seven is left');
   assert.strictEqual(next.cols[0][0].up, true, 'and it is now face up');
+});
+
+// --------------------------------------------------------- hänga gubbe ---
+
+const Hang = require(path.join(ROOT, 'site/assets/hanga-gubbe-core.js'));
+const HangWords = require(path.join(ROOT, 'site/assets/hanga-gubbe-words.js'));
+
+const show = (st) => Hang.mask(st).map((c) => c || '_').join('');
+
+test('hänga gubbe: å, ä and ö are their own letters', () => {
+  // Guessing A must not light up Å or Ä. This is the bug that makes a Swedish
+  // hangman feel rigged, and it is invisible in an English test suite.
+  let st = Hang.create('snöuggla');
+  st = Hang.guess(st, 'a');
+  assert.strictEqual(show(st), '_______a', 'a must not reveal ö');
+  st = Hang.guess(st, 'o');
+  assert.strictEqual(show(st), '_______a', 'o must not reveal ö either');
+  assert.strictEqual(Hang.remaining(st), 5, 'and o was simply wrong');
+  st = Hang.guess(st, 'ö');
+  assert.strictEqual(show(st), '__ö____a');
+});
+
+test('hänga gubbe: a correct guess reveals every occurrence at once', () => {
+  let st = Hang.create('pannkaka');
+  st = Hang.guess(st, 'a');
+  assert.strictEqual(show(st), '_a___a_a', 'all three a:s at once');
+  assert.strictEqual(Hang.found(st), 3);
+});
+
+test('hänga gubbe: a repeat or a non-letter never burns a guess', () => {
+  let st = Hang.create('korv');
+  st = Hang.guess(st, 'z');
+  assert.strictEqual(Hang.remaining(st), 5, 'z was a real miss');
+  assert.strictEqual(Hang.guess(st, 'z'), null, 'a repeat is refused outright');
+  assert.strictEqual(Hang.guess(st, '7'), null, 'so is a non-letter');
+  assert.strictEqual(Hang.guess(st, ''), null, 'and an empty guess');
+  assert.strictEqual(Hang.remaining(st), 5, 'none of that cost anything');
+
+  // Uppercase is normalised, so it counts as the letter it is.
+  const upper = Hang.guess(st, 'K');
+  assert.ok(upper, 'K is accepted');
+  assert.strictEqual(show(upper), 'k___', 'and reveals the k');
+  assert.strictEqual(Hang.guess(upper, 'k'), null, 'k is now a repeat');
+});
+
+test('hänga gubbe: six wrong guesses is a loss, five is not', () => {
+  let st = Hang.create('lax');
+  for (const ch of ['b', 'c', 'd', 'f', 'g']) st = Hang.guess(st, ch);
+  assert.strictEqual(Hang.remaining(st), 1);
+  assert.ok(!Hang.isLost(st), 'five wrong is still alive');
+  st = Hang.guess(st, 'h');
+  assert.strictEqual(Hang.remaining(st), 0);
+  assert.ok(Hang.isLost(st));
+  assert.strictEqual(Hang.guess(st, 'l'), null, 'a finished game takes no more guesses');
+});
+
+test('hänga gubbe: the word is won when every letter is revealed', () => {
+  let st = Hang.create('ost');
+  for (const ch of ['o', 's']) st = Hang.guess(st, ch);
+  assert.ok(!Hang.isWon(st));
+  st = Hang.guess(st, 't');
+  assert.ok(Hang.isWon(st));
+  assert.strictEqual(Hang.remaining(st), 6, 'won without a single wrong guess');
+});
+
+test('hänga gubbe: the five views of the state always agree', () => {
+  // Revealed letters, ok keys, absent keys, the found count and the pips are
+  // five renderings of one state. If they can disagree the UI will show it.
+  let st = Hang.create('kladdkaka');
+  for (const ch of ['a', 'k', 'q', 'd', 'z']) st = Hang.guess(st, ch);
+  const revealed = Hang.mask(st).filter(Boolean).length;
+  const okKeys = Hang.ALPHABET.filter((c) => Hang.keyState(st, c) === 'ok');
+  const absentKeys = Hang.ALPHABET.filter((c) => Hang.keyState(st, c) === 'absent');
+  assert.strictEqual(revealed, Hang.found(st), 'mask and found must match');
+  assert.deepStrictEqual(okKeys.sort(), ['a', 'd', 'k'], 'ok keys are the hits');
+  assert.deepStrictEqual(absentKeys.sort(), ['q', 'z'], 'absent keys are the misses');
+  assert.strictEqual(Hang.remaining(st), Hang.MAX_WRONG - absentKeys.length,
+    'pips must equal the misses');
+});
+
+test('hänga gubbe: a hint never points at a letter already shown', () => {
+  let st = Hang.create('morot');
+  st = Hang.guess(st, 'o');
+  const h = Hang.hintLetter(st);
+  assert.ok(h && 'mrt'.includes(h), `hint ${h} should be an unrevealed letter`);
+});
+
+test('hänga gubbe: every curated word is lowercase Swedish letters only', () => {
+  for (const cat of HangWords.CATEGORIES) {
+    assert.ok(cat.words.length >= 10, `${cat.id} is too short to feel varied`);
+    const bad = cat.words.filter((w) => !/^[a-zåäö]{3,}$/.test(w));
+    assert.deepStrictEqual(bad, [], `${cat.id} holds unusable words`);
+  }
+  const blandat = HangWords.byId('blandat').words;
+  assert.ok(blandat.length > HangWords.byId('djur').words.length,
+    'blandat must actually mix the categories');
+});
+
+test('hänga gubbe: a hint costs a guess without faking a wrong letter', () => {
+  let st = Hang.create('morot');
+  st = Hang.guess(st, 'z');                      // one real miss
+  const before = Hang.remaining(st);
+  st = Hang.useHint(st);
+  assert.strictEqual(Hang.remaining(st), before - 1, 'the hint cost one guess');
+  assert.strictEqual(st.wrong.length, 1, 'but wrong still holds only the real miss');
+  assert.strictEqual(st.hints, 1);
+  // The invariant the UI depends on: × keys and spent pips stay in step.
+  const absent = Hang.ALPHABET.filter((c) => Hang.keyState(st, c) === 'absent');
+  assert.deepStrictEqual(absent, ['z'], 'no fake letter leaked onto the keyboard');
+  assert.ok(Hang.found(st) > 0, 'and it actually revealed something');
+});
+
+test('hänga gubbe: hints can lose the word, which is the point', () => {
+  let st = Hang.create('surströmming');
+  for (let i = 0; i < 6 && !Hang.isLost(st); i++) {
+    const next = Hang.useHint(st);
+    if (!next) break;
+    st = next;
+  }
+  assert.ok(Hang.isLost(st) || Hang.isWon(st), 'six hints must resolve the game');
+  assert.strictEqual(Hang.useHint(st), null, 'a finished game gives no more hints');
 });

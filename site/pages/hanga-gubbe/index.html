@@ -1,0 +1,132 @@
+<!--meta
+title: Hänga gubbe — spela ordleken gratis online | hjärngympa
+desc: Spela hänga gubbe gratis i webbläsaren. Svenska ord i fyra kategorier, sex gissningar, och en snögubbe i stället för galge om du vill. Inget konto behövs.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game" style="max-width:720px">
+  <h1>Hänga gubbe</h1>
+  <p class="lead">Sex gissningar på ett svenskt ord. Å, Ä och Ö räknas som egna
+  bokstäver — precis som de ska.</p>
+  <p class="mono game-meta" id="hgmeta">Hämtar ord…</p>
+
+  <div class="diffs" id="hgcats">
+    <button type="button" data-cat="djur" aria-pressed="true">Djur</button>
+    <button type="button" data-cat="mat" aria-pressed="false">Mat</button>
+    <button type="button" data-cat="stader" aria-pressed="false">Städer</button>
+    <button type="button" data-cat="blandat" aria-pressed="false">Blandat</button>
+  </div>
+
+  <div class="hgtop">
+    <div class="hgmeter" id="hgmeter" aria-hidden="false"></div>
+    <div class="hgcount">
+      <div class="hgpips" id="hgpips"></div>
+      <p id="hgleft">6 av 6 gissningar kvar</p>
+    </div>
+  </div>
+
+  <div class="hgword" id="hgword" aria-label="Ordet"></div>
+  <p class="mono hgcap" id="hgcap">—</p>
+
+  <div id="hgkeyboard" aria-label="Bokstäver"></div>
+  <p class="mono hgkbdhint">SKRIV MED TANGENTBORDET ELLER TRYCK PÅ EN BOKSTAV</p>
+
+  <div class="gamectl">
+    <button type="button" id="btn-hint">💡 Tips (−1 gissning)</button>
+    <button type="button" id="btn-new">↻ Nytt ord</button>
+    <button type="button" id="btn-meter">⇄ Byt mätare</button>
+  </div>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>Rätt gissat!</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0</b><span>bokstäver</span></div>
+      <div class="stat" data-stat><b>0</b><span>gissningar</span></div>
+      <div class="stat" data-stat><b>0/0</b><span>rätt i rad</span></div>
+    </div>
+    <div class="result-actions">
+      <button class="pill" type="button" data-again>Nytt ord</button>
+    </div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/dagens-ord/">Spela dagens ord →</a>
+  </div>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Så spelar du</h2>
+    <p>Ett ord ligger dolt, en bokstav per streck. Gissa en bokstav i taget:
+    finns den i ordet fylls varje plats där den förekommer i på en gång, och
+    finns den inte kostar det en av dina sex gissningar. Att gissa samma
+    bokstav två gånger kostar ingenting.</p>
+
+    <p><strong>Å, Ä och Ö är egna bokstäver.</strong> Ett A avslöjar aldrig ett
+    Å, och ett O avslöjar aldrig ett Ö. Det låter självklart för den som skriver
+    svenska, men det är precis det en hängagubbe byggd på ett engelskt alfabet
+    brukar ha fel.</p>
+
+    <p>Tangentbordet under ordet är också din anteckningsbok: varje prövad
+    bokstav får ett <strong>✓</strong> eller ett <strong>×</strong> och går inte
+    att trycka på igen. Du behöver aldrig hålla reda på vad du redan gissat.</p>
+
+    <h2>Galge eller snögubbe?</h2>
+    <p>Den traditionella galgen finns kvar, men den är inte förvald. En
+    <strong>snögubbe som smälter</strong> räknar precis lika tydligt — sex delar,
+    en per gissning — utan att rita en hängd människa bredvid ett spel som barn
+    spelar. Byt när du vill med <em>Byt mätare</em>; valet sparas i din
+    webbläsare.</p>
+    <p>Båda visar alltid alla sex delarna, de som inte är kvar som streckade
+    konturer, och under figuren står antalet både som prickar och i klartext.
+    Ingen behöver tolka teckningen för att veta hur många gissningar som är
+    kvar.</p>
+
+    <h2>Orden</h2>
+    <p>Kategorierna är handplockade — djur, mat, svenska städer, eller allt
+    blandat. Vi drar dem inte ur den stora ordlistan som
+    <a href="/verktyg/wordfeud-hjalp/">wordfeud-hjälpen</a> använder, eftersom
+    den innehåller varenda böjningsform: <em>hundarnas</em> är ett giltigt
+    svenskt ord och ett uselt pussel.</p>
+
+    <h2>Fler ordlekar</h2>
+    <p>Gillar du att gissa ord finns <a href="/dagens-ord/">Dagens ord</a>, ett
+    nytt fembokstavsord varje dygn. Fastnar du i ett korsord i stället är
+    <a href="/verktyg/korsordshjalp/">korsordshjälpen</a> där för det.</p>
+  </div>
+</div>
+
+<script src="/assets/hanga-gubbe-core.js"></script>
+<script src="/assets/hanga-gubbe-words.js"></script>
+<script src="/assets/hanga-gubbe.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Hänga gubbe",
+  "alternateName": ["Hänga gubbe spel", "Hangman på svenska"],
+  "description": "Hänga gubbe — svensk ordlek med fyra kategorier, sex gissningar och en snögubbe i stället för galge.",
+  "url": "https://hjarngympa.se/hanga-gubbe/",
+  "inLanguage": "sv-SE",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any / webbläsare",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "SEK"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>

@@ -632,3 +632,60 @@
 
 .sphint { text-align: center; margin: 8px 0 0; font-size: 14px; color: var(--muted); }
 .sphint[hidden] { display: none; }
+
+/* ---------- Hänga gubbe ---------- */
+
+.hgtop {
+  display: flex; gap: 24px; align-items: center; justify-content: center;
+  margin: 0 0 20px;
+}
+.hgmeter { width: 108px; flex: none; color: var(--ink); }
+.hgmeter svg { width: 100%; height: auto; display: block; }
+
+.hgcount { text-align: left; }
+.hgpips { display: flex; gap: 6px; margin-bottom: 8px; }
+/* Spent guesses stay visible as dashed outlines rather than disappearing, so
+   the total is always six and the count needs no arithmetic. */
+.hgpip {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 2px dashed var(--absent); background: transparent;
+}
+.hgpip.on { border: 2px solid var(--ink); background: var(--ink); }
+.hgcount p { margin: 0; font-size: 18px; color: var(--muted); }
+
+.hgword {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin: 0 0 8px;
+}
+/* A grid box, not a bare inline span: an empty span collapses to nothing and
+   the slot renders as a faint stub with the 34px type never applying. */
+.hgslot {
+  display: grid; place-items: end center;
+  min-width: 30px; height: 48px; padding: 0 2px;
+  border-bottom: 4px solid var(--line);
+  font: 600 34px/1.1 var(--serif); color: var(--ink);
+  text-transform: uppercase;
+}
+.hgslot.filled { border-bottom-color: var(--ink); }
+/* On a loss the unguessed letters are shown, marked so they read as the
+   answer rather than as something the player found. */
+.hgslot.missed { color: var(--muted); border-bottom-color: var(--near); }
+
+.hgcap { margin: 0 0 20px; color: var(--muted); font-size: 15px; letter-spacing: .08em; }
+
+#hgkeyboard { display: grid; gap: 8px; margin-bottom: 12px; }
+#hgkeyboard .key:disabled { cursor: default; }
+/* A key already marked ✓ or × carries its own strong styling. An untried key
+   is only disabled because the round is over, and must not still look
+   pressable. */
+#hgkeyboard .key:disabled:not(.ok):not(.absent) { opacity: .4; }
+.hgkbdhint { font-size: 14px; color: var(--muted); letter-spacing: .06em; margin: 0 0 8px; }
+
+@media (min-width: 760px) {
+  .hgslot { font-size: 48px; min-width: 38px; height: 64px; }
+  .hgmeter { width: 132px; }
+  /* The keyboard stays on desktop, unlike Dagens ord. There it is a summary of
+     guesses the board already shows; here it is the ONLY record of what has
+     been tried, so hiding it would take away the one thing stopping a player
+     from guessing the same letter twice. */
+}

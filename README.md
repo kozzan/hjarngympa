@@ -19,7 +19,7 @@ GitHub Actions builds, tests and publishes.
 
 ## What's here
 
-**Spel** — nine games, all client-side, all with keyboard support:
+**Spel** — ten games, all client-side, all with keyboard support:
 
 | Route | Game | Core logic |
 |---|---|---|
@@ -32,6 +32,7 @@ GitHub Actions builds, tests and publishes.
 | `/spindelharpan/` | Spider solitaire, 1/2/4 suits | `spindelharpan-core.js` |
 | `/minnesspel/` | Memory / pairs | `minnesspel.js` |
 | `/2048/` | 2048 | `2048.js` |
+| `/hanga-gubbe/` | Hangman, four Swedish word categories | `hanga-gubbe-core.js` |
 
 Each game splits into a **pure `-core.js`** (rules, no DOM, unit-tested) and a
 UI file. That split is why the rules are testable at all — keep it.
