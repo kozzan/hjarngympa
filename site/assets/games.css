@@ -568,3 +568,67 @@
   .ktop { grid-template-columns: auto auto; justify-content: start; gap: 24px; }
   .kgroup + .kgroup { border-left: 1px solid var(--line); padding-left: 24px; }
 }
+
+/* ---------- Spindelharpan ---------- */
+
+/* Ten columns will not fit a phone at a tappable size, so this board does the
+   opposite of #kboard: the card width is FIXED and the board pans inside
+   .frame. 44 px is the floor and the default, not a fallback — a spider board
+   that shrinks to fit renders a 29 px card nobody over 45 can hit. */
+#spboard {
+  display: grid; grid-template-columns: repeat(10, var(--spw, 44px));
+  gap: 6px; align-items: start; width: max-content; padding: 4px;
+}
+
+/* Rank beside suit, not stacked. A covered card shows only its top strip, and
+   both marks have to survive inside it — stacked, the suit falls below the
+   fold and every black card looks alike. */
+#spboard .pcard {
+  grid-auto-flow: column; align-content: start;
+  justify-content: center; gap: 3px; padding: 3px 2px;
+}
+
+#spframe { max-height: none; }
+
+.sptop { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; }
+.spgroup > .mono { margin: 0 0 6px; color: var(--muted); font-size: 15px; letter-spacing: .08em; }
+
+/* The stock is a card edge you tap, so it gets a real card's width — but the
+   label is wider than the card and must not be squeezed into it, or "GIVAR
+   KVAR 5" stacks one word per line. The group is sized for the text; the card
+   is centred inside it. */
+.spstock { width: 104px; display: grid; justify-items: center; }
+.spstock .pcard { width: 56px; }
+.spstock .mono { margin: 6px 0 0; font-size: 14px; color: var(--muted); text-align: center; }
+
+/* Refused, not hidden. The button stays visible and the status strip says why
+   — a stock that silently does nothing is the bug that makes players quit. */
+.pcard.is-off { opacity: .45; cursor: not-allowed; }
+
+.spfound { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; min-width: 200px; flex: 1; }
+.spfound .pcard { border-radius: 10px; }
+.spfound .pcard.donepile:not(.empty) {
+  background: var(--ok-soft); border: 2px solid var(--ok);
+}
+.spfound .pcard.donepile:not(.empty)::after {
+  content: '✓'; position: absolute; bottom: 1px; left: 0; right: 0;
+  text-align: center; color: var(--ok); font-size: 13px; line-height: 1;
+}
+
+#spstatus {
+  min-height: 44px; display: grid; align-items: center;
+  padding: 10px 14px; margin: 12px 0;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-card); font-size: 17px; color: var(--muted);
+  text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .spstock { width: 132px; }
+  .spstock .pcard { width: 88px; }
+  #spboard .pcard .rank { font-size: 20px; }
+  #spboard .pcard .suit { font-size: 24px; }
+}
+
+.sphint { text-align: center; margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+.sphint[hidden] { display: none; }

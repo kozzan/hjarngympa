@@ -1,0 +1,152 @@
+<!--meta
+title: Spindelharpan — spela patiensen gratis online | hjärngympa
+desc: Spela spindelharpan gratis i webbläsaren — patiensen med tio kolumner och två kortlekar. Välj en, två eller fyra färger. Tryck för att välja och tryck för att lägga. Inget konto behövs.
+head: <link rel="stylesheet" href="/assets/games.css">
+priority: 1.0
+-->
+<div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
+
+<div class="game" style="max-width:1100px">
+  <h1>Spindelharpan</h1>
+  <p class="lead">Tio kolumner, två kortlekar och åtta sviter att få hem. Börja
+  med en färg — den är fullt lösbar och lär dig bordet.</p>
+  <p class="mono game-meta" id="spmeta">Delar ut…</p>
+
+  <div class="diffs" id="spdiffs">
+    <button type="button" data-suits="1" aria-pressed="false">1 färg</button>
+    <button type="button" data-suits="2" aria-pressed="true">2 färger</button>
+    <button type="button" data-suits="4" aria-pressed="false">4 färger</button>
+  </div>
+
+  <div class="sptop">
+    <div class="spgroup">
+      <p class="mono">TALONG</p>
+      <div class="spstock" id="spstock" aria-label="Talong"></div>
+    </div>
+    <div class="spgroup" style="flex:1">
+      <p class="mono" id="spfoundlabel">KLARA SVITER 0/8</p>
+      <div class="spfound" id="spfound" aria-label="Klara sviter"></div>
+    </div>
+  </div>
+
+  <div class="frame" id="spframe">
+    <div id="spboard" aria-label="Spelbord"></div>
+  </div>
+  <p class="mono sphint" id="sphint" hidden>
+    DRA I SIDLED FÖR ATT SE ALLA TIO KOLUMNER · KORTET KRYMPS ALDRIG UNDER 44 PX
+  </p>
+  <div class="zoomctl">
+    <button type="button" id="zoom-center">⊕ Centrera</button>
+    <button type="button" id="zoom-out" aria-label="Mindre kort">－</button>
+    <button type="button" id="zoom-in" aria-label="Större kort">＋</button>
+  </div>
+
+  <p id="spstatus" role="status">Tryck på ett kort för att välja det.</p>
+
+  <div class="gamectl">
+    <button type="button" id="btn-deal">▤ Ge om</button>
+    <button type="button" id="btn-undo">↺ Ångra</button>
+    <button type="button" id="btn-hint">💡 Tips</button>
+    <button type="button" id="btn-new">↻ Ny giv</button>
+  </div>
+
+  <div class="ad ad-336x280 desktop-ad">ANNONS 336×280</div>
+
+  <div class="result" id="result" hidden>
+    <div class="icon" data-icon>✓</div>
+    <h2 data-h>Alla åtta sviter hemma</h2>
+    <p class="sub" data-sub></p>
+    <div class="stats">
+      <div class="stat" data-stat><b>0:00</b><span>tid</span></div>
+      <div class="stat" data-stat><b>0</b><span>drag</span></div>
+      <div class="stat" data-stat><b>0</b><span>sviter</span></div>
+    </div>
+    <div class="result-actions">
+      <button class="pill" type="button" data-again>Ny giv</button>
+    </div>
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+    <a class="pill pill-outline" href="/kungen/">Prova Kungen →</a>
+  </div>
+</div>
+
+<p id="live" class="visually-hidden" aria-live="polite"></p>
+
+<div class="wrap" style="margin-top:48px">
+  <div class="prose" style="margin:0 auto">
+    <h2>Så spelar du</h2>
+    <p>Spindelharpan spelas med <strong>två kortlekar</strong> över tio
+    kolumner. Femtiofyra kort ligger på bordet från start, men bara det
+    nedersta i varje kolumn är uppvänt — resten vänder du på genom att spela
+    bort korten ovanpå.</p>
+
+    <p>Du bygger <strong>nedåt oavsett färg</strong>: en nia går på en tia vare
+    sig den är röd eller svart. Men — och det här är hela spelet —
+    <strong>bara kort i samma färg och i obruten ordning kan flyttas
+    tillsammans</strong>. En blandad följd ser lika prydlig ut på bordet, men
+    den lyfter bara ett kort i taget. Det är skillnaden mellan spindelharpan
+    och de andra patienserna, och den vanligaste orsaken till att en giv
+    kärvar.</p>
+
+    <p><strong>En tom kolumn tar emot vilket kort som helst</strong> och är det
+    starkaste du kan äga. Men den kostar också: talongen vägrar ge så länge
+    någon kolumn står tom. Fyll den först.</p>
+
+    <p>Målet är åtta hela sviter från kung ned till ess i samma färg. Så fort
+    en svit är komplett lämnar den bordet av sig själv.</p>
+
+    <h2>En, två eller fyra färger?</h2>
+    <p><strong>En färg</strong> är samma spel med all färgblandning borttagen —
+    varje nedåtgående följd går att flytta. Nästan varje giv går att lösa och
+    den är rätt ställe att lära sig bordet på.</p>
+    <p><strong>Två färger</strong> är standardvarianten och den vi ger dig från
+    början. <strong>Fyra färger</strong> är den riktiga spindelharpan, där en
+    löst giv är något att vara stolt över.</p>
+
+    <h2>Knep som faktiskt hjälper</h2>
+    <ul>
+      <li>Töm en kolumn så tidigt du kan, och håll den tom så länge du vågar.
+      Den är det enda stället du kan parkera en följd som ligger i vägen.</li>
+      <li>Vänd dolda kort före allt annat. Ett uppvänt kort är information; ett
+      snyggt bygge på ett dolt kort är oftast en återvändsgränd.</li>
+      <li>Bygg i samma färg när du kan välja. Två sätt att lägga en sjua ser
+      likvärdiga ut just nu, men det som håller färgen kan lyftas senare.</li>
+      <li>Ge inte om i onödan. Varje giv lägger ett kort över allt du byggt,
+      och du har bara fem.</li>
+    </ul>
+
+    <h2>Spindelharpan eller harpan?</h2>
+    <p>I <a href="/patiens/">harpan</a> bygger du i växlande färg och vänder
+    kort från en talong ett i taget. Spindelharpan har ingen sådan talong — den
+    ger tio kort på en gång, rakt över hela bordet — och du bygger på rank i
+    stället för på färg. Vill du ha en patiens där ingenting är dolt är
+    <a href="/kungen/">Kungen</a> stället.</p>
+  </div>
+</div>
+
+<script src="/assets/spindelharpan-core.js"></script>
+<script src="/assets/spindelharpan.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Spindelharpan",
+  "alternateName": ["Spider Solitaire", "Spindelharpan gratis"],
+  "description": "Spindelharpan — patiensen med tio kolumner och två kortlekar, i en, två eller fyra färger.",
+  "url": "https://hjarngympa.se/spindelharpan/",
+  "inLanguage": "sv-SE",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any / webbläsare",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "SEK"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>
