@@ -19,7 +19,7 @@ All user-facing copy is in Swedish. Code, comments and commits are English.
 
 ```bash
 python3 tools/build.py            # site/pages/** -> dist/
-node --test tools/test.js         # 70 checks; CI runs this before every deploy
+node --test tools/test.js         # 83 checks; CI runs this before every deploy
 cd dist && python3 -m http.server 8765
 ```
 
@@ -85,6 +85,18 @@ Keep these behaviours; they are what makes each game fair.
   whenever a column is empty, and the refusal then looks arbitrary. Silent or
   arbitrary refusal is the defining bug of a FreeCell clone, so every refusal
   names the attempted count, the possible count and the fix.
+- **Spindelharpan: placing and lifting follow different rules.** A card may be
+  placed on any card one rank higher whatever the suit, but only a same-suit
+  run may be lifted as a group. Conflating the two — the obvious slip after
+  writing Kungen, where both are the alternating-colour rule — makes the game
+  trivial.
+- **Spindelharpan: the stock refuses to deal while any column is empty**, and
+  says so. A dead button with no explanation is this game's version of the
+  silent-refusal bug.
+- **Spindelharpan: a completed king-to-ace suit leaves the board on its own**,
+  and whatever it uncovered turns face up. Both happen inside `moveRun` and
+  `dealRow`, not in the UI, so a win cannot depend on the caller remembering
+  to collect.
 - **Dagens ord: duplicate letters mark correctly.** Exact matches claim their
   letter before a "near" does — guessing a word with two of a letter must not
   light up both when the answer has one.
@@ -242,5 +254,5 @@ is real is the fastest way to lose them.
 
 - Board-aware Wordfeud solving — v1 solves a rack only.
 - Result panels are wired per game but there is no shared JS component; each
-  game fills the same markup itself. Fine at eight games, worth extracting at
+  game fills the same markup itself. Fine at nine games, worth extracting at
   ten.

@@ -517,7 +517,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 12, 'eight games + homepage + two articles + korsordshjälp');
+  assert.strictEqual(blocks, 13, 'nine games + homepage + two articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
@@ -803,4 +803,164 @@ test('kungen: 40 games of random legal play never corrupt the state', () => {
       st = legal[(step * 7 + seed) % legal.length];   // deterministic walk
     }
   }
+});
+
+// ------------------------------------------------------- spindelharpan ---
+
+const Spider = require(path.join(ROOT, 'site/assets/spindelharpan-core.js'));
+
+/* Face-up card by suit index and rank, so a board can be written by hand. */
+function scard(suitIndex, rank, up) {
+  const s = Spider.SUITS[suitIndex];
+  return { suit: s.s, glyph: s.g, red: s.red, suitIndex, rank,
+           label: String(rank), id: s.s + '-' + rank + '-x', up: up !== false };
+}
+
+function sblank() {
+  return { seed: 1, suits: 4, cols: [[], [], [], [], [], [], [], [], [], []],
+           stock: [], foundations: [], moves: 0 };
+}
+
+/* A king-to-ace run in one suit, bottom card last. */
+function srun(suitIndex) {
+  const out = [];
+  for (let r = 13; r >= 1; r--) out.push(scard(suitIndex, r));
+  return out;
+}
+
+test('spindelharpan: the deal is 54 cards over ten columns, 50 left in stock', () => {
+  const st = Spider.deal(2104, 4);
+  assert.deepStrictEqual(st.cols.map((c) => c.length), [6, 6, 6, 6, 5, 5, 5, 5, 5, 5]);
+  assert.strictEqual(st.stock.length, 50);
+  assert.strictEqual(Spider.dealsLeft(st), 5);
+  const ids = st.cols.flat().concat(st.stock).map((c) => c.id);
+  assert.strictEqual(ids.length, 104);
+});
+
+test('spindelharpan: difficulty changes the suits, never the card count', () => {
+  for (const suits of [1, 2, 4]) {
+    const st = Spider.deal(77, suits);
+    const all = st.cols.flat().concat(st.stock);
+    assert.strictEqual(all.length, 104, `${suits} suits must still be 104 cards`);
+    const used = new Set(all.map((c) => c.suitIndex));
+    assert.strictEqual(used.size, suits, `${suits} suits expected, saw ${used.size}`);
+  }
+});
+
+test('spindelharpan: only the bottom card of each column starts face up', () => {
+  const st = Spider.deal(2104, 4);
+  for (const col of st.cols) {
+    assert.strictEqual(col[col.length - 1].up, true, 'the bottom card is up');
+    for (let i = 0; i < col.length - 1; i++) {
+      assert.strictEqual(col[i].up, false, 'everything above it is hidden');
+    }
+  }
+});
+
+test('spindelharpan: you may place across suits but only lift within one', () => {
+  const st = sblank();
+  st.cols[0] = [scard(0, 8)];
+  // Placing a seven of any suit on the eight is legal.
+  assert.ok(Spider.canPlaceOnCol(scard(1, 7), st, 0), 'a red seven goes on a black eight');
+  assert.ok(Spider.canPlaceOnCol(scard(0, 7), st, 0), 'so does a spade seven');
+  assert.ok(!Spider.canPlaceOnCol(scard(0, 6), st, 0), 'a six does not');
+
+  // Lifting more than one card is same-suit only. This is the rule that makes
+  // the game hard, and the one a Klondike author drops by accident.
+  st.cols[1] = [scard(0, 9), scard(0, 8), scard(0, 7)];
+  assert.strictEqual(Spider.runLength(st.cols[1]), 3, 'three spades in order');
+  st.cols[2] = [scard(0, 9), scard(1, 8), scard(0, 7)];
+  assert.strictEqual(Spider.runLength(st.cols[2]), 1, 'a mixed run lifts one card only');
+});
+
+test('spindelharpan: a mixed descending run refuses to move as a group', () => {
+  const st = sblank();
+  st.cols[0] = [scard(0, 9), scard(1, 8), scard(0, 7)];   // descending, mixed
+  st.cols[1] = [scard(2, 8)];
+  assert.strictEqual(Spider.moveRun(st, 0, 3, 1), null, 'three mixed cards must not lift');
+  assert.ok(Spider.moveRun(st, 0, 1, 1), 'the bottom card alone is fine');
+});
+
+test('spindelharpan: an empty column takes any card', () => {
+  const st = sblank();
+  st.cols[0] = [scard(0, 13)];
+  assert.ok(Spider.canPlaceOnCol(scard(1, 4), st, 5), 'a four into the gap');
+  assert.ok(Spider.canPlaceOnCol(scard(0, 13), st, 5), 'a king too');
+});
+
+test('spindelharpan: a covered card turns over when the move exposes it', () => {
+  const st = sblank();
+  st.cols[0] = [scard(3, 5, false), scard(0, 7)];   // a hidden five under a seven
+  st.cols[1] = [scard(1, 8)];
+  const next = Spider.moveRun(st, 0, 1, 1);
+  assert.ok(next, 'the seven moves onto the eight');
+  assert.strictEqual(next.cols[0].length, 1);
+  assert.strictEqual(next.cols[0][0].up, true, 'the five beneath is now face up');
+});
+
+test('spindelharpan: the stock will not deal while a column is empty', () => {
+  const st = Spider.deal(2104, 4);
+  assert.ok(Spider.canDeal(st), 'a full board deals');
+  st.cols[3] = [];
+  assert.strictEqual(Spider.canDeal(st), false);
+  assert.match(Spider.dealBlockedReason(st), /tomma kolumnen/,
+    'the refusal must say why, not fail silently');
+  assert.strictEqual(Spider.dealRow(st), null);
+});
+
+test('spindelharpan: a deal puts one face-up card on every column', () => {
+  const st = Spider.deal(2104, 4);
+  const before = st.cols.map((c) => c.length);
+  const next = Spider.dealRow(st);
+  assert.deepStrictEqual(next.cols.map((c) => c.length), before.map((n) => n + 1));
+  assert.strictEqual(next.stock.length, 40);
+  assert.strictEqual(Spider.dealsLeft(next), 4);
+  for (const col of next.cols) {
+    assert.strictEqual(col[col.length - 1].up, true, 'dealt cards land face up');
+  }
+});
+
+test('spindelharpan: a finished king-to-ace suit leaves the board', () => {
+  const st = sblank();
+  st.cols[0] = srun(0);
+  assert.strictEqual(Spider.collect(st), 1, 'the spade run goes');
+  assert.strictEqual(st.cols[0].length, 0);
+  assert.strictEqual(st.foundations.length, 1);
+
+  // The same thirteen ranks in mixed suits must stay put.
+  const mixed = sblank();
+  mixed.cols[0] = srun(0);
+  mixed.cols[0][4] = scard(1, 9);
+  assert.strictEqual(Spider.collect(mixed), 0, 'a mixed thirteen is not a sequence');
+  assert.strictEqual(mixed.cols[0].length, 13);
+});
+
+test('spindelharpan: collecting a run turns over what it uncovered', () => {
+  const st = sblank();
+  st.cols[0] = [scard(2, 4, false)].concat(srun(0));
+  assert.strictEqual(Spider.collect(st), 1);
+  assert.strictEqual(st.cols[0].length, 1);
+  assert.strictEqual(st.cols[0][0].up, true, 'the card under the run is now up');
+});
+
+test('spindelharpan: the game is won at eight collected suits', () => {
+  const st = sblank();
+  for (let i = 0; i < 7; i++) st.foundations.push(srun(0));
+  assert.ok(!Spider.isWon(st), 'seven suits is not a win');
+  st.foundations.push(srun(0));
+  assert.ok(Spider.isWon(st));
+});
+
+test('spindelharpan: a move that completes a suit collects it without being asked', () => {
+  const st = sblank();
+  // A hidden seven under king-to-two of spades, and the ace waiting elsewhere.
+  st.cols[0] = [scard(2, 7, false)];
+  for (let r = 13; r >= 2; r--) st.cols[0].push(scard(0, r));
+  st.cols[1] = [scard(0, 1)];
+
+  const next = Spider.moveRun(st, 1, 1, 0);
+  assert.ok(next, 'the ace goes on the two');
+  assert.strictEqual(next.foundations.length, 1, 'the finished suit leaves on its own');
+  assert.strictEqual(next.cols[0].length, 1, 'only the hidden seven is left');
+  assert.strictEqual(next.cols[0][0].up, true, 'and it is now face up');
 });

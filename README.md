@@ -19,7 +19,7 @@ GitHub Actions builds, tests and publishes.
 
 ## What's here
 
-**Spel** — seven games, all client-side, all with keyboard support:
+**Spel** — nine games, all client-side, all with keyboard support:
 
 | Route | Game | Core logic |
 |---|---|---|
@@ -27,7 +27,9 @@ GitHub Actions builds, tests and publishes.
 | `/sudoku/` | Sudoku, four difficulties | `sudoku-core.js` |
 | `/minsvepare/` | Minesweeper | `minsvepare-core.js` |
 | `/mahjong/` | Mahjong solitaire | `mahjong-core.js`, `mahjong-faces.js` |
-| `/patiens/` | Klondike patience | `patiens-core.js` |
+| `/patiens/` | Klondike patience (harpan) | `patiens-core.js` |
+| `/kungen/` | FreeCell patience | `kungen-core.js` |
+| `/spindelharpan/` | Spider solitaire, 1/2/4 suits | `spindelharpan-core.js` |
 | `/minnesspel/` | Memory / pairs | `minnesspel.js` |
 | `/2048/` | 2048 | `2048.js` |
 
