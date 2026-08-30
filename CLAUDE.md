@@ -19,7 +19,7 @@ All user-facing copy is in Swedish. Code, comments and commits are English.
 
 ```bash
 python3 tools/build.py            # site/pages/** -> dist/
-node --test tools/test.js         # 83 checks; CI runs this before every deploy
+node --test tools/test.js         # 93 checks; CI runs this before every deploy
 cd dist && python3 -m http.server 8765
 ```
 
@@ -97,6 +97,15 @@ Keep these behaviours; they are what makes each game fair.
   and whatever it uncovered turns face up. Both happen inside `moveRun` and
   `dealRow`, not in the UI, so a win cannot depend on the caller remembering
   to collect.
+- **Hänga gubbe: å, ä and ö are their own letters.** Guessing A must never
+  reveal Å or Ä, and O must never reveal Ö. An English hangman gets this
+  wrong by default, and to a Swedish player it reads as the game cheating.
+- **Hänga gubbe: a hint is charged to `hints`, never to `wrong`.** Both cost
+  one guess, but pushing a fake letter into `wrong` to charge for a hint
+  would break the rule that the keyboard's × keys and the spent pips are two
+  views of one number. The UI renders five views of that state — revealed
+  letters, ✓ keys, × keys, the found count and the pips — and a test asserts
+  they cannot disagree.
 - **Dagens ord: duplicate letters mark correctly.** Exact matches claim their
   letter before a "near" does — guessing a word with two of a letter must not
   light up both when the answer has one.
@@ -254,5 +263,5 @@ is real is the fastest way to lose them.
 
 - Board-aware Wordfeud solving — v1 solves a rack only.
 - Result panels are wired per game but there is no shared JS component; each
-  game fills the same markup itself. Fine at nine games, worth extracting at
-  ten.
+  game fills the same markup itself. This was "fine at nine, worth extracting
+  at ten" — hänga gubbe is the tenth, so the extraction is now due.
