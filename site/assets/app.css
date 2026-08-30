@@ -27,6 +27,15 @@
   --edge: #C8C0B2;
   --hatch: rgba(30, 26, 21, .10);
   --card-face: #FFFFFF;
+  /* Cards and mahjong tiles keep a light face in dark mode (HANDOFF-games:
+     "dark ink on a light face reads best"), so anything drawn on that face
+     must not flip with the theme. These five are deliberately absent from both
+     dark blocks below — a themed --ink on a cream card is a near-white spade. */
+  --card-ink: #1E1A15;
+  --card-red: #A2331A;
+  --card-red-fill: #F6E2DB;
+  --card-sel: #F1E6D9;
+  --card-hatch: rgba(30, 26, 21, .10);
   --ok-soft: #E9EFE1;
   --num-1: #3E6187; --num-2: #4C6B3C; --num-3: #A2331A; --num-4: #5A3E86;
   --num-5: #8A4A17; --num-6: #1F6B6B; --num-7: #1E1A15; --num-8: #6C6358;
