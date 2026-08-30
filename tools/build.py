@@ -128,7 +128,7 @@ def main():
                 basepath=BASE_PATH,
                 title=html.escape(meta.get("title", "hjärngympa")),
                 desc=html.escape(meta.get("desc", "")),
-                canonical=BASE_URL + BASE_PATH + route,
+                canonical=BASE_URL + BASE_PATH + (meta.get("canonical") or route),
                 image=BASE_URL + BASE_PATH + (meta.get("image") or OG_IMAGE),
                 bodyclass=meta.get("bodyclass", ""),
                 head=meta.get("head", ""),
@@ -140,7 +140,11 @@ def main():
                 page = page.replace('href="/', f'href="{BASE_PATH}/')
                 page = page.replace('src="/', f'src="{BASE_PATH}/')
             open(out, "w", encoding="utf-8").write(page)
-            routes.append((route, meta.get("priority", "0.7")))
+            # A redirect stub is not a destination: it must not be advertised
+            # in the sitemap, or Google is invited to index a page whose only
+            # job is to send it somewhere else.
+            if (meta.get("sitemap") or "").strip().lower() not in ("no", "false"):
+                routes.append((route, meta.get("priority", "0.7")))
 
     for sub in ("assets", "data"):
         src = os.path.join(SITE, sub)
