@@ -19,7 +19,7 @@ All user-facing copy is in Swedish. Code, comments and commits are English.
 
 ```bash
 python3 tools/build.py            # site/pages/** -> dist/
-node --test tools/test.js         # 93 checks; CI runs this before every deploy
+node --test tools/test.js         # 97 checks; CI runs this before every deploy
 cd dist && python3 -m http.server 8765
 ```
 
@@ -148,6 +148,25 @@ so none of them block the first paint — preloading one takes bandwidth from th
 depth. The `h1` is the LCP element and is set in Newsreader 600, so that file's
 size *is* the FCP-to-LCP gap: the page paints in Georgia, then re-paints when
 the font lands, and Chrome re-records LCP on the repaint.
+
+**The domain had a previous owner, and real sites still link to its old paths.**
+`hjarngympa.se` was registered before and dropped; the version that ran until
+around 2021 offered korsord, frågesport and tipspromenader. It left 367
+backlinks from 68 domains behind. Most is spam — one blogspot account accounts
+for 284 of them — but four are **dofollow links from SPF Seniorerna föreningar**
+on their surftips pages, which is exactly this site's audience.
+
+They all pointed at `/start/index.html`, which 404'd. `site/pages/start/`,
+`tipspromenad/` and `klurigastickor/` are redirect stubs that recover them:
+`sitemap: no` keeps them out of the sitemap and `canonical:` points each at its
+destination rather than itself. A stub that self-canonicals next to a refresh
+tells Google the stub *is* the page, which is how a redirect quietly stops
+passing anything. **Do not delete these directories** — they look like dead
+weight and they are not.
+
+There is no manual action against the domain, so the spam is being discounted
+rather than punished. Leave it; disavow is a blunt instrument and there is
+nothing to undo yet.
 
 **`render()` replaces DOM nodes.** Most games rebuild their board on every
 move, so any cached element reference goes stale. Re-query after a render.

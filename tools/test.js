@@ -1085,3 +1085,54 @@ test('hänga gubbe: hints can lose the word, which is the point', () => {
   assert.ok(Hang.isLost(st) || Hang.isWon(st), 'six hints must resolve the game');
   assert.strictEqual(Hang.useHint(st), null, 'a finished game gives no more hints');
 });
+
+// ------------------------------------------------------ legacy redirects ---
+
+/* hjarngympa.se had a previous owner, and real sites still link to its old
+   paths -- four dofollow links from SPF Seniorerna föreningar point at
+   /start/index.html alone. Those paths 404'd, so the links were wasted. */
+
+const LEGACY = [
+  ['start', '/'],
+  ['tipspromenad', '/spel/'],
+  ['klurigastickor', '/spel/'],
+];
+
+test('legacy paths still resolve and point at a live page', () => {
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  for (const [dir, dest] of LEGACY) {
+    const f = path.join(ROOT, 'dist', dir, 'index.html');
+    assert.ok(fs.existsSync(f), `/${dir}/ must not 404 -- real links point at it`);
+    const html = fs.readFileSync(f, 'utf8');
+    assert.match(html, new RegExp(`http-equiv="refresh" content="0; url=${dest}"`),
+      `/${dir}/ must redirect straight to ${dest}`);
+  }
+});
+
+test('a redirect stub canonicals to its destination, not to itself', () => {
+  // Self-canonical plus a refresh tells Google the stub IS the page, which is
+  // how a redirect quietly stops passing anything.
+  for (const [dir, dest] of LEGACY) {
+    const html = fs.readFileSync(path.join(ROOT, 'dist', dir, 'index.html'), 'utf8');
+    const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)[1];
+    assert.strictEqual(canonical, 'https://hjarngympa.se' + dest,
+      `/${dir}/ canonical must be the destination`);
+  }
+});
+
+test('redirect stubs stay out of the sitemap', () => {
+  const sitemap = fs.readFileSync(path.join(ROOT, 'dist/sitemap.xml'), 'utf8');
+  for (const [dir] of LEGACY) {
+    assert.ok(!sitemap.includes(`/${dir}/`),
+      `/${dir}/ is a redirect, not a destination -- it must not be advertised`);
+  }
+  // And the real pages are still all there.
+  assert.match(sitemap, /hjarngympa\.se\/spindelharpan\//);
+  assert.match(sitemap, /hjarngympa\.se\/hanga-gubbe\//);
+});
+
+test('a real page still canonicals to itself', () => {
+  const html = fs.readFileSync(path.join(ROOT, 'dist/spindelharpan/index.html'), 'utf8');
+  assert.match(html, /<link rel="canonical" href="https:\/\/hjarngympa\.se\/spindelharpan\/"/);
+  assert.ok(!html.includes('http-equiv="refresh"'), 'and carries no refresh');
+});
