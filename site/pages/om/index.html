@@ -1,6 +1,6 @@
 <!--meta
-title: Om hjärngympa
-desc: Vad hjärngympa.se är, vem som gör sajten och var ordlistan kommer ifrån.
+title: Om hjärngympa — vem gör sajten och hur den är byggd
+desc: Vad hjärngympa.se är, vem som gör sajten, var ordlistan kommer ifrån och vilka principer som styr spelen. Kontaktuppgifter finns här.
 priority: 0.3
 -->
 <div class="wrap cols">
@@ -14,6 +14,53 @@ ett konto eller betalar en prenumeration. Det här behöver inte vara så
 krångligt. Alla spel här startar direkt när sidan laddat, och de sparar dina
 resultat lokalt i din egen webbläsare.</p>
 
+<h2>Vem som gör sajten</h2>
+<p>hjärngympa är en enmanssajt. Jag bygger den på fritiden från Sverige, skriver
+all kod och all text själv, och driver den som ett hobbyprojekt som ska kunna gå
+runt på annonsintäkter — inte som ett företag med en redaktion.</p>
+<p>Det betyder två saker som är värda att veta. Svar på mejl kan dröja några
+dagar. Och när något är fel är det mitt fel, inte en supportavdelnings — hör av
+dig och jag rättar det.</p>
+
+<h2>Hur den är byggd</h2>
+<p>Statisk HTML, CSS och vanlig JavaScript. Inget ramverk, ingen server, ingen
+databas och inga konton. Varje sida byggs av ett litet Python-skript och
+publiceras på GitHub Pages, vilket är varför sajten är snabb även på en dålig
+mobiluppkoppling.</p>
+<p>Källkoden är öppen och ligger på
+<a href="https://github.com/kozzan/hjarngympa" rel="noopener">github.com/kozzan/hjarngympa</a>.
+Hittar du ett fel i reglerna för ett spel går det att läsa exakt hur det
+räknas — och att påpeka det.</p>
+
+<h2>Vad spelen inte gör</h2>
+<p>Några saker är medvetet bortvalda, och de förklarar en del av hur sajten
+känns:</p>
+<ul>
+  <li><strong>Inga konton och ingen inloggning.</strong> Statistik och bästa
+  resultat sparas lokalt i din webbläsare. Baksidan: byter du telefon följer de
+  inte med.</li>
+  <li><strong>Ingen falsk svårighet.</strong> Varje sudoku har exakt en lösning
+  som går att resonera fram, varje mahjongbräde är utdelat så att det går att
+  lösa, och första grävet i minsvepare kan aldrig vara en mina.</li>
+  <li><strong>Inga färger som enda skillnad.</strong> Spelen går att spela av
+  den som är färgblind — brickor och kort skiljs åt av form och text, inte bara
+  av kulör.</li>
+  <li><strong>Ingen app som tjatar.</strong> Det finns ingen app, och sajten
+  ber dig inte om notiser.</li>
+</ul>
+
+<h2>Tillgänglighet</h2>
+<p>Sudoku, minsvepare, 2048, minnesspel, Dagens ord och hänga gubbe går att
+spela helt med tangentbord — piltangenter, siffror och mellanslag räcker.
+Varje sida har mörkt läge som följer systeminställningen, och skärmläsare får
+löpande besked om vad som händer i spelet i klartext i stället för att lämnas
+åt att tolka grafiken.</p>
+<p>Kortspelen — harpan, Kungen och spindelharpan — kräver i dag mus eller
+pekskärm. Att göra dem tangentbordsstyrda står på listan, och det är rätt att
+räkna det som en brist så länge det inte är gjort.</p>
+<p>Fungerar något dåligt med din hjälpteknik är det den mest värdefulla
+buggrapport jag kan få.</p>
+
 <h2>Ordlistan</h2>
 <p>Alla svenska ord kommer från <a href="https://spraakbanken.gu.se/resurser/saldom" rel="noopener">SALDO:s
 morfologi</a> och frekvensdata från <a href="https://spraakbanken.gu.se/resurser/kelly" rel="noopener">Kelly-listan</a>,
@@ -25,14 +72,25 @@ båda från Språkbanken Text vid Göteborgs universitet och båda utgivna under
 lista på knappt tusen vanliga ord, så att svaret alltid är ett ord folk
 faktiskt känner till.</p>
 
+<h2>Rättelser</h2>
+<p>Texterna om spelens regler, historia och teknik är skrivna av mig och
+kontrollerade mot spelens egen kod — poängtabeller och regler är hämtade ur
+implementationen, inte ur minnet. Historiska uppgifter är hämtade från
+allmänt tillgängliga källor.</p>
+<p>Blir något ändå fel vill jag veta det. Rättelser görs i texten direkt, och
+grövre fel skrivs inte om i tysthet utan noteras.</p>
+
 <h2>Annonser</h2>
-<p>Sajten betalas av annonser. Du väljer själv om du vill tillåta
-annonscookies — spelen fungerar likadant oavsett vad du väljer, och du kan
-ändra dig när som helst via <em>Cookieinställningar</em> längst ner på sidan.</p>
+<p>Sajten betalas av annonser via Google AdSense. Du väljer själv om du vill
+tillåta annonscookies — spelen fungerar likadant oavsett vad du väljer, och du
+kan ändra dig när som helst via <em>Cookieinställningar</em> längst ner på
+sidan. Vad som lagras står i
+<a href="/integritetspolicy/">integritetspolicyn</a>.</p>
 
 <h2>Kontakt</h2>
-<p>Hittat en bugg, ett ord som borde tas bort, eller ett som saknas?
-Hör gärna av dig.</p>
+<p>Hittat en bugg, ett ord som borde tas bort, eller ett som saknas? Mejla
+<a href="mailto:kontakt@hjarngympa.se">kontakt@hjarngympa.se</a> — mer om vad
+som är bra att skriva finns på <a href="/kontakt/">kontaktsidan</a>.</p>
   </article>
   <aside>
     <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>

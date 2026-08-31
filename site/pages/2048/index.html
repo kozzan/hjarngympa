@@ -40,6 +40,69 @@ som skulle flytta den ur hörnet. De flesta som fastnar på 512 gör det för at
 de sveper uppåt och nedåt om vartannat och tappar hörnet.</p>
 <p>Bygg en fallande rad längs kanten — 512, 256, 128, 64 — så kan du kedja
 ihop flera sammanslagningar i ett enda drag.</p>
+<h2>Metoden: en kant, aldrig fyra riktningar</h2>
+<p>Det enda som skiljer den som fastnar på 512 från den som når 2048 är
+disciplin i vilka riktningar man sveper. Bestäm dig för ett hörn — nere till
+höger duger — och håll dig sedan till <strong>tre</strong> riktningar: höger,
+ned och vänster. Sväng aldrig uppåt.</p>
+<p>Anledningen är att uppsvepet lyfter din största bricka ur hörnet, och när
+den väl ligger mitt på brädet står den i vägen för allt. Behöver du absolut
+svepa uppåt har du oftast redan hamnat i en position du inte kan rädda —
+lägg det draget sist av allt du prövar, inte först.</p>
+<p>Bygg sedan en <strong>fallande rad längs nedre kanten</strong>: 1024, 512,
+256, 128 från hörnet och utåt. En sådan rad kan kollapsa i en enda kedja när
+tvåan längst ut äntligen får sin partner, och det är där de stora hoppen
+kommer ifrån.</p>
+
+<h2>Räkna baklänges: vad 2048 faktiskt kostar</h2>
+<p>En 2048-bricka är två 1024-brickor, som är fyra 512, som är åtta 256 — och
+hela vägen ner blir det <strong>1024 brickor</strong> med värdet 2. Eftersom
+varje drag lägger till en ny tvåa eller fyra behöver du alltså i storleksordning
+tusen lyckade drag för att komma i mål. Det är ingen sprint, och det är därför
+tempot inte hjälper: ett slarvigt drag kostar mer än tio snabba tjänar.</p>
+<p>Det förklarar också varför brädet känns som att det plötsligt fylls. Du har
+inte gjort något nytt fel — de små brickorna hinner bara inte parkeras när de
+stora upptar allt fler rutor.</p>
+
+<h2>Så tar du dig ur ett fullt bräde</h2>
+<ul>
+  <li><strong>Håll den understa raden full.</strong> Är den full kan ett
+  vänster- eller högersvep aldrig rubba den, och du kan sortera resten ovanpå
+  i lugn och ro.</li>
+  <li><strong>Slå ihop nedåt, inte i sidled, när du är trång.</strong>
+  Nedsvepet packar kolumnerna och frigör hela den övre raden på en gång.</li>
+  <li><strong>Låt inte en stor bricka bli inringad av små.</strong> En 256 med
+  en 4 på varje sida är död vikt tills du får fram en till 256.</li>
+  <li><strong>Sluta jaga varje sammanslagning.</strong> Två fyror som ligger
+  bra kan gärna vänta. Det du behöver är att kanten hålls, inte att varje par
+  används direkt.</li>
+</ul>
+
+<h2>Varifrån 2048 kommer</h2>
+<p>Spelet skrevs på en helg i mars 2014 av den italienske utvecklaren Gabriele
+Cirulli, då nitton år gammal, som en övning i JavaScript. Han lade upp det
+gratis och med öppen källkod, och det fick miljontals spelare inom ett par
+veckor.</p>
+<p>Det var inte hans idé. 2048 är en kopia av appen <em>1024</em>, som i sin
+tur byggde på <em>Threes!</em> av Asher Vollmer och Greg Wohlwend — det
+originalet slår ihop en etta och en tvåa till en trea och är betydligt
+kärvare. Cirulli har alltid varit öppen om det, vilket är mer än man kan säga
+om de hundratals klonerna som kom efteråt.</p>
+
+<h2>Vanliga frågor</h2>
+<h3>Går spelet alltid att vinna?</h3>
+<p>Nej. Nya brickor placeras slumpmässigt, och det finns givar där en tvåa
+dyker upp på precis fel ruta. Men förlorar du under 512 är det nästan
+alltid hörnet som tappats, inte turen.</p>
+<h3>Tar det slut vid 2048?</h3>
+<p>Rutan visar att du klarat det, men brädet står kvar och du kan spela vidare
+mot 4096 om det finns drag kvar.</p>
+<h3>Sparas poängen?</h3>
+<p>Bästa poängen sparas lokalt i din webbläsare. Inget konto, inget som
+skickas någonstans — och rensar du webbläsardata är den borta.</p>
+<h3>Fungerar det med tangentbord?</h3>
+<p>Ja, piltangenterna gör samma sak som svep. På en telefon sveper du i
+brädet.</p>
 </div></div>
 <script src="/assets/2048.js"></script>
 
