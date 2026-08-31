@@ -93,7 +93,72 @@ priority: 1.0
       enda som håller en följd igång.</li>
       <li>Leta efter esset som ligger djupast och planera bakåt därifrån.</li>
     </ul>
-  </div>
+  
+    <h2>Formeln som avgör hur mycket du kan flytta</h2>
+    <p>Kungen har ingen regel om att du får flytta flera kort — det är en
+    konsekvens. En svit flyttas kort för kort via de fria cellerna, och antalet
+    du kan förflytta i ett svep blir därför:</p>
+    <p class="mono">(lediga celler + 1) × 2<sup>tomma kolumner</sup></p>
+    <p>Med fyra lediga celler och ingen tom kolumn: fem kort. Med fyra celler
+    och <em>en</em> tom kolumn: tio. Med två tomma kolumner: tjugo. Det är
+    därför en tom kolumn är värd så oändligt mycket mer än en ledig cell — den
+    <em>dubblar</em>, medan cellen bara lägger till ett.</p>
+    <p>Raden ovanför bordet räknar ut talet åt dig efter varje drag, så du
+    behöver inte hålla det i huvudet. Men det är värt att förstå varför siffran
+    rör sig som den gör: parkerar du ett kort i en cell halveras nästan din
+    rörlighet.</p>
+
+    <h2>Så planerar du en giv</h2>
+    <ol>
+      <li><strong>Leta upp det djupast begravda esset.</strong> Det avgör hur
+      given måste öppnas, för ingen färg kan börja stiga utan sitt ess.</li>
+      <li><strong>Välj kolumnen du ska tömma</strong> innan du börjar flytta —
+      helst en med få kort och inget lågt kort du behöver.</li>
+      <li><strong>Flytta bara kort som hamnar på sin slutliga plats.</strong>
+      Ett kort som ska vidare igen om tre drag borde stannat där det var.</li>
+      <li><strong>Håll åtminstone en cell tom</strong> så länge du kan. Fyra
+      fulla celler betyder att du bara kan flytta ett kort, och då är given i
+      praktiken låst även om den inte är det formellt.</li>
+    </ol>
+
+    <h2>Nästan varje giv går att lösa</h2>
+    <p>Det är ovanligt bland patienser och det är hela poängen med Kungen:
+    eftersom alla kort ligger uppvända finns ingen dold information, och
+    därmed ingen tur. Av de 32 000 numrerade givar som Microsofts version
+    delade ut visade sig <strong>en enda</strong> vara olösbar — den
+    legendariska giv 11982, som bevisades omöjlig först när tusentals spelare
+    gemensamt hade gett upp på den.</p>
+    <p>Praktiskt betyder det att en giv som känns låst nästan alltid är en giv
+    du spelat in i ett hörn. Det är därför spelet inte har någon förlust här:
+    det har lägen du behöver backa ur, och en ny giv om du hellre vill det.</p>
+
+    <h2>Varifrån Kungen kommer</h2>
+    <p>Spelet heter <em>FreeCell</em> på engelska och skrevs 1978 av Paul
+    Alfille, då medicinstudent, till undervisningssystemet PLATO vid
+    University of Illinois. Det var den första versionen med de fyra fria
+    cellerna; en äldre variant kallad Baker's Game byggde i samma färg och var
+    betydligt hårdare.</p>
+    <p>Microsoft tog in det 1991 som testprogram för 32-bitarslagret Win32s —
+    det låg med i Windows för att bevisa att en 32-bitars app fungerade, och
+    blev kvar i tjugo år. Att spelet fick svenskt namn efter kungen kommer
+    inte från Microsoft: det är det namn patiensen med fyra hjälphögar har
+    haft i svenska spelsamlingar långt före datorn.</p>
+
+    <h2>Vanliga frågor</h2>
+    <h3>Vad är skillnaden mot harpan?</h3>
+    <p>Tre saker: alla kort ligger uppvända, det finns ingen talong, och en tom
+    kolumn tar emot vilket kort som helst i stället för bara en kung. Det gör
+    Kungen till ett rent logikspel utan tur.</p>
+    <h3>Kan jag förlora?</h3>
+    <p>Det finns lägen utan giltiga drag, men eftersom nästan varje giv är
+    lösbar är det ett resultat av dragordningen, inte av given.</p>
+    <h3>Får jag lägga vad som helst i en tom kolumn?</h3>
+    <p>Ja, vilket enskilt kort som helst — och en hel svit om formeln ovan
+    tillåter det.</p>
+    <h3>Måste jag flytta korten via cellerna själv?</h3>
+    <p>Nej. Tryck på det översta kortet i sviten och sedan på målet; spelet
+    använder cellerna åt dig om det behövs och om utrymmet räcker.</p>
+</div>
 </div>
 
 <script src="/assets/kungen-core.js"></script>

@@ -71,7 +71,87 @@ priority: 1.0
     ruta bara har en kandidat kvar är svaret givet.</p>
 
     <p><a href="/artiklar/sudoku-regler/">Läs hela guiden till sudokuteknik →</a></p>
-  </div>
+  
+    <h2>Teknikerna, i den ordning du ska pröva dem</h2>
+    <p>Nästan alla sudokun går att lösa med fyra tekniker, och det lönar sig
+    att pröva dem i den här ordningen — den billigaste först.</p>
+    <ol>
+      <li><strong>Enda kandidaten.</strong> Titta på en tom ruta. Stryk alla
+      siffror som redan finns i rutans rad, kolumn eller block. Blir det bara
+      en kvar är den svaret. Det här är den enda teknik du behöver för ett
+      lätt bräde.</li>
+      <li><strong>Enda platsen.</strong> Vänd på frågan: titta på ett block och
+      en siffra i taget. Finns det bara <em>en</em> ruta i blocket där sjuan
+      kan stå, så står sjuan där — även om den rutan har fem andra kandidater
+      kvar. Den här missar de flesta, och den löser mer än den första.</li>
+      <li><strong>Låsta par.</strong> Har två rutor i samma rad exakt samma två
+      kandidater — säg 4 och 9 — så innehåller de två rutorna fyran och nian
+      mellan sig. Vilken som är vilken vet du inte, men du kan stryka 4 och 9
+      ur alla andra rutor i raden.</li>
+      <li><strong>Pekande siffror.</strong> Om alla platser för en siffra inom
+      ett block ligger på samma rad, så måste siffran hamna på den raden. Den
+      går då att stryka ur radens övriga block.</li>
+    </ol>
+    <p>Behöver du fler än de här på ett expertbräde: pröva att gå igenom
+    blocken igen med teknik två innan du letar efter något mer avancerat. Det
+    är nästan alltid där det gömmer sig.</p>
+
+    <h2>Vad skiljer svårighetsgraderna</h2>
+    <p>Det är inte antalet givna siffror som gör ett sudoku svårt — det är
+    vilka tekniker som krävs. Ett bräde med 30 givna siffror kan vara lättare
+    än ett med 34, om siffrorna sitter på snällare platser.</p>
+    <ul>
+      <li><strong>Lätt</strong> — går att lösa med enda kandidaten hela vägen.
+      Du behöver aldrig anteckna.</li>
+      <li><strong>Medel</strong> — kräver att du vänder på frågan och letar
+      efter enda platsen i blocken.</li>
+      <li><strong>Svår</strong> — här börjar blyertsen löna sig. Räkna med
+      låsta par.</li>
+      <li><strong>Expert</strong> — kräver att du kombinerar tekniker och
+      håller ordning på kandidater över hela brädet.</li>
+    </ul>
+
+    <h2>Tre misstag som kostar mest</h2>
+    <p><strong>Att gissa.</strong> Varje bräde här har exakt en lösning och den
+    går alltid att resonera fram. Sätter du en siffra på känsla och den är fel,
+    märker du det tjugo drag senare, och då är hela brädet förgiftat.</p>
+    <p><strong>Att anteckna slarvigt.</strong> En blyertssiffra du glömt stryka
+    är värre än ingen anteckning alls, för du kommer att lita på den. Stryk
+    kandidaten i raden, kolumnen <em>och</em> blocket varje gång du fyller i
+    en ruta.</p>
+    <p><strong>Att stirra på samma ruta.</strong> Fastnar du: byt fråga i
+    stället för att byta ruta. Sluta leta efter vad som passar i rutan, och
+    börja leta efter var en bestämd siffra kan ta vägen.</p>
+
+    <h2>Varifrån sudoku kommer</h2>
+    <p>Pusslet är yngre än de flesta tror. Det publicerades först 1979 i
+    amerikanska <em>Dell Pencil Puzzles &amp; Word Games</em> under namnet
+    Number Place, konstruerat av Howard Garns, en pensionerad arkitekt från
+    Indianapolis. Han fick aldrig se det bli populärt.</p>
+    <p>1984 tog den japanska pusselförlaget Nikoli upp det och gav det namnet
+    <em>sudoku</em> — kort för <em>sūji wa dokushin ni kagiru</em>, "siffrorna
+    får bara förekomma en gång". Där stannade det i tjugo år, som ett japanskt
+    tidningspussel. Genombrottet kom 2004, när nyzeeländaren Wayne Gould
+    övertalade The Times i London att trycka pussel han genererat med ett eget
+    program. Inom ett år hade i stort sett varje dagstidning i Europa ett
+    sudoku, och Sverige var inget undantag.</p>
+
+    <h2>Vanliga frågor</h2>
+    <h3>Krävs det matematik?</h3>
+    <p>Nej. Siffrorna är bara nio symboler som ska hållas åtskilda — pusslet
+    fungerar exakt likadant med nio bokstäver eller nio färger. Det räknas
+    ingenting någon gång.</p>
+    <h3>Kan ett sudoku ha flera lösningar?</h3>
+    <p>Ett riktigt konstruerat sudoku har exakt en. Har det två är det trasigt,
+    för då finns det ett läge där du måste gissa. Alla bräden här kontrolleras
+    mot det innan de visas.</p>
+    <h3>Sparas mitt bräde om jag stänger fliken?</h3>
+    <p>Bästa tiden per svårighetsgrad sparas lokalt i din webbläsare. Ett
+    påbörjat bräde gör det inte — stänger du fliken börjar du om.</p>
+    <h3>Går det att spela utan mus?</h3>
+    <p>Ja, hela vägen. Piltangenter flyttar markören, 1–9 fyller i, 0 raderar,
+    P slår om blyertsläget och Ctrl+Z ångrar.</p>
+</div>
 </div>
 
 <script src="/assets/sudoku-core.js"></script>
