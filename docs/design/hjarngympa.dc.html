@@ -21,6 +21,380 @@
 </helmet>
 
 <section style="display:flex;flex-direction:column;gap:72px;padding:72px;font-family:'Source Sans 3',sans-serif;color:#221D17">
+  <div id="2a" style="display:flex;flex-direction:column;gap:56px">
+
+    <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;background:#221D17;color:#F6F2EA;padding:6px 12px;border-radius:6px">2A</div>
+      <div>
+        <div style="font-family:'Newsreader',serif;font-size:46px;font-weight:600;line-height:1.05">Innehållsuppbyggnad efter AdSense-avslaget</div>
+        <div style="font-size:19px;color:#5F574C;margin-top:6px">Ersätter 01 Startsida, 07 Spelindex och 08 Artikelindex i <a href="#1a">1a</a> nedan · layout som bär 600+ ord utan textvägg · all svensk copy färdig att lyfta in</div>
+      </div>
+    </div>
+
+    <div style="background:#FFFDF9;border:1px solid #C8C0B2;border-radius:20px;padding:40px 48px;display:flex;flex-direction:column;gap:24px;max-width:1280px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.16em;color:#7A7264">VAD SOM ÄNDRAS, OCH VARFÖR</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">&quot;Innehåll av lågt värde&quot; handlar sällan om ordräkning i sig — det handlar om att en granskare inte kan se vad sajten <i>är</i> utan att spela. Startsidan har idag 149 ord och ingen av dem förklarar sajten. Det är den enskilt viktigaste sidan att fixa.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Men 600 ord på en startsida blir en textvägg om de bara staplas. Därför tre layoutgrepp: <b>intro direkt under h1</b> (läses av alla, även den som ändå ska spela), <b>spelkorten bär beskrivningen</b> i stället för en femordsteaser, och <b>&quot;Så funkar sajten&quot; längst ner</b> där texten inte står i vägen för spelet.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty"><b>Ett riktigt layoutbeslut:</b> tvåkolumnsrutnätet <span style="font-family:'IBM Plex Mono',monospace">.grid-games</span> klarar inte två meningar per kort på 390 px — korten blir 171 px breda och texten smal och hög. På mobil blir rutnätet därför en <b>enkolumnslista</b> med glyfen i egen 44 px-kolumn; på dator ligger de kvar som kort i tre spalter, där bredden räcker. Det kräver en ändring i <span style="font-family:'IBM Plex Mono',monospace">app.css</span>, inte en ny komponent.</div>
+          <div style="font-size:19px;line-height:1.6;text-wrap:pretty">Två saker som inte är design men måste med: JSON-LD på startsidan säger fortfarande <b>&quot;sju spel&quot;</b> när det är tio, och <b>/om/</b> behöver ett stycke om vem som driver sajten — det är vad riktlinjen om webbansvariga egentligen efterfrågar.</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid #E3DCD0;padding-top:20px;display:flex;gap:32px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:15px;color:#6C6358">
+        <span>STARTSIDA 149 → <b style="color:#4C6B3C">c:a 640 ORD</b></span>
+        <span>/spel/ 160 → <b style="color:#4C6B3C">c:a 520 ORD</b></span>
+        <span>/artiklar/ 56 → <b style="color:#4C6B3C">c:a 210 ORD + 4 NYA ARTIKLAR</b></span>
+      </div>
+    </div>
+
+    <!-- ══ STARTSIDA v2 ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">01b · STARTSIDA · innehållsversion</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL 390 · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--ok:#4C6B3C;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;min-height:68px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600">hjärngympa</div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div hidden="{{ adsHidden }}" style="padding:24px 16px 0">
+              <div style="height:100px;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(0,0,0,.035) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)">ANNONS 320×100</div>
+            </div>
+            <div style="padding:24px 16px 32px;display:flex;flex-direction:column;gap:16px">
+              <div style="font-family:'Newsreader',serif;font-size:34px;font-weight:600;line-height:1.1">Vad vill du gympa idag?</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">hjärngympa är en svensk sida med pussel och ordspel som du spelar direkt i webbläsaren. Tio spel, två ordverktyg och några guider — allt på svenska, allt gratis, och ingenting kräver konto, app eller nedladdning.</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Ordet betyder just det det låter som: att hålla huvudet i trim med något som kräver eftertanke. Här är det sudoku över morgonkaffet, dagens ord på bussen eller en patiens i soffan på kvällen. Sidan är byggd för att fungera lika bra i mobilen som på datorn, med stora ytor att träffa och text som går att läsa på armlängds avstånd.</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Dina resultat sparas lokalt i din egen webbläsare. Ingenting skickas vidare, och du behöver aldrig lämna en e-postadress för att spela.</div>
+
+              <div style="background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px;margin-top:8px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">DAGENS OMGÅNG</div>
+                <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">Dagens ord</div>
+                <div style="font-size:19px;line-height:1.6">Ett nytt svenskt fembokstavsord varje dag. Sex försök. Samma ord för alla i hela landet.</div>
+                <div style="height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600;margin-top:6px">Spela dagens omgång</div>
+              </div>
+
+              <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:16px">Spel</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">◈</div><div><div style="font-size:20px;font-weight:600">Dagens ord</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Ett nytt svenskt fembokstavsord varje dag, sex försök på att hitta det. Alla i landet får samma ord, så det går att jämföra med köket intill.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">▦</div><div><div style="font-size:20px;font-weight:600">Sudoku</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Fyll rutnätet så att varje rad, kolumn och block får siffrorna 1–9 en gång var. Fyra svårighetsgrader och blyertsanteckningar för de lägen där du behöver tänka högt.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">✳</div><div><div style="font-size:20px;font-weight:600">Minsvepare</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Röj fältet utan att gräva upp en mina — siffrorna berättar hur många minor som gömmer sig runt rutan. Flaggläget är en egen knapp, så du behöver aldrig långtrycka.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">▤</div><div><div style="font-size:20px;font-weight:600">Mahjong</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Plocka bort brickorna två och två genom att para ihop lika motiv som ligger fria. Mobilen får en kortare läggning, så att brickan blir stor nog att träffa.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">♣</div><div><div style="font-size:20px;font-weight:600">Kungen</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">FreeCell: alla 52 kort ligger öppet och fyra fria celler är ditt andrum. Nästan varje giv går att lösa — det är ordningen du flyttar i som avgör.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">🕷</div><div><div style="font-size:20px;font-weight:600">Spindelharpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Två kortlekar i tio kolumner, och åtta sviter från kung till ess ska bli färdiga. Börja med en färg — fyra färger är det svåraste vi har.</div></div></div>
+              </div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:280px;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(0,0,0,.035) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted);margin:20px 0">ANNONS 336×280</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">⛄</div><div><div style="font-size:20px;font-weight:600">Hänga gubbe</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Gissa det svenska ordet en bokstav i taget innan gissningarna tar slut. Välj mellan den traditionella galgen och en snögubbe som smälter bit för bit.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">♠</div><div><div style="font-size:20px;font-weight:600">Harpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Klassisk patiens: bygg fallande i växlande färg och flytta essen uppåt till målhögarna. Du trycker för att välja och trycker för att lägga — inget drag behövs.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">◆</div><div><div style="font-size:20px;font-weight:600">Minnesspel</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Vänd två brickor i taget och kom ihåg var motiven låg. Tre storlekar, från snabb runda till ordentlig utmaning.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">▩</div><div><div style="font-size:20px;font-weight:600">2048</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Svep ihop brickor med samma tal så att de blir det dubbla, och sikta på 2048. Lätt att lära sig, svårt att lägga ifrån sig.</div></div></div>
+              </div>
+
+              <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:16px">Verktyg</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-size:19px;font-weight:600">Korsordshjälp</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Hitta ordet från bokstäverna du redan har — skriv _ för dem du saknar</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-size:19px;font-weight:600">Wordfeud-hjälp</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Alla ord du kan lägga med dina brickor, sorterade på poäng</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+              </div>
+
+              <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:16px">Läs</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600;line-height:1.25">Sudokuregler och lösningstekniker</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted);margin-top:4px">7 MIN LÄSNING</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600;line-height:1.25">Patiensregler — så spelar du harpan</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted);margin-top:4px">6 MIN LÄSNING</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+              </div>
+
+              <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:16px">Så funkar sajten</div>
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div><div style="font-size:19px;font-weight:600;margin-bottom:2px">Inget konto, ingen app</div><div style="font-size:19px;line-height:1.65;text-wrap:pretty">Alla spel körs i webbläsaren, på telefonen likaväl som på datorn. Det finns ingen inloggning, ingen nedladdning och inget nyhetsbrev att tacka nej till.</div></div>
+                <div><div style="font-size:19px;font-weight:600;margin-bottom:2px">Resultaten stannar hos dig</div><div style="font-size:19px;line-height:1.65;text-wrap:pretty">Rader, rekord och pågående partier sparas i din egen webbläsare. Byter du telefon börjar du om — det är priset för att vi inte samlar in något om dig.</div></div>
+                <div><div style="font-size:19px;font-weight:600;margin-bottom:2px">Byggt för att gå att använda</div><div style="font-size:19px;line-height:1.65;text-wrap:pretty">Varje spel går att styra med tangentbord, fungerar i ljust och mörkt läge och visar aldrig ett tillstånd med enbart färg: rätt bokstav, felmarkerad ruta och flaggad mina har alla en egen form eller symbol.</div></div>
+                <div><div style="font-size:19px;font-weight:600;margin-bottom:2px">Svenska ord från Språkbanken</div><div style="font-size:19px;line-height:1.65;text-wrap:pretty">Ordlistorna bygger på Språkbankens material vid Göteborgs universitet, gallrat för hand så att dagens ord inte blir en böjningsform ingen känner igen. Hittar du ett ord som inte hör hemma får du gärna höra av dig.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP 1280 · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;--ok:#4C6B3C;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:10px 48px;min-height:68px;display:flex;align-items:center;gap:24px">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600;margin-right:auto">hjärngympa</div>
+              <div style="display:flex;gap:24px;font-size:19px"><span style="color:var(--accent)">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:24px 48px 64px">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="font-family:'Newsreader',serif;font-size:34px;font-weight:600;line-height:1.1">Vad vill du gympa idag?</div>
+                <div style="max-width:700px;display:flex;flex-direction:column;gap:16px">
+                  <div style="font-size:20px;line-height:1.7;text-wrap:pretty">hjärngympa är en svensk sida med pussel och ordspel som du spelar direkt i webbläsaren. Tio spel, två ordverktyg och några guider — allt på svenska, allt gratis, och ingenting kräver konto, app eller nedladdning.</div>
+                  <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Ordet betyder just det det låter som: att hålla huvudet i trim med något som kräver eftertanke. Här är det sudoku över morgonkaffet, dagens ord på bussen eller en patiens i soffan på kvällen. Sidan är byggd för att fungera lika bra i mobilen som på datorn, med stora ytor att träffa och text som går att läsa på armlängds avstånd.</div>
+                  <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Dina resultat sparas lokalt i din egen webbläsare. Ingenting skickas vidare, och du behöver aldrig lämna en e-postadress för att spela.</div>
+                </div>
+
+                <div style="background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:24px;display:flex;align-items:center;gap:32px;margin:16px 0 8px;max-width:820px">
+                  <div style="flex:1">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">DAGENS OMGÅNG</div>
+                    <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin:4px 0 6px">Dagens ord</div>
+                    <div style="font-size:19px;line-height:1.6">Ett nytt svenskt fembokstavsord varje dag. Sex försök. Samma ord för alla i hela landet.</div>
+                  </div>
+                  <div style="height:56px;padding:0 28px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600;flex:none">Spela dagens omgång</div>
+                </div>
+
+                <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:16px">Spel</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">◈</div><div style="font-size:20px;font-weight:600">Dagens ord</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Ett nytt svenskt fembokstavsord varje dag, sex försök på att hitta det. Alla i landet får samma ord, så det går att jämföra med köket intill.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">▦</div><div style="font-size:20px;font-weight:600">Sudoku</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Fyll rutnätet så att varje rad, kolumn och block får siffrorna 1–9 en gång var. Fyra svårighetsgrader och blyertsanteckningar för de lägen där du behöver tänka högt.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">✳</div><div style="font-size:20px;font-weight:600">Minsvepare</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Röj fältet utan att gräva upp en mina — siffrorna berättar hur många minor som gömmer sig runt rutan. Flaggläget är en egen knapp, så du behöver aldrig långtrycka.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">▤</div><div style="font-size:20px;font-weight:600">Mahjong</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Plocka bort brickorna två och två genom att para ihop lika motiv som ligger fria. Mobilen får en kortare läggning, så att brickan blir stor nog att träffa.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">♣</div><div style="font-size:20px;font-weight:600">Kungen</div><div style="font-size:17px;color:var(--muted);line-height:1.5">FreeCell: alla 52 kort ligger öppet och fyra fria celler är ditt andrum. Nästan varje giv går att lösa — det är ordningen du flyttar i som avgör.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">🕷</div><div style="font-size:20px;font-weight:600">Spindelharpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Två kortlekar i tio kolumner, och åtta sviter från kung till ess ska bli färdiga. Börja med en färg — fyra färger är det svåraste vi har.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">⛄</div><div style="font-size:20px;font-weight:600">Hänga gubbe</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Gissa det svenska ordet en bokstav i taget innan gissningarna tar slut. Välj mellan den traditionella galgen och en snögubbe som smälter bit för bit.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">♠</div><div style="font-size:20px;font-weight:600">Harpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Klassisk patiens: bygg fallande i växlande färg och flytta essen uppåt till målhögarna. Du trycker för att välja och trycker för att lägga — inget drag behövs.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">◆</div><div style="font-size:20px;font-weight:600">Minnesspel</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Vänd två brickor i taget och kom ihåg var motiven låg. Tre storlekar, från snabb runda till ordentlig utmaning.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">▩</div><div style="font-size:20px;font-weight:600">2048</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Svep ihop brickor med samma tal så att de blir det dubbla, och sikta på 2048. Lätt att lära sig, svårt att lägga ifrån sig.</div></div>
+                </div>
+
+                <div hidden="{{ adsHidden }}" style="width:728px;height:90px;margin:48px auto;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(0,0,0,.035) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)">ANNONS 728×90</div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+                  <div>
+                    <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-bottom:12px">Verktyg</div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                      <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-size:19px;font-weight:600">Korsordshjälp</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Hitta ordet från bokstäverna du redan har — skriv _ för dem du saknar</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                      <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-size:19px;font-weight:600">Wordfeud-hjälp</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Alla ord du kan lägga med dina brickor, sorterade på poäng</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-bottom:12px">Läs</div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                      <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600;line-height:1.25">Sudokuregler och lösningstekniker</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted);margin-top:4px">7 MIN LÄSNING</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                      <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:flex;gap:16px;align-items:center"><div style="flex:1"><div style="font-family:'Newsreader',serif;font-size:22px;font-weight:600;line-height:1.25">Patiensregler — så spelar du harpan</div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted);margin-top:4px">6 MIN LÄSNING</div></div><span style="font-size:22px;color:var(--accent)">→</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="border-top:1px solid var(--line);margin-top:40px;padding-top:32px">
+                  <div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600;margin-bottom:20px">Så funkar sajten</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px 48px;max-width:960px">
+                    <div><div style="font-size:21px;font-weight:600;margin-bottom:4px">Inget konto, ingen app</div><div style="font-size:20px;line-height:1.7;text-wrap:pretty">Alla spel körs i webbläsaren, på telefonen likaväl som på datorn. Det finns ingen inloggning, ingen nedladdning och inget nyhetsbrev att tacka nej till.</div></div>
+                    <div><div style="font-size:21px;font-weight:600;margin-bottom:4px">Resultaten stannar hos dig</div><div style="font-size:20px;line-height:1.7;text-wrap:pretty">Rader, rekord och pågående partier sparas i din egen webbläsare. Byter du telefon börjar du om — det är priset för att vi inte samlar in något om dig.</div></div>
+                    <div><div style="font-size:21px;font-weight:600;margin-bottom:4px">Byggt för att gå att använda</div><div style="font-size:20px;line-height:1.7;text-wrap:pretty">Varje spel går att styra med tangentbord, fungerar i ljust och mörkt läge och visar aldrig ett tillstånd med enbart färg: rätt bokstav, felmarkerad ruta och flaggad mina har alla en egen form eller symbol.</div></div>
+                    <div><div style="font-size:21px;font-weight:600;margin-bottom:4px">Svenska ord från Språkbanken</div><div style="font-size:20px;line-height:1.7;text-wrap:pretty">Ordlistorna bygger på Språkbankens material vid Göteborgs universitet, gallrat för hand så att dagens ord inte blir en böjningsform ingen känner igen. Hittar du ett ord som inte hör hemma får du gärna höra av dig.</div></div>
+                  </div>
+                </div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(0,0,0,.035) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)">ANNONS 300×600</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SPELINDEX v2 ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">07b · SPELINDEX · katalogversion</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">MOBIL 390 · MÖRKT</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;width:390px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:26px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;min-height:68px;border-bottom:1px solid var(--line);background:var(--surface)">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600">hjärngympa</div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☀</div>
+            </div>
+            <div style="padding:24px 16px 32px;display:flex;flex-direction:column;gap:16px">
+              <div style="font-family:'Newsreader',serif;font-size:34px;font-weight:600;line-height:1.1">Alla spel</div>
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:500;line-height:1.5">Gratis, i webbläsaren, utan konto. Fungerar lika bra i mobilen som på datorn.</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Tio spel, delade i fyra grupper efter vad de faktiskt kräver av dig. Är du osäker på var du ska börja står det i varje grupp — och alla spel går att prova utan att välja svårighetsgrad först.</div>
+
+              <div style="background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:8px;margin-top:8px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">DAGENS OMGÅNG</div>
+                <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600">Dagens ord</div>
+                <div style="font-size:19px;line-height:1.6">Ett nytt svenskt fembokstavsord varje dag. Sex försök.</div>
+                <div style="height:56px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600;margin-top:6px">Spela</div>
+              </div>
+
+              <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:12px">Ordspel</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Här är svenskan motståndet. Börja med Dagens ord om du vill ha en kort omgång på samma villkor som alla andra i landet — Hänga gubbe är den lugnare varianten, där du gissar dig fram i din egen takt.</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">◈</div><div><div style="font-size:20px;font-weight:600">Dagens ord</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Ett nytt svenskt fembokstavsord varje dag, sex försök. Alla i landet får samma ord.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">⛄</div><div><div style="font-size:20px;font-weight:600">Hänga gubbe</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Gissa ordet en bokstav i taget. Galge eller snögubbe, fyra kategorier.</div></div></div>
+              </div>
+
+              <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:12px">Kortspel</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Tre patienser med olika temperament. Harpan är den klassiska, med gömda kort och tur i given. Kungen har allt synligt och nästan alltid en lösning. Spindelharpan är den längsta — och den vi själva fastnar i. Vill du tänka snarare än hoppas: börja med Kungen.</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">♠</div><div><div style="font-size:20px;font-weight:600">Harpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Klassisk patiens. Tryck för att välja, tryck för att lägga.</div></div></div>
+                <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">♣</div><div><div style="font-size:20px;font-weight:600">Kungen</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">FreeCell — allt syns, nästan varje giv går att lösa.</div></div></div>
+              </div>
+              <div hidden="{{ adsHidden }}">
+                <div style="height:280px;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted);margin:20px 0">ANNONS 336×280</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px"><div style="font-size:28px;width:44px;text-align:center;flex:none;line-height:1.2">🕷</div><div><div style="font-size:20px;font-weight:600">Spindelharpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5;margin-top:2px">Tio kolumner, två kortlekar — en, två eller fyra färger.</div></div></div>
+              <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:12px">Logik</div>
+              <div style="font-size:19px;line-height:1.65;text-wrap:pretty">Rena slutledningsspel: ingen gissning behövs, och ingen belönas. Sudoku är den milda ingången, minsvepare den som straffar slarv. Båda går att spela helt med tangentbordet.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP 1280 · LJUST</div>
+          <div style="--bg:#F6F2EA;--surface:#FFFFFF;--ink:#1E1A15;--muted:#6C6358;--line:#E3DCD0;--accent:#B4531F;--accent-ink:#FFFFFF;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.14);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.16)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:10px 48px;min-height:68px;display:flex;align-items:center;gap:24px">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600;margin-right:auto">hjärngympa</div>
+              <div style="display:flex;gap:24px;font-size:19px"><span style="color:var(--accent)">Spel</span><span>Verktyg</span><span>Artiklar</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☾</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:24px 48px 64px">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="font-family:'Newsreader',serif;font-size:34px;font-weight:600;line-height:1.1">Alla spel</div>
+                <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:500;line-height:1.5;max-width:700px">Gratis, i webbläsaren, utan konto. Fungerar lika bra i mobilen som på datorn.</div>
+                <div style="font-size:20px;line-height:1.7;max-width:700px;text-wrap:pretty">Tio spel, delade i fyra grupper efter vad de faktiskt kräver av dig. Är du osäker på var du ska börja står det i varje grupp — och alla spel går att prova utan att välja svårighetsgrad först.</div>
+
+                <div style="background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:24px;display:flex;align-items:center;gap:32px;margin:16px 0 8px;max-width:820px">
+                  <div style="flex:1">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">DAGENS OMGÅNG</div>
+                    <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin:4px 0 6px">Dagens ord</div>
+                    <div style="font-size:19px;line-height:1.6">Ett nytt svenskt fembokstavsord varje dag. Sex försök.</div>
+                  </div>
+                  <div style="height:56px;padding:0 28px;background:var(--accent);color:var(--accent-ink);border-radius:999px;display:grid;place-items:center;font-size:19px;font-weight:600;flex:none">Spela</div>
+                </div>
+
+                <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:20px">Ordspel</div>
+                <div style="font-size:20px;line-height:1.7;max-width:700px;text-wrap:pretty">Här är svenskan motståndet. Börja med Dagens ord om du vill ha en kort omgång på samma villkor som alla andra i landet — Hänga gubbe är den lugnare varianten, där du gissar dig fram i din egen takt.</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">◈</div><div style="font-size:20px;font-weight:600">Dagens ord</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Ett nytt svenskt fembokstavsord varje dag, sex försök på att hitta det. Alla i landet får samma ord.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">⛄</div><div style="font-size:20px;font-weight:600">Hänga gubbe</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Gissa det svenska ordet en bokstav i taget. Galge eller snögubbe, fyra kategorier.</div></div>
+                </div>
+
+                <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:20px">Kortspel</div>
+                <div style="font-size:20px;line-height:1.7;max-width:700px;text-wrap:pretty">Tre patienser med olika temperament. Harpan är den klassiska, med gömda kort och tur i given. Kungen har allt synligt och nästan alltid en lösning. Spindelharpan är den längsta — och den vi själva fastnar i. Vill du tänka snarare än hoppas: börja med Kungen.</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">♠</div><div style="font-size:20px;font-weight:600">Harpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Klassisk patiens: fallande i växlande färg, essen uppåt. Tryck för att välja och lägga.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">♣</div><div style="font-size:20px;font-weight:600">Kungen</div><div style="font-size:17px;color:var(--muted);line-height:1.5">FreeCell: alla 52 kort öppet, fyra fria celler som andrum. Nästan varje giv går att lösa.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">🕷</div><div style="font-size:20px;font-weight:600">Spindelharpan</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Två kortlekar i tio kolumner, åtta sviter att bli färdig med. En till fyra färger.</div></div>
+                </div>
+
+                <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:20px">Logik</div>
+                <div style="font-size:20px;line-height:1.7;max-width:700px;text-wrap:pretty">Rena slutledningsspel: ingen gissning behövs, och ingen belönas. Sudoku är den milda ingången, minsvepare den som straffar slarv. Båda går att spela helt med tangentbordet.</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">▦</div><div style="font-size:20px;font-weight:600">Sudoku</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Varje rad, kolumn och block får 1–9 en gång var. Fyra grader och blyertsanteckningar.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">✳</div><div style="font-size:20px;font-weight:600">Minsvepare</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Siffrorna berättar var minorna ligger. Flaggläget är en egen knapp, inget långtryck.</div></div>
+                </div>
+
+                <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;margin-top:20px">Klassiker</div>
+                <div style="font-size:20px;line-height:1.7;max-width:700px;text-wrap:pretty">Spelen man känner igen. Mahjong och minnesspel är mönsterletande i olika tempo, 2048 är det där man säger &quot;en runda till&quot;. Bra när man vill koppla av mer än anstränga sig.</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">▤</div><div style="font-size:20px;font-weight:600">Mahjong</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Para ihop fria brickor med lika motiv. Kompakt läggning för mobil, klassisk för dator.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">◆</div><div style="font-size:20px;font-weight:600">Minnesspel</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Vänd två brickor i taget och kom ihåg var motiven låg. Tre storlekar.</div></div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><div style="font-size:28px;line-height:1">▩</div><div style="font-size:20px;font-weight:600">2048</div><div style="font-size:17px;color:var(--muted);line-height:1.5">Svep ihop lika tal så att de blir det dubbla, och sikta på 2048.</div></div>
+                </div>
+
+                <div hidden="{{ adsHidden }}" style="width:336px;height:280px;margin:48px auto 0;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(0,0,0,.035) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)">ANNONS 336×280</div>
+
+                <div style="max-width:700px;margin-top:16px">
+                  <div style="font-family:'Newsreader',serif;font-size:32px;font-weight:600;margin-bottom:12px">Alla spel fungerar likadant</div>
+                  <div style="font-size:20px;line-height:1.7;text-wrap:pretty;margin-bottom:16px">Gratis, direkt i webbläsaren, utan konto och utan app. Resultat och rekord sparas lokalt i din egen webbläsare — ingenting skickas någonstans.</div>
+                  <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Alla spel går att styra med tangentbord, fungerar i både ljust och mörkt läge, och är byggda så att inget tillstånd visas med enbart färg. Det sista är viktigare än det låter: en grön bricka och en gul bricka är samma bricka för en stor del av besökarna, så varje tillstånd har också en form, en ram eller en symbol.</div>
+                </div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(0,0,0,.035) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)">ANNONS 300×600</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ARTIKELINDEX v2 ══ -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.16em;color:#5F574C">08b · ARTIKELINDEX · med innehållsplan</div>
+      <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;color:#6B6357;margin-bottom:10px">DESKTOP 1280 · MÖRKT · 2 PUBLICERADE + 4 PLANERADE</div>
+          <div style="--bg:#151210;--surface:#1F1B17;--ink:#F1ECE3;--muted:#A69C90;--line:#352E26;--accent:#E58A46;--accent-ink:#1B1410;--near:#C69B36;--near-ink:#E8C67A;width:1280px;background:var(--bg);color:var(--ink);border:1px solid rgba(0,0,0,.4);border-radius:16px;overflow:hidden;box-shadow:0 24px 48px rgba(31,26,18,.3)">
+            <div style="background:var(--surface);border-bottom:1px solid var(--line);padding:10px 48px;min-height:68px;display:flex;align-items:center;gap:24px">
+              <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:600;margin-right:auto">hjärngympa</div>
+              <div style="display:flex;gap:24px;font-size:19px"><span>Spel</span><span>Verktyg</span><span style="color:var(--accent)">Artiklar</span></div>
+              <div style="width:48px;height:48px;border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;font-size:20px">☀</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:48px;padding:24px 48px 64px">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">ARTIKLAR</div>
+                <div style="font-family:'Newsreader',serif;font-size:34px;font-weight:600;line-height:1.1">Regler, strategi och knep</div>
+                <div style="font-family:'Newsreader',serif;font-size:24px;font-weight:500;line-height:1.5;max-width:700px">Guiderna vi själva hade velat läsa när vi började.</div>
+                <div style="max-width:700px;display:flex;flex-direction:column;gap:16px;margin-top:4px">
+                  <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Texterna här är skrivna för att läsas en gång och sedan räcka. Reglerna först, kort och utan omskrivningar, och därefter de tekniker som faktiskt gör skillnad när du kör fast — inte alla tekniker som finns, utan de vi själva använder.</div>
+                  <div style="font-size:20px;line-height:1.7;text-wrap:pretty">Varje guide hör till ett spel du kan öppna direkt härifrån, så att du kan prova ett grepp medan du läser om det. Ett par av texterna handlar inte om regler alls, utan om hjärngympa som sådan: vad träningen gör med huvudet, och vad den inte gör.</div>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;gap:16px;align-items:center">
+                    <div style="flex:1">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--accent)">SUDOKU</div>
+                      <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;line-height:1.25;margin:4px 0 6px">Sudokuregler och lösningstekniker</div>
+                      <div style="font-size:18px;color:var(--muted);line-height:1.55">Från reglerna på trettio sekunder till teknikerna som löser expertbrädet.</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted);margin-top:6px">7 MIN LÄSNING</div>
+                    </div>
+                    <span style="font-size:22px;color:var(--accent)">→</span>
+                  </div>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;gap:16px;align-items:center">
+                    <div style="flex:1">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--accent)">PATIENS</div>
+                      <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;line-height:1.25;margin:4px 0 6px">Patiensregler — så spelar du harpan</div>
+                      <div style="font-size:18px;color:var(--muted);line-height:1.55">Reglerna på två minuter, och sedan knepen som avgör om leken går ut.</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted);margin-top:6px">6 MIN LÄSNING</div>
+                    </div>
+                    <span style="font-size:22px;color:var(--accent)">→</span>
+                  </div>
+
+                  <div style="display:flex;align-items:center;gap:16px;margin:20px 0 4px">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.1em;color:var(--near-ink)">PLANERADE — INNEHÅLLSPLAN, INTE PUBLICERAT</div>
+                    <div style="height:1px;background:var(--line);flex:1"></div>
+                  </div>
+
+                  <div style="border:2px dashed var(--near);border-radius:12px;padding:20px;display:flex;gap:16px;align-items:center">
+                    <div style="flex:1">
+                      <div style="display:flex;gap:10px;align-items:center"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--near-ink)">HJÄRNGYMPA</div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;color:var(--near-ink);border:1px solid var(--near);border-radius:999px;padding:2px 8px">SKRIV FÖRST</div></div>
+                      <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;line-height:1.25;margin:4px 0 6px">Fungerar hjärnträning? Vad forskningen faktiskt säger</div>
+                      <div style="font-size:18px;color:var(--muted);line-height:1.55">Den enda texten en granskare kan läsa som inte handlar om ett spel på sajten — och den som gör &quot;hjärngympa&quot; till ett ämne i stället för ett varumärke.</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted);margin-top:6px">c:a 8 MIN</div>
+                    </div>
+                  </div>
+                  <div style="border:1px dashed var(--line);border-radius:12px;padding:20px">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">WORDFEUD</div>
+                    <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;line-height:1.25;margin:4px 0 6px">Wordfeud-strategi: öppningsord och brickvärden</div>
+                    <div style="font-size:18px;color:var(--muted);line-height:1.55">Länkar in till wordfeud-hjälpen, som idag inte har någon text som förklarar den.</div>
+                  </div>
+                  <div style="border:1px dashed var(--line);border-radius:12px;padding:20px">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">KORSORD</div>
+                    <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;line-height:1.25;margin:4px 0 6px">Korsordsguiden: så knäcker du de svåra ledtrådarna</div>
+                    <div style="font-size:18px;color:var(--muted);line-height:1.55">Omskrivningar, förkortningar och de klassiska fällorna — plus när du ska slå i verktyget.</div>
+                  </div>
+                  <div style="border:1px dashed var(--line);border-radius:12px;padding:20px">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:.08em;color:var(--muted)">PATIENS</div>
+                    <div style="font-family:'Newsreader',serif;font-size:26px;font-weight:600;line-height:1.25;margin:4px 0 6px">Harpan, Kungen eller Spindelharpan — vilken ska du spela?</div>
+                    <div style="font-size:18px;color:var(--muted);line-height:1.55">Naturlig länknav nu när alla tre finns: jämför tur, tempo och hur ofta given går ut.</div>
+                  </div>
+                </div>
+
+                <div hidden="{{ adsHidden }}" style="width:336px;height:280px;margin:48px auto 0;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)">ANNONS 336×280</div>
+              </div>
+              <div hidden="{{ adsHidden }}" style="width:300px;height:600px;border:1px dashed var(--line);border-radius:4px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 8px,transparent 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted)">ANNONS 300×600</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <div id="1a" style="display:flex;flex-direction:column;gap:56px">
 
     <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap">
