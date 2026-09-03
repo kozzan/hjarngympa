@@ -21,6 +21,7 @@ Six additions, named in the existing style. Nothing else changes.
 | `edge` | `#C8C0B2` / `#4A4239` | bottom edge that makes a tile/cell read as raised (shape signal, not shadow) |
 | `hatch` | `rgba(30,26,21,.10)` / `rgba(241,236,227,.10)` | 45° 4/5 px stripe = blocked, locked, face-down — colour-independent |
 | `card-face` | `#FFFFFF` / `#EFE9DD` | cards and mahjong tiles stay light in dark mode; dark ink on a light face reads best |
+| `card-ink` `card-red` `card-red-fill` `card-sel` `card-hatch` | `#1E1A15` `#A2331A` `#F6E2DB` `#F1E6D9` `rgba(30,26,21,.10)` — **same in both themes** | anything drawn *on* a card or tile face. The face stays light in dark mode, so the themed `ink`/`error`/`sel`/`hatch` would flip out from under it |
 | `num-1 … num-8` | `#3E6187 #4C6B3C #A2331A #5A3E86 #8A4A17 #1F6B6B #1E1A15 #6C6358` (dark: `#7FA6CF #6F9A55 #F2907A #A98BD6 #D79A5A #5FB3B3 #F1ECE3 #A69C90`) | minesweeper neighbour counts — **reinforcement only**, the digit carries the meaning |
 | `ok-soft` | `#E9EFE1` / `#25301E` | matched pair, cleared field |
 
