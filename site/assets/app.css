@@ -253,7 +253,7 @@ main { padding: 24px 0 64px; }
 }
 
 .grid-games {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  display: grid; grid-template-columns: 1fr; gap: 12px; /* one column on phones: the two-sentence descriptions do not fit two-up at 390px */
 }
 @media (min-width: 760px) { .grid-games { grid-template-columns: repeat(3, 1fr); } }
 .game-card {
