@@ -155,6 +155,22 @@ test('ads.txt names the publisher id in the exact format exchanges require', () 
   assert.ok(!ads.includes('ca-pub-'), 'ads.txt takes pub-, not ca-pub-');
 });
 
+test('every page loads GA4 once, after the consent defaults', () => {
+  // Order is the bug: gtag('config') before the consent defaults would let GA
+  // set analytics cookies on first paint, which is what Consent Mode prevents.
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  const pages = fs.readdirSync(path.join(ROOT, 'dist'), { recursive: true })
+    .filter((f) => f.endsWith('.html'));
+  assert.ok(pages.length > 10, `expected a full build, got ${pages.length} pages`);
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(ROOT, 'dist', page), 'utf8');
+    const tags = html.match(/googletagmanager\.com\/gtag\/js/g) || [];
+    assert.strictEqual(tags.length, 1, `${page}: expected one gtag.js tag, got ${tags.length}`);
+    assert.ok(html.indexOf("analytics_storage: 'denied'") < html.indexOf("gtag('config'"),
+      `${page}: consent defaults must come before gtag('config')`);
+  }
+});
+
 // ------------------------------------------------------------- minsvepare
 
 const Mine = require(path.join(ROOT, 'site/assets/minsvepare-core.js'));
