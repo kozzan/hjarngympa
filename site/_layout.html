@@ -56,6 +56,15 @@ gtag('consent', 'default', {
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2838730195714407"
         crossorigin="anonymous"></script>
+<!-- GA4. Loads after the consent defaults above, so with analytics_storage
+     denied it sends cookieless pings until Google's CMP grants storage.
+     dataLayer and gtag() are already defined by that block -- do not redeclare
+     them, a second definition would drop the queued consent call. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0C6S3YPL5E"></script>
+<script>
+gtag('js', new Date());
+gtag('config', 'G-0C6S3YPL5E');
+</script>
 <script>
 /* Set the theme before first paint so there is no flash of the wrong one. */
 try {
