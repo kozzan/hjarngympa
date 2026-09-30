@@ -493,6 +493,22 @@ test('the og image exists, is really 1200x630 and stays small enough to fetch', 
 
 // ------------------------------------------------------- structured data
 
+test('dagens ord lists past answers exactly as the game picked them, never today', () => {
+  // The build repeats the browser's pick in Python. If the two drift, the page
+  // names a wrong word as yesterday's answer -- or worse, today's.
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], {
+    cwd: ROOT, env: { ...process.env, TODAY: '2026-09-30' }, stdio: 'pipe',
+  });
+  const page = fs.readFileSync(path.join(ROOT, 'dist/dagens-ord/index.html'), 'utf8');
+  const list = page.match(/<ul class="past-words">([\s\S]*?)<\/ul>/)[1];
+  const answers = data('words5.txt');
+  const pick = (d) => answers[WordGame.puzzleIndex(d, Date.UTC(2026, 0, 1)) % answers.length].toUpperCase();
+  assert.match(list, new RegExp(`29 september: <a [^>]+><strong>${pick(new Date(2026, 8, 29))}</strong>`));
+  assert.match(list, new RegExp(`23 september: <a [^>]+><strong>${pick(new Date(2026, 8, 23))}</strong>`));
+  assert.ok(!list.includes(`<strong>${pick(new Date(2026, 8, 30))}</strong>`), 'today\'s answer leaked');
+  assert.ok(!page.includes('<!--past-words-->'), 'placeholder left unreplaced');
+});
+
 test('every JSON-LD block parses and only carries absolute URLs', () => {
   // A trailing comma here is invisible until Search Console rejects the page
   // weeks later, so parse the built output with a real parser.
