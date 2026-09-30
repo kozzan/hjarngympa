@@ -3,6 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Rebuild daily so dagens ord's list of past answers moves on. 23:05 UTC is
+  # 00:05 CET / 01:05 CEST, just after Swedish midnight in both, so the new
+  # entry appears as soon as it stops being a spoiler.
+  schedule:
+    - cron: '5 23 * * *'
   workflow_dispatch:
 
 permissions:

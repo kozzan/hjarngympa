@@ -14,6 +14,8 @@ ponytail: string.Template over a template engine. Eight pages and one
 layout do not justify a dependency, a build config or a node_modules.
 """
 import os, re, shutil, html, datetime
+from urllib.parse import quote
+from zoneinfo import ZoneInfo
 from string import Template
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -53,6 +55,36 @@ def mount_ads(html):
             f'</div>'
         )
     return AD_RE.sub(rep, html)
+
+
+# Dagens ord picks its answer in the browser from the local date. The build
+# repeats that pick for the last few days so the page carries real,
+# daily-changing text for people who search "dagens ord" wanting a word of
+# the day. Only past days, in Swedish time: build time can never spoil today.
+# ponytail: the list is as fresh as the last deploy, hence the daily cron in
+# deploy.yml; each entry carries its date, so a stale build is never wrong.
+EPOCH = datetime.date(2026, 1, 1)  # must match EPOCH in dagens-ord.js
+MONTHS = ("januari februari mars april maj juni juli augusti september "
+          "oktober november december").split()
+PAST_WORDS_MARK = "<!--past-words-->"
+
+
+def past_words_html(answers, today, days=7):
+    items = []
+    for back in range(1, days + 1):
+        d = today - datetime.timedelta(days=back)
+        w = answers[(d - EPOCH).days % len(answers)]
+        items.append(
+            f'<li>{d.day} {MONTHS[d.month - 1]}: '
+            f'<a href="https://svenska.se/?q={quote(w)}"><strong>{w.upper()}</strong></a></li>'
+        )
+    return "<ul class=\"past-words\">\n" + "\n".join(items) + "\n</ul>"
+
+
+def today_in_sweden():
+    # TODAY=YYYY-MM-DD lets the test pin the date and compare with the JS pick.
+    t = os.environ.get("TODAY")
+    return datetime.date.fromisoformat(t) if t else datetime.datetime.now(ZoneInfo("Europe/Stockholm")).date()
 
 
 def read_page(path):
@@ -112,6 +144,9 @@ def main():
         shutil.rmtree(DIST)
     os.makedirs(DIST)
 
+    answers = open(os.path.join(SITE, "data", "words5.txt"), encoding="utf-8").read().split()
+    past_words = past_words_html(answers, today_in_sweden())
+
     pages_dir = os.path.join(SITE, "pages")
     routes = []
     for dirpath, _, files in os.walk(pages_dir):
@@ -133,7 +168,7 @@ def main():
                 bodyclass=meta.get("bodyclass", ""),
                 head=meta.get("head", ""),
                 ogtype=meta.get("ogtype", "website"),
-                body=body,
+                body=body.replace(PAST_WORDS_MARK, past_words),
             )
             page = mount_ads(page)
             if BASE_PATH:
