@@ -124,6 +124,12 @@ test('words the start-word article recommends are still valid guesses', () => {
   assert.strictEqual(answers.size, 952, 'article figures assume 952 answers -- re-run the numbers');
 });
 
+test('words the wordfeud article recommends are in the rack list', () => {
+  const valid = new Set(data('words9.txt'));
+  const missing = ['al', 'av', 'be', 'bi', 'bo', 'by', 'de', 'du', 'ed', 'ej', 'ek', 'el', 'en', 'er', 'ge', 'ha', 'in', 'is', 'ja', 'jo', 'ko', 'le', 'ni', 'nu', 'ny', 'oj', 'om', 'ro', 'se', 'sy', 'ta', 'te', 'ur', 'ut', 've', 'vi', 'yr', 'då', 'få', 'gå', 'må', 'nå', 'så', 'rå', 'tå', 'kö', 'hö', 'dö', 'än', 'är', 'ät', 'åk', 'ål', 'år', 'ås', 'åt', 'öl', 'öm', 'ör', 'ös', 'ok', 'mo', 'li', 'so', 'uv', 'yx', 'ex', 'ax', 'fy', 'lyx', 'yxa', 'box', 'zoo', 'jul', 'zon', 'kex', 'gym', 'lax', 'sax', 'vax', 'mix', 'fix', 'fax', 'max', 'oxe', 'sju', 'sjö', 'fly', 'typ', 'tyg', 'sky', 'wok', 'quiz', 'nya', 'byn', 'bor', 'bot', 'bon', 'oklar', 'orätt', 'okänd', 'oäkta', 'konsert', 'konster', 'sektorn', 'skotern', 'resande', 'rensade', 'sedaner', 'tränade', 'tändare', 'äntrade', 'knaster', 'kratsen', 'nektars'].filter((w) => !valid.has(w));
+  assert.deepStrictEqual(missing, [], 'the article recommends words the list no longer has');
+});
+
 test('the rack list contains no word longer than nine letters', () => {
   const tooLong = data('words9.txt').filter((w) => w.length > 9);
   assert.deepStrictEqual(tooLong, []);
@@ -563,7 +569,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 16, 'ten games + homepage + four articles + korsordshjälp');
+  assert.strictEqual(blocks, 17, 'ten games + homepage + five articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
