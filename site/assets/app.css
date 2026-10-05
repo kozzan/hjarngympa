@@ -306,6 +306,10 @@ main { padding: 24px 0 64px; }
   border-left: 3px solid var(--accent);
   font: italic 500 28px/1.4 var(--serif);
 }
+.prose table { border-collapse: collapse; width: 100%; font-size: 19px; margin: 16px 0 24px; }
+.prose th, .prose td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); }
+.prose th { font-size: 17px; color: var(--muted); font-weight: 600; }
+.prose td.num, .prose th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .lead { font: 500 24px/1.5 var(--serif); color: var(--ink); }
 .byline {
   border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 24px;
