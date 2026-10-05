@@ -1,0 +1,209 @@
+<!--meta
+title: Vilken patiens är svårast? Harpan, Kungen och Spindelharpan jämförda
+desc: Vi delade ut tusentals givar av tre patienser och lät datorn spela dem. Harpan är lättast att komma in i, Kungen belönar planering mest och Spindelharpan med fyra färger är svårast.
+priority: 0.8
+ogtype: article
+-->
+<div class="wrap cols">
+  <article class="prose">
+    <p class="mono">Artiklar · Patiens</p>
+    <h1 style="font-size:clamp(36px,6vw,52px);text-wrap:pretty">Vilken patiens är svårast?</h1>
+    <p class="byline mono">Uppdaterad 26 oktober 2026 · 7 min läsning</p>
+
+    <p class="lead">Harpan, Kungen och Spindelharpan ser ut som samma spel —
+    kort i kolumner, nedåt i ordning, upp på högar. De är det inte. Vi delade
+    ut tusentals givar av alla tre och lät datorn spela dem, för att se var
+    turen sitter och var skickligheten gör skillnad.</p>
+
+    <h2>Svaret först</h2>
+    <ul>
+      <li><strong>Harpan</strong> är lättast att komma in i, men turen avgör
+      mer än i de andra. Du ser bara 7 av 52 kort när du börjar.</li>
+      <li><strong>Kungen</strong> är den mest rättvisa. Alla kort ligger
+      uppvända, nästan varje giv går att lösa, och det är planeringen som
+      avgör.</li>
+      <li><strong>Spindelharpan</strong> är svårast — med fyra färger är den
+      den enda av de tre där även en noggrann spelare ofta får ge upp.</li>
+    </ul>
+
+    <h2>Så jämförde vi</h2>
+    <p>Vi använde exakt samma kod som spelen här på sajten, med samma regler
+    och samma sätt att blanda korten. Först delade vi ut 10 000 givar av varje
+    spel och räknade på hur de ser ut från början. Sedan lät vi datorn spela
+    med en <em>enkel strategi</em>: den gör det drag som ser bäst ut just nu,
+    utan att tänka framåt. Den spelar ungefär som en nybörjare som aldrig
+    ångrar sig — inte perfekt, och det är meningen. Det som är intressant är
+    hur olika långt den kommer i de tre spelen.</p>
+
+    <h2>De tre spelen bredvid varandra</h2>
+    <table>
+      <thead><tr><th></th><th>Harpan</th><th>Kungen</th><th>Spindelharpan</th></tr></thead>
+      <tbody>
+        <tr><td>Kortlekar</td><td>1</td><td>1</td><td>2</td></tr>
+        <tr><td>Kolumner</td><td>7</td><td>8</td><td>10</td></tr>
+        <tr><td>Synliga kort vid start</td><td>7 av 52</td><td>52 av 52</td><td>10 av 104</td></tr>
+        <tr><td>Talong</td><td>24 kort, obegränsat med varv</td><td>Ingen — fyra fria celler</td><td>50 kort, fem utdelningar</td></tr>
+        <tr><td>Tom kolumn tar</td><td>Bara en kung</td><td>Vilket kort som helst</td><td>Vilket kort som helst</td></tr>
+        <tr><td>Tur eller skicklighet</td><td>Mycket tur</td><td>Nästan bara skicklighet</td><td>Båda</td></tr>
+        <tr><td>Passar dig som</td><td>vill ha en lugn stund</td><td>gillar att planera</td><td>vill ha en lång utmaning</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Hur mycket ser du när du börjar?</h2>
+    <p>Det här är den enskilt största skillnaden, och den förklarar nästan
+    allt annat.</p>
+    <p>I <strong>harpan</strong> ligger 21 kort nedvända i kolumnerna och 24 i
+    talongen. Du ser 7 kort, och av de 10 000 givarna låg ett ess synligt
+    från start i 45 procent. Resten av spelet går ut på att gräva fram det du
+    inte ser, och ibland ligger det du behöver längst ner i fel kolumn.</p>
+    <p>I <strong>Kungen</strong> är allt synligt från första stund. Inget
+    ligger nedvänt och det finns ingen talong. Det enda som kan gå fel är
+    dina egna drag.</p>
+    <p>I <strong>spindelharpan</strong> ser du 10 kort av 104. 44 ligger
+    nedvända i kolumnerna och 50 väntar i talongen. Det är mer dolt än i
+    harpan, och dessutom kan samma kort finnas i flera exemplar — med en färg
+    finns det åtta spaderkungar.</p>
+
+    <h2>Hur långt kommer en enkel strategi?</h2>
+    <table>
+      <thead><tr><th>Spel</th><th class="num">Vunna givar</th><th class="num">Antal givar</th></tr></thead>
+      <tbody>
+        <tr><td>Harpan</td><td class="num">25 %</td><td class="num">2 000</td></tr>
+        <tr><td>Kungen</td><td class="num">15 %</td><td class="num">500</td></tr>
+        <tr><td>Spindelharpan, 1 färg</td><td class="num">5 %</td><td class="num">300</td></tr>
+        <tr><td>Spindelharpan, 2 färger</td><td class="num">2 %</td><td class="num">300</td></tr>
+        <tr><td>Spindelharpan, 4 färger</td><td class="num">0 %</td><td class="num">300</td></tr>
+      </tbody>
+    </table>
+    <p>Datorn vinner alltså var fjärde harpa utan att tänka alls. Det säger
+    något om hur mycket av harpan som är tur: korten kommer i rätt ordning
+    eller inte, och den som gör rimliga drag vinner en hel del givar ändå.</p>
+    <p>Kungen ser svårare ut i tabellen, men där är det tvärtom. Samma enkla
+    strategi klarar bara 15 procent. När vi i stället lät datorn <em>tänka
+    framåt</em> — pröva sig fram bland upp till 20 000 ställningar innan den
+    gav upp — löste den 95 procent av samma givar. De sista fem procenten är
+    inte olösbara, datorn gav bara upp för tidigt. Skillnaden mellan 15 och 95
+    är precis det Kungen handlar om: allt går att lösa, men inte på
+    reflex.</p>
+    <p>Spindelharpan är där den enkla strategin går under, även med en färg.
+    Spelet kräver att du bygger långa följder i samma färg och håller
+    kolumner tomma, och det gör man inte genom att ta det första draget som
+    dyker upp.</p>
+
+    <h2>Harpan — den du redan kan</h2>
+    <p>Harpan är den patiens de flesta menar när de säger "patiens", och den
+    som följde med Windows i trettio år. Du bygger nedåt i växlande färg på
+    bordet och uppåt i samma färg på grundhögarna. En tom kolumn kan bara
+    fyllas med en kung, och det är regeln som gör tomma kolumner sällsynta.</p>
+    <p>Här vänds ett kort i taget från talongen, och högen vänds tillbaka
+    hur många gånger du vill. Det är den snällaste varianten — med tre kort i
+    taget blir harpan betydligt svårare. Reglerna och knepen finns i
+    <a href="/artiklar/patiens-regler/">vår guide till harpan</a>.</p>
+
+    <h2>Kungen — patiensen utan ursäkter</h2>
+    <p>Kungen heter FreeCell på engelska. Alla 52 kort delas ut uppvända i
+    åtta kolumner, och du har fyra fria celler där du kan parkera ett kort i
+    taget. Precis som i harpan bygger du nedåt i växlande färg.</p>
+    <p>Två saker skiljer den från harpan. En tom kolumn tar <em>vilket kort
+    som helst</em>, inte bara en kung. Och hur många kort du får flytta på en
+    gång beror på hur mycket plats du har: antalet lediga celler plus ett,
+    dubblat för varje tom kolumn. Med två lediga celler och en tom kolumn får
+    du alltså flytta sex kort till en kolumn som redan har kort. Spelet säger till om du försöker flytta fler,
+    och förklarar varför.</p>
+    <p>Av de 32 000 givar som Microsofts gamla FreeCell delade ut har bara en
+    enda visat sig vara olösbar. Fastnar du i Kungen är det nästan alltid ett
+    läge du har spelat dig in i — inte en dålig giv.</p>
+
+    <h2>Spindelharpan — den långa</h2>
+    <p>Spindelharpan spelas med två kortlekar i tio kolumner. Du får lägga
+    ett kort på vilket kort som helst som är ett steg högre, oavsett färg.
+    Men du får bara <em>lyfta</em> flera kort på en gång om de är i samma
+    färg och i obruten ordning. Det är den regeln som gör spelet: det är lätt
+    att lägga, och svårt att flytta tillbaka.</p>
+    <p>När du kör fast delar talongen ut ett kort till varje kolumn, fem
+    gånger. Den delar inte ut om någon kolumn är tom — fyll den först. En
+    hel följd från kung till ess i samma färg lyfts av bordet automatiskt,
+    och när alla åtta är borta har du vunnit.</p>
+    <p>Du väljer själv svårighet: en, två eller fyra färger. Det är alltid
+    104 kort; det enda som ändras är hur många färger de är fördelade på.
+    Med en färg kan nästan allt flyttas. Med fyra får även starka spelare
+    räkna med att ge upp ibland.</p>
+
+    <h2>Så vilken är svårast?</h2>
+    <p>Rangordnat efter hur ofta en noggrann spelare får ge upp:</p>
+    <ol>
+      <li><strong>Spindelharpan med fyra färger</strong> — svårast, och den
+      enda där en förlust ofta inte är ditt fel.</li>
+      <li><strong>Harpan</strong> — många givar går inte att lösa alls, men
+      de som går är sällan svåra.</li>
+      <li><strong>Spindelharpan med två färger</strong> — kräver tålamod, men
+      belönar det.</li>
+      <li><strong>Kungen</strong> — kräver mest tankearbete per drag, men
+      nästan varje giv går att vinna.</li>
+      <li><strong>Spindelharpan med en färg</strong> — lång men snäll.</li>
+    </ol>
+    <p>Frågar du i stället vilken som är svårast att bli <em>bra</em> på är
+    svaret Kungen. Där finns ingen tur att skylla på, och skillnaden mellan
+    en van och en ovan spelare syns i varje giv.</p>
+
+    <h2>Vanliga frågor</h2>
+    <h3>Vilken patiens ska jag börja med?</h3>
+    <p>Harpan, om du vill komma igång direkt. Reglerna sitter redan hos de
+    flesta. Vill du sedan ha något där du själv avgör utgången, gå vidare
+    till Kungen.</p>
+    <h3>Är harpan bara tur?</h3>
+    <p>Nej, men mer tur än de andra två. En del givar går inte att lösa hur
+    du än spelar, och en del vinner du nästan av sig själv. Det är i givarna
+    däremellan som skickligheten syns.</p>
+    <h3>Hur många färger ska jag välja i spindelharpan?</h3>
+    <p>Börja med en färg för att lära dig bordet. Två färger är standard och
+    det vi ger dig från början. Fyra färger är den riktiga spindelharpan —
+    spara den till du vinner två färger oftare än du förlorar.</p>
+
+    <div class="card" style="margin-top:32px">
+      <h3 style="margin-top:0">Prova alla tre</h3>
+      <p>Gratis, i mobilen och på datorn, utan konto.</p>
+      <p style="margin:0;display:flex;flex-wrap:wrap;gap:12px">
+        <a class="pill" href="/patiens/">Harpan</a>
+        <a class="pill" href="/kungen/">Kungen</a>
+        <a class="pill" href="/spindelharpan/">Spindelharpan</a>
+      </p>
+    </div>
+
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+  </article>
+  <aside>
+    <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>
+    <div class="card">
+      <p class="mono" style="margin:0 0 8px">Läs också</p>
+      <p style="margin:0 0 12px"><a href="/artiklar/patiens-regler/">Patiensregler — så spelar du harpan</a></p>
+      <p style="margin:0"><a href="/artiklar/hjarngympa-forskning/">Fungerar hjärnträning? Vad forskningen faktiskt säger</a></p>
+    </div>
+  </aside>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Vilken patiens är svårast? Harpan, Kungen och Spindelharpan jämförda",
+  "description": "Vi delade ut tusentals givar av tre patienser och lät datorn spela dem. Harpan är lättast att komma in i, Kungen belönar planering mest och Spindelharpan med fyra färger är svårast.",
+  "url": "https://hjarngympa.se/artiklar/vilken-patiens/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hjarngympa.se/artiklar/vilken-patiens/"
+  },
+  "inLanguage": "sv-SE",
+  "dateModified": "2026-10-26",
+  "author": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>
