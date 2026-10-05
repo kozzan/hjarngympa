@@ -110,6 +110,20 @@ test('daily answers are unique and cover at least two years', () => {
   assert.ok(answers.length > 730, `only ${answers.length} answers`);
 });
 
+// The start-word article quotes figures computed from these two lists. If a
+// regeneration drops a word it recommends, the article starts lying.
+test('words the start-word article recommends are still valid guesses', () => {
+  const valid = new Set(data('words5all.txt'));
+  const answers = new Set(data('words5.txt'));
+  for (const w of ['krita', 'rikta', 'klart', 'lorta', 'slita', 'trosa',
+    'lista', 'stora', 'torka', 'sälen', 'släng', 'släde']) {
+    assert.ok(valid.has(w), `${w} is no longer a valid guess`);
+  }
+  assert.ok(!answers.has('krita') && answers.has('rikta'), 'answer-list claims changed');
+  assert.ok(!valid.has('adieu') && !valid.has('ratio'), 'article says these are rejected');
+  assert.strictEqual(answers.size, 952, 'article figures assume 952 answers -- re-run the numbers');
+});
+
 test('the rack list contains no word longer than nine letters', () => {
   const tooLong = data('words9.txt').filter((w) => w.length > 9);
   assert.deepStrictEqual(tooLong, []);
@@ -549,7 +563,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 15, 'ten games + homepage + three articles + korsordshjälp');
+  assert.strictEqual(blocks, 16, 'ten games + homepage + four articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
