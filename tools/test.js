@@ -1163,6 +1163,17 @@ test('redirect stubs stay out of the sitemap', () => {
   assert.match(sitemap, /hjarngympa\.se\/hanga-gubbe\//);
 });
 
+test('sitemap lastmod is the page commit date, not the build date', () => {
+  // The nightly rebuild used to stamp every URL with today, which teaches
+  // Google to ignore lastmod entirely.
+  const sitemap = fs.readFileSync(path.join(ROOT, 'dist/sitemap.xml'), 'utf8');
+  const src = 'site/pages/integritetspolicy/index.html';
+  const committed = require('child_process')
+    .execFileSync('git', ['log', '-1', '--format=%cs', '--', src], { cwd: ROOT, encoding: 'utf8' }).trim();
+  assert.match(sitemap,
+    new RegExp(`/integritetspolicy/</loc><lastmod>${committed}</lastmod>`));
+});
+
 test('a real page still canonicals to itself', () => {
   const html = fs.readFileSync(path.join(ROOT, 'dist/spindelharpan/index.html'), 'utf8');
   assert.match(html, /<link rel="canonical" href="https:\/\/hjarngympa\.se\/spindelharpan\/"/);
