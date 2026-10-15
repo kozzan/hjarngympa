@@ -13,7 +13,7 @@ Each page starts with a metadata block:
 ponytail: string.Template over a template engine. Eight pages and one
 layout do not justify a dependency, a build config or a node_modules.
 """
-import os, re, shutil, html, datetime
+import os, re, shutil, html, datetime, subprocess
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
 from string import Template
@@ -79,6 +79,18 @@ def past_words_html(answers, today, days=7):
             f'<a href="https://svenska.se/?q={quote(w)}"><strong>{w.upper()}</strong></a></li>'
         )
     return "<ul class=\"past-words\">\n" + "\n".join(items) + "\n</ul>"
+
+
+# The nightly rebuild must not stamp every page as changed today: Google
+# learns a lastmod that is always "today" is noise and ignores it. A page's
+# own last commit is its real date; only a page carrying the past-answers
+# list genuinely changes every day. Needs full history (fetch-depth: 0).
+def lastmod(src, daily):
+    if daily:
+        return today_in_sweden().isoformat()
+    d = subprocess.run(["git", "log", "-1", "--format=%cs", "--", src],
+                       capture_output=True, text=True).stdout.strip()
+    return d or datetime.date.today().isoformat()
 
 
 def today_in_sweden():
@@ -179,7 +191,8 @@ def main():
             # in the sitemap, or Google is invited to index a page whose only
             # job is to send it somewhere else.
             if (meta.get("sitemap") or "").strip().lower() not in ("no", "false"):
-                routes.append((route, meta.get("priority", "0.7")))
+                routes.append((route, meta.get("priority", "0.7"),
+                               lastmod(src, PAST_WORDS_MARK in body)))
 
     for sub in ("assets", "data"):
         src = os.path.join(SITE, sub)
@@ -204,11 +217,10 @@ def main():
                 open(f, "w", encoding="utf-8").write(
                     css.replace("url(/assets/", f"url({BASE_PATH}/assets/"))
 
-    today = datetime.date.today().isoformat()
     urls = "\n".join(
-        f"  <url><loc>{BASE_URL}{BASE_PATH}{r}</loc><lastmod>{today}</lastmod>"
+        f"  <url><loc>{BASE_URL}{BASE_PATH}{r}</loc><lastmod>{m}</lastmod>"
         f"<priority>{p}</priority></url>"
-        for r, p in sorted(routes)
+        for r, p, m in sorted(routes)
     )
     open(os.path.join(DIST, "sitemap.xml"), "w", encoding="utf-8").write(
         f'<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -230,7 +242,7 @@ def main():
         open(os.path.join(DIST, "CNAME"), "w").write(CNAME + "\n")
 
     print(f"built {len(routes)} pages -> {DIST}")
-    for r, _ in sorted(routes):
+    for r, *_ in sorted(routes):
         print("  ", r)
 
 
