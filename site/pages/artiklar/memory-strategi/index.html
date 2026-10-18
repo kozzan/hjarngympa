@@ -1,0 +1,180 @@
+<!--meta
+title: Hur många försök är bra i memory? Vi lät datorn spela 360 000 partier
+desc: Ett perfekt minne klarar 4×4 på tolv eller tretton försök, och ren slump behöver 64. Vi räknade fram vad som är ett bra resultat på varje bräde — och varför det stora brädet är så mycket svårare.
+priority: 0.8
+ogtype: article
+-->
+<div class="wrap cols">
+  <article class="prose">
+    <p class="mono">Artiklar · Memory</p>
+    <h1 style="font-size:clamp(36px,6vw,52px);text-wrap:pretty">Hur många försök är bra i memory?</h1>
+    <p class="byline mono">Uppdaterad 2 november 2026 · 6 min läsning</p>
+
+    <p class="lead">Du har just klarat ett memory på femton försök. Är det bra?
+    Det går faktiskt att räkna ut. Vi lät datorn spela 360 000 partier med
+    olika mycket minne — från inget alls till ett som aldrig glömmer — och
+    fick fram vad som är möjligt på varje bräde.</p>
+
+    <h2>Svaret först</h2>
+    <table>
+      <thead><tr><th>Bräde</th><th class="num">Perfekt minne</th><th class="num">Mycket bra</th><th class="num">Bra</th><th class="num">Ren slump</th></tr></thead>
+      <tbody>
+        <tr><td>4×4, åtta par</td><td class="num">12–13</td><td class="num">14</td><td class="num">15–18</td><td class="num">64</td></tr>
+        <tr><td>5×4, tio par</td><td class="num">15–16</td><td class="num">17–18</td><td class="num">19–24</td><td class="num">100</td></tr>
+        <tr><td>6×5, femton par</td><td class="num">23–24</td><td class="num">25–30</td><td class="num">31–40</td><td class="num">225</td></tr>
+      </tbody>
+    </table>
+    <p>Ligger du under kolumnen för perfekt minne har du haft tur — och det
+    händer, men inte ofta. Även en dator som minns varje kort den sett klarar
+    4×4 på elva försök eller färre bara i ungefär ett parti av elva.</p>
+
+    <h2>Hur vi räknade</h2>
+    <p>Datorn spelade på samma brädstorlekar som <a href="/minnesspel/">vårt
+    minnesspel</a> och följde den metod vi rekommenderar där: vänd ett kort
+    du inte sett förut, och om du vet var dess par ligger, vänd det. Annars
+    vänder du ett nytt kort till. Har du redan två kända kort som hör ihop
+    tar du dem direkt.</p>
+    <p>Det enda vi ändrade var hur mycket datorn fick komma ihåg. Den
+    perfekta spelaren minns varje kort den sett. De andra minns bara de
+    senaste två, fyra, sex eller åtta korten och glömmer de äldsta — ungefär
+    som vi gör. Den sista spelaren minns ingenting och vänder två kort på
+    måfå varje gång. Varje kombination av bräde och minne spelades 20 000
+    gånger.</p>
+
+    <h2>Utan minne: antalet par i kvadrat</h2>
+    <p>Den som inte minns något alls behöver i snitt exakt så många försök
+    som antalet par gånger sig självt: 64 på 4×4, 100 på 5×4 och 225 på 6×5.
+    Det är inte en slump att det blir så jämnt. Med åtta par kvar finns det
+    femton kort som kan matcha det första du vänder, och bara ett av dem är
+    rätt. Med sju par kvar är det ett av tretton, och så vidare — och summan
+    av alla de chanserna blir precis antalet par i kvadrat.</p>
+    <p>Det säger något om hur mycket ett minnesspel faktiskt handlar om
+    minne. Bara att komma ihåg de två senaste korten man vänt räcker för att
+    klara 4×4 på 23 försök i stället för 64.</p>
+
+    <h2>Hur mycket minne behöver du?</h2>
+    <p>Här är snittet för varje spelare. Siffran är hur många kort den kan
+    hålla i huvudet åt gången.</p>
+    <table>
+      <thead><tr><th>Minns</th><th class="num">4×4</th><th class="num">5×4</th><th class="num">6×5</th></tr></thead>
+      <tbody>
+        <tr><td>Inget</td><td class="num">63</td><td class="num">104</td><td class="num">223</td></tr>
+        <tr><td>2 kort</td><td class="num">23</td><td class="num">36</td><td class="num">81</td></tr>
+        <tr><td>4 kort</td><td class="num">14</td><td class="num">20</td><td class="num">39</td></tr>
+        <tr><td>6 kort</td><td class="num">13</td><td class="num">17</td><td class="num">30</td></tr>
+        <tr><td>8 kort</td><td class="num">12</td><td class="num">16</td><td class="num">26</td></tr>
+        <tr><td>Allt</td><td class="num">12</td><td class="num">16</td><td class="num">24</td></tr>
+      </tbody>
+    </table>
+    <p>Titta på 4×4-kolumnen. Den som minns fyra kort är bara två försök
+    efter den som minns allt. Brädet är så litet att det inte finns mycket
+    att glömma.</p>
+    <p>Titta sedan på 6×5. Där kostar samma fyra kort femton försök extra —
+    39 mot 24. Det stora brädet är inte bara större, det är <em>en annan
+    sorts</em> spel. På 4×4 räcker ett vanligt minne. På 6×5 är det minnet
+    som är flaskhalsen.</p>
+    <p>Det stämmer med vad forskningen säger om arbetsminnet: de flesta kan
+    hålla ungefär fyra saker i huvudet åt gången, inte sju som man ofta
+    hör. Fyra kort räcker gott till det lilla brädet och långt ifrån till det
+    stora.</p>
+
+    <h2>Varför det stora brädet känns så mycket svårare</h2>
+    <p>Det är inte för att det är femton par i stället för åtta. Med ett
+    perfekt minne behöver 6×5 ungefär dubbelt så många försök som 4×4 —
+    precis som antalet par. Men med ett mänskligt minne på fyra kort behöver
+    det nästan tre gånger så många.</p>
+    <p>Skillnaden uppstår i början av spelet. På 6×5 vänder du en lång rad kort
+    du aldrig sett innan du hittar något som matchar, och när paret väl dyker
+    upp har du glömt var det första låg. På 4×4 kommer matchningarna så tätt
+    att du sällan hinner glömma något.</p>
+    <p>Det är därför knepen nedan gör mest nytta på det stora brädet.</p>
+
+    <h2>Tre sätt att minnas mer än fyra kort</h2>
+    <p><strong>Säg platsen, inte bilden.</strong> Du behöver inte komma ihåg
+    att du såg en stjärna. Du behöver komma ihåg var. Säg det för dig själv:
+    "stjärna, andra raden, längst till höger". Det du säger, även tyst för
+    dig själv, fastnar bättre än det du bara ser.</p>
+    <p><strong>Vänd i fast ordning.</strong> Gå igenom brädet rad för rad
+    från övre vänstra hörnet. Då behöver du inte minnas vilka kort du vänt —
+    bara hur långt du kommit. Du frigör plats i huvudet till det som
+    räknas.</p>
+    <p><strong>Ta paret direkt.</strong> När du vänder ett kort och vet var
+    dess par ligger, vänd paret. Det låter självklart, men frestelsen att
+    vända "bara ett till" medan du ändå är där är stor. Varje sådant kort är
+    något nytt att hålla i huvudet, och det är det du har minst plats för.</p>
+
+    <h2>Blir man bättre av att spela?</h2>
+    <p>På memory, ja. Du blir snabbare på att lägga platser på minnet och
+    bättre på att använda knepen ovan utan att tänka på dem. Det syns tydligt
+    i antalet försök efter några veckor.</p>
+    <p>Om det gör dig bättre på att minnas annat — namn, inköpslistor, var
+    du ställde bilen — är en annan fråga, och där är forskningen mer
+    försiktig. Vi har gått igenom vad den säger i
+    <a href="/artiklar/hjarngympa-forskning/">Fungerar hjärnträning?</a>
+    Kort sagt: det du tränar blir bättre, det mesta annat påverkas mindre än
+    man hoppas. Spela för att det är roligt.</p>
+
+    <h2>Vanliga frågor</h2>
+    <h3>Vad är det lägsta möjliga antalet försök?</h3>
+    <p>Lika många som antalet par — åtta på 4×4. Då har du hittat ett par på
+    varje försök, och det kräver tur hela vägen. Det händer i praktiken
+    aldrig. På 360 000 partier kom datorn aldrig under tio försök på 4×4,
+    inte ens med perfekt minne.</p>
+    <h3>Är memory bra för äldre?</h3>
+    <p>Det är ett bra sätt att hålla igång uppmärksamheten och det går att
+    spela i sin egen takt — det finns ingen tidsgräns och ingen som väntar
+    på din tur. Börja på 4×4 och gå upp när du ligger stadigt
+    på 15 försök eller färre.</p>
+    <h3>Är det skillnad på memory och minnesspel?</h3>
+    <p>Nej, det är samma spel. Memory är varumärket som gjorde spelet känt,
+    minnesspel är det svenska ordet. På engelska heter det Concentration
+    eller Pelmanism.</p>
+    <h3>Spelar det någon roll var jag börjar?</h3>
+    <p>Inte för chansen — korten ligger helt slumpmässigt. Men det spelar
+    roll för minnet. Ett hörn är lättast att räkna ut ifrån, och det är
+    därför vi rekommenderar att alltid börja där.</p>
+
+    <div class="card" style="margin-top:32px">
+      <h3 style="margin-top:0">Hur många försök klarar du?</h3>
+      <p>Gratis memory i tre storlekar, i mobilen och på datorn, utan konto.
+      Ditt bästa resultat sparas.</p>
+      <p style="margin:0"><a class="pill" href="/minnesspel/">Spela memory</a></p>
+    </div>
+
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+  </article>
+  <aside>
+    <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>
+    <div class="card">
+      <p class="mono" style="margin:0 0 8px">Läs också</p>
+      <p style="margin:0 0 12px"><a href="/artiklar/hjarngympa-forskning/">Fungerar hjärnträning? Vad forskningen faktiskt säger</a></p>
+      <p style="margin:0"><a href="/artiklar/vilken-patiens/">Vilken patiens är svårast?</a></p>
+    </div>
+  </aside>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hur många försök är bra i memory? Vi lät datorn spela 360 000 partier",
+  "description": "Ett perfekt minne klarar 4×4 på tolv eller tretton försök, och ren slump behöver 64. Vi räknade fram vad som är ett bra resultat på varje bräde — och varför det stora brädet är så mycket svårare.",
+  "url": "https://hjarngympa.se/artiklar/memory-strategi/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hjarngympa.se/artiklar/memory-strategi/"
+  },
+  "inLanguage": "sv-SE",
+  "dateModified": "2026-11-02",
+  "author": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>
