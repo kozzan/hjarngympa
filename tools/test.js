@@ -130,6 +130,13 @@ test('words the wordfeud article recommends are in the rack list', () => {
   assert.deepStrictEqual(missing, [], 'the article recommends words the list no longer has');
 });
 
+test('words the crossword article uses are in the word list', () => {
+  const valid = new Set(data('words.txt'));
+  assert.strictEqual(valid.size, 740629, 'article figures assume 740 629 forms -- re-run the numbers');
+  const missing = ['hund', 'hunden', 'hundar', 'hundens', 'byggdes', 'läsare', 'bagare', 'snabbare', 'kaffe', 'stolle', 'vettig', 'ide', 'era', 'oas', 'korseld', 'korsord'].filter((w) => !valid.has(w));
+  assert.deepStrictEqual(missing, [], 'the article recommends words the list no longer has');
+});
+
 test('the rack list contains no word longer than nine letters', () => {
   const tooLong = data('words9.txt').filter((w) => w.length > 9);
   assert.deepStrictEqual(tooLong, []);
@@ -569,7 +576,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 17, 'ten games + homepage + five articles + korsordshjälp');
+  assert.strictEqual(blocks, 18, 'ten games + homepage + six articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
