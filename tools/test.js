@@ -576,7 +576,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 19, 'ten games + homepage + seven articles + korsordshjälp');
+  assert.strictEqual(blocks, 21, 'ten games + homepage + nine articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
