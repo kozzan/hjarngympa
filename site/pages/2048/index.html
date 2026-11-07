@@ -40,15 +40,17 @@ som skulle flytta den ur hörnet. De flesta som fastnar på 512 gör det för at
 de sveper uppåt och nedåt om vartannat och tappar hörnet.</p>
 <p>Bygg en fallande rad längs kanten — 512, 256, 128, 64 — så kan du kedja
 ihop flera sammanslagningar i ett enda drag.</p>
-<h2>Metoden: en kant, aldrig fyra riktningar</h2>
-<p>Det enda som skiljer den som fastnar på 512 från den som når 2048 är
-disciplin i vilka riktningar man sveper. Bestäm dig för ett hörn — nere till
-höger duger — och håll dig sedan till <strong>tre</strong> riktningar: höger,
-ned och vänster. Sväng aldrig uppåt.</p>
-<p>Anledningen är att uppsvepet lyfter din största bricka ur hörnet, och när
-den väl ligger mitt på brädet står den i vägen för allt. Behöver du absolut
-svepa uppåt har du oftast redan hamnat i en position du inte kan rädda —
-lägg det draget sist av allt du prövar, inte först.</p>
+<h2>Metoden: ett hörn och tomma rutor</h2>
+<p>Hörnet är ett bra hjälpmedel men ingen strategi i sig. När vi lät datorn
+spela 10 000 partier som bara följde hörnregeln — ned, vänster, höger och
+uppåt sist — nådde den 512 i 4,6 procent av partierna och 2048 aldrig. Det
+som gjorde mest skillnad var att före varje drag välja det som lämnar
+<strong>flest tomma rutor</strong>: med hörnet dessutom nådde datorn 512 mer
+än fyra gånger så ofta.</p>
+<p>Uppsvepet är farligt när det lyfter din största bricka ur hörnet. Är
+hörnets kolumn full kan det inte göra det, och då är uppåt ett drag som alla
+andra. Siffrorna finns i
+<a href="/artiklar/2048-strategi/">Vilken strategi når 2048?</a></p>
 <p>Bygg sedan en <strong>fallande rad längs nedre kanten</strong>: 1024, 512,
 256, 128 från hörnet och utåt. En sådan rad kan kollapsa i en enda kedja när
 tvåan längst ut äntligen får sin partner, och det är där de stora hoppen
@@ -92,8 +94,8 @@ om de hundratals klonerna som kom efteråt.</p>
 <h2>Vanliga frågor</h2>
 <h3>Går spelet alltid att vinna?</h3>
 <p>Nej. Nya brickor placeras slumpmässigt, och det finns givar där en tvåa
-dyker upp på precis fel ruta. Men förlorar du under 512 är det nästan
-alltid hörnet som tappats, inte turen.</p>
+dyker upp på precis fel ruta. Även en dator som räknar på varje drag nådde
+2048 i bara 13 procent av partierna i våra försök.</p>
 <h3>Tar det slut vid 2048?</h3>
 <p>Rutan visar att du klarat det, men brädet står kvar och du kan spela vidare
 mot 4096 om det finns drag kvar.</p>
@@ -104,6 +106,7 @@ skickas någonstans — och rensar du webbläsardata är den borta.</p>
 <p>Ja, piltangenterna gör samma sak som svep. På en telefon sveper du i
 brädet.</p>
 </div></div>
+<script src="/assets/2048-core.js"></script>
 <script src="/assets/2048.js"></script>
 
 <script type="application/ld+json">

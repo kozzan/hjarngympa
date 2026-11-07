@@ -576,7 +576,45 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 21, 'ten games + homepage + nine articles + korsordshjälp');
+  assert.strictEqual(blocks, 22, 'ten games + homepage + ten articles + korsordshjälp');
+});
+
+// ------------------------------------------------------------------ 2048 ---
+
+const G2048 = require(path.join(ROOT, 'site/assets/2048-core.js'));
+
+test('2048: each tile merges at most once per move', () => {
+  assert.deepStrictEqual(G2048.collapse([2, 2, 2, 2]), { line: [4, 4, 0, 0], gained: 8 });
+  assert.deepStrictEqual(G2048.collapse([4, 4, 8, 0]), { line: [8, 8, 0, 0], gained: 8 });
+  assert.deepStrictEqual(G2048.collapse([2, 0, 2, 4]), { line: [4, 4, 0, 0], gained: 4 });
+});
+
+test('2048: slide works in all four directions and reports a refused move', () => {
+  const g = [2, 0, 0, 2,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0];
+  assert.deepStrictEqual(G2048.slide(g.slice(), 'left').gained, 4);
+  const r = g.slice(); G2048.slide(r, 'right');
+  assert.deepStrictEqual(r.slice(0, 4), [0, 0, 0, 4]);
+  const d = g.slice(); G2048.slide(d, 'down');
+  assert.deepStrictEqual([d[12], d[15]], [2, 2]);
+  const u = d.slice();
+  assert.strictEqual(G2048.slide(u, 'down').moved, false, 'nothing can move further down');
+});
+
+test('2048: a full board with no equal neighbours is over, one equal pair is not', () => {
+  const dead = [2, 4, 2, 4,  4, 2, 4, 2,  2, 4, 2, 4,  4, 2, 4, 2];
+  assert.strictEqual(G2048.canMove(dead), false);
+  const alive = dead.slice(); alive[1] = 2;
+  assert.strictEqual(G2048.canMove(alive), true);
+});
+
+test('2048: a new game starts with two tiles of 2 or 4', () => {
+  for (let s = 0; s < 50; s++) {
+    let x = s + 1;
+    const rng = () => { x = (x * 16807) % 2147483647; return x / 2147483647; };
+    const tiles = G2048.create(rng).filter(Boolean);
+    assert.strictEqual(tiles.length, 2);
+    assert.ok(tiles.every(t => t === 2 || t === 4));
+  }
 });
 
 // ---------------------------------------------------------------- streak ---
