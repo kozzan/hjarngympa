@@ -21,7 +21,6 @@
   --error: #A2331A;
   --error-fill: #F6E2DB;
   --error-border: #A2331A;
-  --ad-stripe: rgba(0, 0, 0, .035);
 
   --felt: #EDE7DB;
   --edge: #C8C0B2;
@@ -78,7 +77,6 @@
   --ok-soft: #25301E;
   --num-1: #7FA6CF; --num-2: #6F9A55; --num-3: #F2907A; --num-4: #A98BD6;
   --num-5: #D79A5A; --num-6: #5FB3B3; --num-7: #F1ECE3; --num-8: #A69C90;
-  --ad-stripe: rgba(255, 255, 255, .04);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -110,7 +108,6 @@
     --ok-soft: #25301E;
     --num-1: #7FA6CF; --num-2: #6F9A55; --num-3: #F2907A; --num-4: #A98BD6;
     --num-5: #D79A5A; --num-6: #5FB3B3; --num-7: #F1ECE3; --num-8: #A69C90;
-    --ad-stripe: rgba(255, 255, 255, .04);
   }
 }
 
@@ -197,14 +194,9 @@ main { padding: 24px 0 64px; }
 .ad {
   display: grid; place-items: center;
   margin: 32px auto;
-  border: 1px dashed var(--line);
-  border-radius: 4px;
-  background-image: repeating-linear-gradient(45deg,
-    var(--ad-stripe) 0 8px, transparent 8px 16px);
-  color: var(--muted);
-  font: 400 12px/1 var(--mono);
-  letter-spacing: .1em;
-  /* Height is always reserved so a late-loading ad never shifts layout. */
+  /* Height is always reserved so a late-loading ad never shifts layout.
+     No border or stripes: an unfilled slot is blank space, not a visible
+     box, so a page never reads as built around empty ad frames. */
   width: 100%;
 }
 .ad-320x100 { max-width: 320px; height: 100px; }
