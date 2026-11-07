@@ -1,0 +1,186 @@
+<!--meta
+title: Vilken strategi når 2048? Vi lät datorn spela 92 000 partier
+desc: Hörnstrategin når 512 i ungefär ett parti av tjugo och 2048 aldrig. Vi prövade tio sätt att spela 2048 med spelets egen kod — och fick fram vad som faktiskt gör skillnad.
+priority: 0.8
+ogtype: article
+-->
+<div class="wrap cols">
+  <article class="prose">
+    <p class="mono">Artiklar · 2048</p>
+    <h1 style="font-size:clamp(36px,6vw,52px);text-wrap:pretty">Vilken strategi når 2048?</h1>
+    <p class="byline mono">Uppdaterad 23 november 2026 · 7 min läsning</p>
+
+    <p class="lead">Rådet du hittar överallt är att hålla den största brickan
+    i ett hörn och aldrig svepa uppåt. Vi lät datorn spela 92 000 partier
+    <a href="/2048/">2048</a> med spelets egen kod för att se hur långt det
+    rådet räcker. Svaret är: inte särskilt långt.</p>
+
+    <h2>Svaret först</h2>
+    <table>
+      <thead><tr><th>Strategi</th><th class="num">Nådde 512</th><th class="num">1024</th><th class="num">2048</th><th class="num">Högsta bricka, median</th><th class="num">Poäng, median</th></tr></thead>
+      <tbody>
+        <tr><td>Helt på måfå</td><td class="num">0,0 %</td><td class="num">0 %</td><td class="num">0 %</td><td class="num">128</td><td class="num">1 056</td></tr>
+        <tr><td>Hörnet: ned, vänster, höger, upp sist</td><td class="num">4,6 %</td><td class="num">0 %</td><td class="num">0 %</td><td class="num">256</td><td class="num">2 460</td></tr>
+        <tr><td>Växla ned och vänster</td><td class="num">3,8 %</td><td class="num">0 %</td><td class="num">0 %</td><td class="num">256</td><td class="num">2 492</td></tr>
+        <tr><td>Medsols runt: upp, höger, ned, vänster</td><td class="num">6,4 %</td><td class="num">0 %</td><td class="num">0 %</td><td class="num">256</td><td class="num">2 336</td></tr>
+        <tr><td>Största sammanslagningen</td><td class="num">13,1 %</td><td class="num">0,1 %</td><td class="num">0 %</td><td class="num">256</td><td class="num">2 848</td></tr>
+        <tr><td>Flest tomma rutor</td><td class="num">13,8 %</td><td class="num">0,1 %</td><td class="num">0 %</td><td class="num">256</td><td class="num">2 920</td></tr>
+        <tr><td>Hörnet + flest tomma rutor</td><td class="num">20,7 %</td><td class="num">0,2 %</td><td class="num">0 %</td><td class="num">256</td><td class="num">3 340</td></tr>
+        <tr><td>Hörnet + fallande nedre rad + flest tomma</td><td class="num">23,8 %</td><td class="num">0,3 %</td><td class="num">0 %</td><td class="num">256</td><td class="num">3 428</td></tr>
+        <tr><td>Datorn som tänker framåt</td><td class="num">90,0 %</td><td class="num">57,9 %</td><td class="num">13,3 %</td><td class="num">1024</td><td class="num">12 136</td></tr>
+      </tbody>
+    </table>
+    <p>Ingen enkel regel nådde 2048 en enda gång. Den bästa nådde 512 i ungefär
+    ett parti av fyra. Hörnstrategin, som nästan alla guider rekommenderar, nådde
+    512 i ungefär ett parti av tjugo — och det var <em>sämre</em> än att bara svepa
+    runt medsols utan att titta på brädet.</p>
+    <p>Det enda som nådde 2048 var en dator som inför varje drag räknar på
+    vad som kan hända härnäst. Det säger något viktigt: 2048 vinns inte med
+    en regel för vilka håll man sveper åt, utan genom att titta på brädet.</p>
+
+    <h2>Hur vi räknade</h2>
+    <p>Datorn spelade med exakt samma regler som <a href="/2048/">vårt
+    spel</a>: samma kod för hur brickorna glider och slås ihop, och en ny
+    tvåa — eller i ett fall av tio en fyra — på en slumpvis tom ruta efter
+    varje drag. Den spelade tills inga drag fanns kvar, även förbi 2048.</p>
+    <p>Varje enkel strategi spelades 10 000 gånger, på samma 10 000 givar.
+    Strategierna är regler en människa kan följa:</p>
+    <ul>
+      <li><strong>Hörnet:</strong> svep ned om det går, annars vänster,
+      annars höger, och uppåt bara när inget annat går.</li>
+      <li><strong>Växla ned och vänster</strong> varannan gång, med höger
+      och upp som reserv.</li>
+      <li><strong>Medsols runt:</strong> upp, höger, ned, vänster, om och om
+      igen.</li>
+      <li><strong>Största sammanslagningen:</strong> välj draget som ger
+      flest poäng just nu.</li>
+      <li><strong>Flest tomma rutor:</strong> välj draget som lämnar flest
+      tomma rutor, uppåt sist.</li>
+      <li><strong>Hörnet + flest tomma:</strong> välj bland de drag som
+      håller största brickan kvar i nedre vänstra hörnet det som lämnar flest
+      tomma rutor. Uppåt först när inget annat drag behåller hörnet.</li>
+      <li><strong>Hörnet + fallande nedre rad:</strong> samma, men
+      föredra också drag där nedersta raden sjunker från hörnet och utåt.</li>
+    </ul>
+    <p>Datorn som tänker framåt är ingen regel att lära sig utantill. Inför
+    varje drag prövar den alla fyra riktningarna, alla rutor där nästa bricka
+    kan dyka upp och alla svar på den, och väljer det som i snitt ger bäst
+    bräde. Ett bra bräde har sina stora brickor i en slinga från nedre
+    vänstra hörnet och många tomma rutor. Den spelade 2 000 partier.</p>
+
+    <h2>Hörnet räcker inte</h2>
+    <p>Hörnstrategin gör det den lovar. Största brickan låg i ett hörn när
+    spelet tog slut i 69 procent av partierna, och den tappade nedre vänstra
+    hörnet i snitt bara 0,58 gånger per parti. Ändå nådde den 512 i bara 4,6
+    procent av partierna.</p>
+    <p>Problemet är att regeln inte tittar på brädet. Den sveper ned även när
+    ned-svepet förstör allt, så länge något rör sig. Datorn som tänker framåt
+    tappade hörnet oftare — 3,44 gånger per parti — och nådde ändå 512 i 90
+    procent av partierna. Hörnet är ett hjälpmedel, inte en strategi.</p>
+    <p>Ett vanligt tillägg till rådet är att bara svepa höger när nedersta
+    raden är full, så att hörnbrickan inte kan glida iväg. Det hjälpte nästan
+    inte: 5,6 procent nådde 512, mot 4,6 utan.</p>
+
+    <h2>"Svep aldrig uppåt" stämmer inte</h2>
+    <p>Datorn som tänker framåt svepte uppåt 42,5 gånger per parti i snitt.
+    I 95,6 procent av fallen låg hörnbrickan kvar ändå. Det beror på att
+    ett uppsvep inte flyttar hörnbrickan om kolumnen ovanför den är full. Då
+    är uppåt ett lika bra drag som något annat, och ibland det bästa.</p>
+    <p>Regeln borde alltså vara: <strong>svep inte uppåt när hörnets kolumn
+    har en tom ruta.</strong> Är kolumnen full är uppåt ofarligt.</p>
+
+    <h2>Det som faktiskt hjälper: tomma rutor</h2>
+    <p>Den enskilt största förbättringen kom av att räkna tomma rutor. Bara
+    det — utan något hörn — nådde 512 i 13,8 procent av partierna, tre
+    gånger så ofta som hörnstrategin. Med hörnet dessutom blev det 20,7
+    procent.</p>
+    <p>Tomma rutor är det som håller spelet vid liv. Varje drag lägger till
+    en ny bricka, och när rutorna tar slut tar spelet slut. Ett drag som slår
+    ihop två brickor och lämnar sex tomma rutor är bättre än ett som ger fler
+    poäng men bara lämnar fyra.</p>
+    <p>Att också hålla nedersta raden i fallande ordning gav lite till: 23,8
+    procent nådde 512. Men den bästa enkla regeln nådde 1024 i bara 25
+    partier av 10 000.</p>
+
+    <h2>Hur lång väg det är</h2>
+    <p>De partier där datorn som tänker framåt nådde 2048 tog i mitten 993
+    drag dit, med 20 624 poäng. Hörnstrategin höll i mitten på i ungefär 215 drag
+    innan brädet var fullt.</p>
+    <p>Det är därför tålamod betyder mer än tempo. Ett parti som når 2048 är
+    tusen drag långt, och varje slarvigt drag kan lämna en bricka på fel
+    ställe för resten av partiet.</p>
+
+    <h2>Så spelar du</h2>
+    <ol>
+      <li><strong>Välj ett hörn och håll största brickan där</strong> — men
+      se det som ett hjälpmedel, inte som hela strategin.</li>
+      <li><strong>Räkna tomma rutor före varje drag.</strong> Välj det drag
+      som lämnar flest.</li>
+      <li><strong>Svep uppåt om hörnets kolumn är full.</strong> Då kan
+      hörnbrickan inte röra sig.</li>
+      <li><strong>Bygg nedersta raden fallande</strong> från hörnet och
+      utåt, så att sammanslagningarna kan kedja ihop.</li>
+      <li><strong>Tänk på var nästa bricka kan hamna.</strong> Lämnar ditt
+      drag bara en tom ruta vet du att nästa bricka landar just där — se
+      till att den inte ligger bredvid hörnet.</li>
+    </ol>
+
+    <h2>Vanliga frågor</h2>
+    <h3>Går 2048 alltid att vinna?</h3>
+    <p>Nej. Nya brickor dyker upp slumpvis, och vår dator som tänker framåt
+    nådde 2048 i 13,3 procent av partierna. Men det är inte turen som stoppar
+    de flesta — det är att reglerna man lärt sig inte tittar på brädet.</p>
+    <h3>Hur många poäng är bra i 2048?</h3>
+    <p>Hörnstrategin gav 2 460 poäng i mitten, datorn som tänker framåt 12 136.
+    Ligger du regelbundet över 3 500 spelar du bättre än alla enkla regler
+    vi prövade — den bästa låg på 3 428 i mitten. När 2048-brickan dyker upp
+    har du i mitten runt 20 600 poäng.</p>
+    <h3>Vilket hörn ska man välja?</h3>
+    <p>Det spelar ingen roll. Brädet är symmetriskt, och spelet lägger nya
+    brickor lika ofta överallt. Välj det som känns naturligt — nere till
+    vänster eller höger för de flesta.</p>
+
+    <div class="card" style="margin-top:32px">
+      <h3 style="margin-top:0">Pröva själv</h3>
+      <p>2048 med svep eller piltangenter, gratis och utan konto. Bästa
+      poängen sparas.</p>
+      <p style="margin:0"><a class="pill" href="/2048/">Spela 2048</a></p>
+    </div>
+
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+  </article>
+  <aside>
+    <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>
+    <div class="card">
+      <p class="mono" style="margin:0 0 8px">Läs också</p>
+      <p style="margin:0 0 12px"><a href="/artiklar/vilken-patiens/">Vilken patiens är svårast?</a></p>
+      <p style="margin:0"><a href="/artiklar/memory-strategi/">Hur många försök är bra i memory?</a></p>
+    </div>
+  </aside>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Vilken strategi når 2048? Vi lät datorn spela 92 000 partier",
+  "description": "Hörnstrategin når 512 i ungefär ett parti av tjugo och 2048 aldrig. Vi prövade tio sätt att spela 2048 med spelets egen kod — och fick fram vad som faktiskt gör skillnad.",
+  "url": "https://hjarngympa.se/artiklar/2048-strategi/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hjarngympa.se/artiklar/2048-strategi/"
+  },
+  "inLanguage": "sv-SE",
+  "dateModified": "2026-11-23",
+  "author": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>

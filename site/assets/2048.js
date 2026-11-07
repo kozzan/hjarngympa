@@ -2,7 +2,8 @@
 (function () {
   'use strict';
 
-  var KEY = '2048', N = 4;
+  var Core = window.Core2048;
+  var KEY = '2048';
   var boardEl = document.getElementById('g2048');
   var metaEl = document.getElementById('g-meta');
   var live = document.getElementById('live');
@@ -18,20 +19,11 @@
   }
 
   function newGame() {
-    grid = new Array(N * N).fill(0);
+    grid = Core.create(Math.random);
     score = 0; over = false; won = false;
-    addTile(); addTile();
     render();
     panel.hidden = true;
     say('Nytt spel');
-  }
-
-  function addTile() {
-    var free = [];
-    for (var i = 0; i < grid.length; i++) if (!grid[i]) free.push(i);
-    if (!free.length) return false;
-    grid[free[Math.floor(Math.random() * free.length)]] = Math.random() < 0.9 ? 2 : 4;
-    return true;
   }
 
   function render() {
@@ -52,57 +44,16 @@
 
   function say(m) { if (live) live.textContent = m; }
 
-  /* Slide+merge one line; returns the new line and the score gained. */
-  function collapse(line) {
-    var vals = line.filter(function (v) { return v; });
-    var out = [], gained = 0;
-    for (var i = 0; i < vals.length; i++) {
-      if (vals[i] === vals[i + 1]) {
-        out.push(vals[i] * 2);
-        gained += vals[i] * 2;
-        i++;                                  // each tile merges at most once
-      } else out.push(vals[i]);
-    }
-    while (out.length < N) out.push(0);
-    return { line: out, gained: gained };
-  }
-
   function move(dir) {
     if (over) return false;
-    var moved = false, gained = 0;
-    for (var r = 0; r < N; r++) {
-      var idx = [];
-      for (var c = 0; c < N; c++) {
-        idx.push(dir === 'left' || dir === 'right' ? r * N + c : c * N + r);
-      }
-      if (dir === 'right' || dir === 'down') idx.reverse();
-      var line = idx.map(function (i) { return grid[i]; });
-      var res = collapse(line);
-      gained += res.gained;
-      for (var k = 0; k < N; k++) {
-        if (grid[idx[k]] !== res.line[k]) moved = true;
-        grid[idx[k]] = res.line[k];
-      }
-    }
-    if (!moved) return false;
-    score += gained;
-    addTile();
+    var res = Core.slide(grid, dir);
+    if (!res.moved) return false;
+    score += res.gained;
+    Core.addTile(grid, Math.random);
+    render();                                 // updates best before a panel reads it
     if (!won && grid.indexOf(2048) >= 0) { won = true; finish(true); }
-    render();
-    if (!canMove()) { over = true; finish(false); }
+    if (!Core.canMove(grid)) { over = true; finish(false); }
     return true;
-  }
-
-  function canMove() {
-    if (grid.indexOf(0) >= 0) return true;
-    for (var r = 0; r < N; r++) {
-      for (var c = 0; c < N; c++) {
-        var v = grid[r * N + c];
-        if (c < N - 1 && v === grid[r * N + c + 1]) return true;
-        if (r < N - 1 && v === grid[(r + 1) * N + c]) return true;
-      }
-    }
-    return false;
   }
 
   document.addEventListener('keydown', function (e) {
