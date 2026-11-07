@@ -1,0 +1,212 @@
+<!--meta
+title: Hur ofta måste man gissa i minsvepare? Vi lät datorn spela 50 000 bräden
+desc: På lätt går fyra bräden av fem att lösa utan en enda gissning, på expert ett av tjugofem. Vi räknade på varje svårighetsgrad i vårt spel — och på var du ska gissa när logiken tar slut.
+priority: 0.8
+ogtype: article
+-->
+<div class="wrap cols">
+  <article class="prose">
+    <p class="mono">Artiklar · Minsvepare</p>
+    <h1 style="font-size:clamp(36px,6vw,52px);text-wrap:pretty">Hur ofta måste man gissa i minsvepare?</h1>
+    <p class="byline mono">Uppdaterad 16 november 2026 · 7 min läsning</p>
+
+    <p class="lead">Alla som spelat minsvepare har stått där: inga säkra drag
+    kvar, och en ruta måste väljas på känn. Är det du som missat något, eller
+    går det verkligen inte? Vi lät datorn spela 50 000 bräden i
+    <a href="/minsvepare/">vårt spel</a> med bara säker logik och räknade
+    hur ofta den körde fast.</p>
+
+    <h2>Svaret först</h2>
+    <table>
+      <thead><tr><th>Nivå</th><th class="num">Utan en enda gissning</th><th class="num">Gissningar i snitt</th><th class="num">Vinst, slumpgissning</th><th class="num">Vinst, bästa gissning</th></tr></thead>
+      <tbody>
+        <tr><td>Lätt, 9×9, 10 minor</td><td class="num">81 %</td><td class="num">0,3</td><td class="num">93 %</td><td class="num">95 %</td></tr>
+        <tr><td>Medel, 12×12, 22 minor</td><td class="num">59 %</td><td class="num">0,8</td><td class="num">81 %</td><td class="num">86 %</td></tr>
+        <tr><td>Svår på dator, 16×16, 40 minor</td><td class="num">54 %</td><td class="num">1,1</td><td class="num">77 %</td><td class="num">82 %</td></tr>
+        <tr><td>Svår i mobil, 12×16, 40 minor</td><td class="num">10 %</td><td class="num">5,0</td><td class="num">31 %</td><td class="num">41 %</td></tr>
+        <tr><td>Expert, 30×16, 99 minor</td><td class="num">4 %</td><td class="num">8,4</td><td class="num">18 %</td><td class="num">27 %</td></tr>
+      </tbody>
+    </table>
+    <p>På lätt behöver du sällan gissa. På expert måste du nästan alltid
+    det, och oftast flera gånger. Att du kör fast betyder alltså inte att du
+    spelar dåligt — men <em>var</em> du gissar gör skillnad, och den
+    skillnaden är större ju svårare brädet är.</p>
+
+    <h2>Hur vi räknade</h2>
+    <p>Datorn spelade med samma kod som spelet: minorna läggs ut först
+    efter första grävet, och aldrig i den rutan eller precis intill. Första
+    grävet gjordes mitt på brädet. Varje nivå spelades på 10 000 olika
+    bräden.</p>
+    <p>Datorn gjorde bara drag som var logiskt säkra, och den kunde tre saker:</p>
+    <ol>
+      <li><strong>En siffra i taget.</strong> Har en siffra redan så många
+      flaggor runt sig som den visar är resten av grannarna säkra. Har den
+      exakt så många orörda grannar som minor kvar är alla minor.</li>
+      <li><strong>Subtraktionsregeln.</strong> När alla orörda grannar till
+      en siffra också är grannar till en annan siffra jämförs de två, och
+      skillnaden avgör de rutor bara den andra ser. Det är så du löser
+      mönster som 1-2-1.</li>
+      <li><strong>Räkna till noll.</strong> När alla minor är flaggade är
+      resten av brädet säkert.</li>
+    </ol>
+    <p>Den kombinerade aldrig tre eller fler siffror och räknade inte på hur
+    många minor som är kvar i övrigt. En mycket skicklig spelare klarar
+    därför några fler bräden utan gissning än datorn — siffrorna ovan är vad
+    som går att lösa med de knep de flesta faktiskt använder.</p>
+    <p>När datorn körde fast gissade den. Träffade gissningen en mina lät vi
+    den fortsätta ändå, så att vi kunde räkna hur många gissningar ett helt
+    bräde kräver. Vinstandelen är de bräden där varje gissning gick bra.</p>
+    <p>Subtraktionsregeln behövdes oftare än man kan tro. På lätt användes
+    den på vart fjärde bräde, på medel på drygt hälften och på expert på
+    nästan vartenda.</p>
+
+    <h2>Svår i mobilen är egentligen expert</h2>
+    <p>Den största överraskningen i tabellen är inte expert, utan att svår
+    är två helt olika spel beroende på skärm. På datorn ligger 40 minor på
+    256 rutor, var sjätte ruta ungefär. I mobilen ligger samma 40 minor på
+    192 rutor — 21 procent, lika tätt som expert.</p>
+    <p>Det märks. På datorn går drygt hälften av de svåra brädena att lösa
+    utan gissning, i mobilen ett av tio. Har du tyckt att svår i telefonen är
+    orimligt svårt har du rätt. Det är ett expertbräde i mindre format.</p>
+
+    <h2>Börja i mitten, inte i hörnet</h2>
+    <p>Ett gammalt råd är att börja i ett hörn. I ett spel där första grävet
+    alltid är säkert stämmer det inte. Vi spelade 3 000 bräden per nivå med
+    första grävet i ett hörn och jämförde:</p>
+    <table>
+      <thead><tr><th>Utan gissning</th><th class="num">Start i mitten</th><th class="num">Start i hörnet</th></tr></thead>
+      <tbody>
+        <tr><td>Lätt</td><td class="num">81 %</td><td class="num">74 %</td></tr>
+        <tr><td>Medel</td><td class="num">59 %</td><td class="num">50 %</td></tr>
+        <tr><td>Svår på dator</td><td class="num">54 %</td><td class="num">45 %</td></tr>
+        <tr><td>Svår i mobil</td><td class="num">10 %</td><td class="num">7 %</td></tr>
+        <tr><td>Expert</td><td class="num">4 %</td><td class="num">4 %</td></tr>
+      </tbody>
+    </table>
+    <p>Förklaringen är enkel. Spelet håller rutan du gräver och alla dess
+    grannar fria från minor. Mitt på brädet är det nio rutor, i ett hörn bara
+    fyra. Ett större fritt område ger fler siffror att arbeta med från
+    början.</p>
+
+    <h2>Var du ska gissa</h2>
+    <p>När logiken tar slut finns två sorters rutor att välja på: de som
+    ligger intill en siffra, och de orörda längre bort. Vi räknade hur ofta
+    det faktiskt låg en mina under dem i de lägen där datorn körde fast:</p>
+    <table>
+      <thead><tr><th>Mina under rutan</th><th class="num">Intill en siffra</th><th class="num">Den säkraste intill en siffra</th><th class="num">Orörd, långt bort</th></tr></thead>
+      <tbody>
+        <tr><td>Lätt</td><td class="num">32,5 %</td><td class="num">27,6 %</td><td class="num">8,0 %</td></tr>
+        <tr><td>Medel</td><td class="num">32,8 %</td><td class="num">22,7 %</td><td class="num">12,9 %</td></tr>
+        <tr><td>Svår på dator</td><td class="num">32,4 %</td><td class="num">21,2 %</td><td class="num">14,2 %</td></tr>
+        <tr><td>Svår i mobil</td><td class="num">34,6 %</td><td class="num">18,6 %</td><td class="num">19,5 %</td></tr>
+        <tr><td>Expert</td><td class="num">33,8 %</td><td class="num">16,2 %</td><td class="num">19,8 %</td></tr>
+      </tbody>
+    </table>
+    <p>En ruta intill siffrorna är i snitt farligare än en orörd: ungefär en
+    av tre. Siffrorna du redan har avslöjat drar till sig minorna. Med
+    "den säkraste" menar vi den ruta där siffran runt den lämnar minst risk
+    — en etta med fyra orörda grannar ger 25 procent, en tvåa med tre ger 67.</p>
+    <p>Ändå var det inte bäst att gissa på en orörd ruta mitt i det okända.
+    Vi lät datorn pröva fyra sätt att gissa:</p>
+    <table>
+      <thead><tr><th>Vinst</th><th class="num">Helt på måfå</th><th class="num">Orörd ruta</th><th class="num">Lägst risk</th><th class="num">Orört hörn först</th></tr></thead>
+      <tbody>
+        <tr><td>Lätt</td><td class="num">92,8 %</td><td class="num">95,1 %</td><td class="num">95,0 %</td><td class="num">95,3 %</td></tr>
+        <tr><td>Medel</td><td class="num">80,8 %</td><td class="num">85,5 %</td><td class="num">85,7 %</td><td class="num">86,4 %</td></tr>
+        <tr><td>Svår på dator</td><td class="num">76,7 %</td><td class="num">80,7 %</td><td class="num">81,2 %</td><td class="num">81,8 %</td></tr>
+        <tr><td>Svår i mobil</td><td class="num">31,1 %</td><td class="num">34,7 %</td><td class="num">40,8 %</td><td class="num">41,2 %</td></tr>
+        <tr><td>Expert</td><td class="num">18,4 %</td><td class="num">21,3 %</td><td class="num">26,7 %</td><td class="num">26,7 %</td></tr>
+      </tbody>
+    </table>
+    <p>En orörd ruta mitt i det okända är visserligen ofta säker, men den
+    öppnar sällan något du kan bygga vidare på. Du får en ensam siffra och
+    måste snart gissa igen. På expert behövde datorn 10,9 gissningar i snitt
+    på det sättet, mot 8,3 när den valde rutan med lägst risk.</p>
+    <p>Hörnet då? Ett orört hörn var <em>inte</em> säkrare än andra orörda
+    rutor — på expert låg det en mina under 20,3 procent av hörnen och 19,8
+    procent av övriga. Men ett hörn har bara tre grannar, så när det är fritt
+    öppnar det oftare ett område. Hörnstrategin vann lika ofta eller något
+    oftare än de andra på varje nivå och krävde minst antal gissningar på
+    expert: 7,9 i snitt. Skillnaden mot att välja lägsta risk är liten, så
+    se hörnet som en bonus, inte en regel.</p>
+
+    <h2>När gissningarna kommer</h2>
+    <p>Gissningarna samlas i början och i slutet. På expert kom 29 procent
+    av dem medan mindre än en fjärdedel av brädet var öppnat, och 47
+    procent när mer än tre fjärdedelar var det. Däremellan, när brädet är
+    fullt av siffror, räcker logiken nästan alltid.</p>
+    <p>Det ger ett praktiskt råd: tvingas du gissa tidigt, gör det utan att
+    tveka — du har inte lagt ner någon tid än. Det är gissningen i slutet,
+    efter tio minuters arbete, som svider, och den går sällan att undvika.</p>
+
+    <h2>Så gissar du klokt</h2>
+    <ol>
+      <li><strong>Gräv först mitt på brädet.</strong> Det ger det största
+      fria området.</li>
+      <li><strong>Kontrollera att du verkligen är fast.</strong> Gå igenom
+      varje siffra och pröva subtraktionsregeln mot grannen. På medel och
+      uppåt är det den som löser de flesta lägen.</li>
+      <li><strong>Finns ett orört hörn, ta det.</strong></li>
+      <li><strong>Annars: den ruta där siffran lämnar minst risk.</strong>
+      En etta med många orörda grannar är bättre än en tvåa med få.</li>
+      <li><strong>Inte en slumpruta mitt i det okända.</strong> Den är ofta
+      säker, men lämnar dig fast igen.</li>
+    </ol>
+
+    <h2>Vanliga frågor</h2>
+    <h3>Går alla bräden i minsvepare att lösa utan att gissa?</h3>
+    <p>Nej. Minorna läggs ut slumpmässigt, och många lägen går inte att
+    avgöra med logik. Med de vanliga knepen löste datorn 81 procent av de
+    lätta brädena utan gissning och 4 procent av expertbrädena.</p>
+    <h3>Vilken svårighetsgrad är lagom?</h3>
+    <p>Lätt och medel går för det mesta att klara med ren logik. Vill du ha
+    mer utmaning utan att turen tar över, välj svår på en dator: drygt hälften
+    av brädena går att lösa helt utan gissning.</p>
+    <h3>Är det fusk att gissa?</h3>
+    <p>Nej, det är en del av spelet. Även med de bästa gissningarna vann
+    datorn bara 27 procent av expertbrädena.</p>
+
+    <div class="card" style="margin-top:32px">
+      <h3 style="margin-top:0">Pröva själv</h3>
+      <p>Minsvepare i fyra svårighetsgrader, gratis och utan konto. Första
+      grävet är alltid säkert.</p>
+      <p style="margin:0"><a class="pill" href="/minsvepare/">Spela minsvepare</a></p>
+    </div>
+
+    <div class="ad ad-336x280">ANNONS 336×280</div>
+  </article>
+  <aside>
+    <div class="ad ad-300x600 side-ad">ANNONS 300×600</div>
+    <div class="card">
+      <p class="mono" style="margin:0 0 8px">Läs också</p>
+      <p style="margin:0 0 12px"><a href="/artiklar/sudoku-regler/">Sudokuregler och lösningstekniker</a></p>
+      <p style="margin:0"><a href="/artiklar/vilken-patiens/">Vilken patiens är svårast?</a></p>
+    </div>
+  </aside>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hur ofta måste man gissa i minsvepare? Vi lät datorn spela 50 000 bräden",
+  "description": "På lätt går fyra bräden av fem att lösa utan en enda gissning, på expert ett av tjugofem. Vi räknade på varje svårighetsgrad i vårt spel — och på var du ska gissa när logiken tar slut.",
+  "url": "https://hjarngympa.se/artiklar/minsvepare-gissa/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hjarngympa.se/artiklar/minsvepare-gissa/"
+  },
+  "inLanguage": "sv-SE",
+  "dateModified": "2026-11-16",
+  "author": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hjärngympa",
+    "url": "https://hjarngympa.se/"
+  }
+}
+</script>
