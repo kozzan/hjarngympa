@@ -576,7 +576,7 @@ test('every JSON-LD block parses and only carries absolute URLs', () => {
       blocks++;
     }
   }
-  assert.strictEqual(blocks, 21, 'ten games + homepage + nine articles + korsordshjälp');
+  assert.strictEqual(blocks, 22, 'eleven games + homepage + nine articles + korsordshjälp');
 });
 
 // ---------------------------------------------------------------- streak ---
@@ -1217,7 +1217,7 @@ const SENSITIVE = ['jude', 'muslim', 'islam', 'neger', 'död', 'döda', 'mörda'
   'sexuell', 'porr', 'hora', 'jävla', 'skit', 'fitta', 'kuk', 'knark', 'narkotika', 'cancer', 'självmord', 'krig'];
 const stemOf = (w) => w.slice(0, Math.max(3, w.length - 2));
 
-test('korsord: the bank has enough common words, 3-9 letters, all lowercase Swedish and in the word list', () => {
+test('dagens korsord: the bank has enough common words, 3-9 letters, all lowercase Swedish and in the word list', () => {
   assert.ok(CLUES.entries.length >= 1400, `only ${CLUES.entries.length} entries`);
   for (const [w] of CLUES.entries) {
     assert.match(w, /^[a-zåäö]{3,9}$/, w);
@@ -1226,7 +1226,7 @@ test('korsord: the bank has enough common words, 3-9 letters, all lowercase Swed
   assert.strictEqual(new Set(CLUES.entries.map(([w]) => w)).size, CLUES.entries.length, 'a word is in the bank twice');
 });
 
-test('korsord: every clue is short, has no full stop and never contains its answer', () => {
+test('dagens korsord: every clue is short, has no full stop and never contains its answer', () => {
   for (const [w, c] of CLUES.entries) {
     assert.ok(c && c.length <= 40, `${w}: "${c}"`);
     assert.ok(!c.endsWith('.'), `${w}: "${c}" ends with a full stop`);
@@ -1234,7 +1234,7 @@ test('korsord: every clue is short, has no full stop and never contains its answ
   }
 });
 
-test('korsord: two answers of the same length never share a clue', () => {
+test('dagens korsord: two answers of the same length never share a clue', () => {
   const seen = new Map();
   for (const [w, c] of CLUES.entries) {
     const key = `${w.length}|${c.toLowerCase()}`;
@@ -1243,16 +1243,83 @@ test('korsord: two answers of the same length never share a clue', () => {
   }
 });
 
-test('korsord: no sensitive word is ever an answer', () => {
+test('dagens korsord: no sensitive word is ever an answer', () => {
   const words = new Set(CLUES.entries.map(([w]) => w));
   for (const w of SENSITIVE) assert.ok(!words.has(w), `${w} is in the bank`);
 });
 
-test('korsord: every clue records its word class and how it was made', () => {
+test('dagens korsord: every clue records its word class and how it was made', () => {
   for (const [w, , pos, method] of CLUES.entries) {
     assert.ok(['noun', 'verb', 'adjective'].includes(pos), `${w}: word class ${pos}`);
     assert.ok(CLUES.methods[method], `${w}: no method ${method}`);
   }
   assert.match(CLUES.source, /Kelly/);
   assert.match(CLUES.source, /CC BY 4\.0/);
+});
+
+/* ---------- Dagens korsord: the generator (SITE-53) ---------- */
+
+const Korsord = require(path.join(ROOT, 'site/assets/dagens-korsord-core.js'));
+const BANK = CLUES.entries;
+const BANK_WORDS = new Map(BANK.map(([w, c]) => [w, c]));
+const day = (offset) => new Date(Date.UTC(2026, 10, 13) + offset * 86400000).toISOString().slice(0, 10);
+
+test('dagens korsord: the date is the Swedish date, whatever the visitor\'s time zone', () => {
+  // 23:30 UTC on 12 Nov is 00:30 on 13 Nov in Stockholm (CET, UTC+1).
+  assert.strictEqual(Korsord.swedishDate(new Date(Date.UTC(2026, 10, 12, 23, 30))), '2026-11-13');
+  // 21:30 UTC on 1 Jul is 23:30 in Stockholm (CEST, UTC+2): still 1 Jul.
+  assert.strictEqual(Korsord.swedishDate(new Date(Date.UTC(2026, 6, 1, 21, 30))), '2026-07-01');
+});
+
+test('dagens korsord: the same date always gives the same puzzle, and the next day another', () => {
+  const a = Korsord.generate(BANK, '2026-11-13');
+  const b = Korsord.generate(BANK, '2026-11-13');
+  const c = Korsord.generate(BANK, '2026-11-14');
+  assert.deepStrictEqual(a, b);
+  assert.notDeepStrictEqual(a.grid, c.grid);
+});
+
+test('dagens korsord: every word is from the bank with its clue, crossings agree, and no other word appears in the grid', () => {
+  const p = Korsord.generate(BANK, '2026-11-13');
+  assert.strictEqual(p.size, 9);
+  assert.deepStrictEqual(Korsord.problems(p, BANK_WORDS), []);
+});
+
+test('dagens korsord: problems() catches a crossing that does not agree and a stray run of letters', () => {
+  const p = JSON.parse(JSON.stringify(Korsord.generate(BANK, '2026-11-13')));
+  const w = p.words[0];
+  p.grid[w.row][w.col] = p.grid[w.row][w.col] === 'a' ? 'b' : 'a';
+  assert.ok(Korsord.problems(p, BANK_WORDS).length > 0);
+});
+
+test('dagens korsord: every date in the next 365 days generates a full, valid puzzle', () => {
+  const seen = new Set();
+  for (let i = 0; i < 365; i++) {
+    const p = Korsord.generate(BANK, day(i));
+    assert.deepStrictEqual(Korsord.problems(p, BANK_WORDS), [], day(i));
+    assert.ok(p.words.length >= Korsord.MIN_WORDS, `${day(i)}: only ${p.words.length} words`);
+    seen.add(p.words.map((x) => x.word).sort().join(','));
+  }
+  assert.ok(seen.size > 360, 'puzzles repeat');
+});
+
+test('dagens korsord: numbering runs left to right, top to bottom, and an across and a down word may share a number', () => {
+  const p = Korsord.generate(BANK, '2026-11-13');
+  const starts = p.words.map((w) => [w.row * 9 + w.col, w.num]).sort((x, y) => x[0] - y[0]);
+  for (let i = 1; i < starts.length; i++)
+    assert.ok(starts[i][1] >= starts[i - 1][1] && (starts[i][0] !== starts[i - 1][0] || starts[i][1] === starts[i - 1][1]));
+  assert.strictEqual(starts[0][1], 1);
+});
+
+test('dagens korsord: the page targets its searches, is in the sitemap and is linked from home, korsordshjälp and the crossword article', () => {
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  const page = fs.readFileSync(path.join(ROOT, 'dist/korsord/index.html'), 'utf8');
+  const title = page.match(/<title>([^<]*)<\/title>/)[1];
+  const desc = page.match(/<meta name="description" content="([^"]*)"/)[1];
+  assert.match(title, /Dagens korsord/);
+  assert.match(title, /lätta korsord gratis/);
+  assert.ok(title.length <= 70 && desc.length >= 70 && desc.length <= 160, `${title.length} / ${desc.length}`);
+  assert.match(fs.readFileSync(path.join(ROOT, 'dist/sitemap.xml'), 'utf8'), /\/korsord\/<\/loc>/);
+  for (const from of ['index.html', 'verktyg/korsordshjalp/index.html', 'artiklar/losa-korsord/index.html'])
+    assert.match(fs.readFileSync(path.join(ROOT, 'dist', from), 'utf8'), /href="\/korsord\/"/, from);
 });
