@@ -51,7 +51,7 @@ def mount_ads(html):
             f'<div class="ad {m.group(1)}">'
             f'<ins class="adsbygoogle" style="display:block;width:100%;height:100%"'
             f' data-ad-client="{ADS_CLIENT}" data-ad-slot="{ADS_SLOT}"'
-            f' data-ad-format="auto" data-full-width-responsive="true"></ins>'
+            f' data-ad-format="auto" data-full-width-responsive="false"></ins>'
             f'</div>'
         )
     return AD_RE.sub(rep, html)

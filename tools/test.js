@@ -182,6 +182,24 @@ test('ads.txt names the publisher id in the exact format exchanges require', () 
   assert.ok(!ads.includes('ca-pub-'), 'ads.txt takes pub-, not ca-pub-');
 });
 
+test('ad units keep their reserved size instead of growing to full width', () => {
+  // full-width-responsive="true" let AdSense grow the 320x100 phone slot to
+  // 390x390, spilling over the game grid below it and swallowing taps (SITE-54).
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  const files = fs.readdirSync(path.join(ROOT, 'dist'), { recursive: true })
+    .filter((f) => f.endsWith('.html') || f.endsWith('.js'));
+  let units = 0;
+  for (const f of files) {
+    const src = fs.readFileSync(path.join(ROOT, 'dist', f), 'utf8');
+    const ins = src.match(/<ins class="adsbygoogle"[^>]*>/g) || [];
+    units += ins.length;
+    for (const tag of ins) {
+      assert.ok(tag.includes('data-full-width-responsive="false"'), `${f}: ${tag}`);
+    }
+  }
+  assert.ok(units > 10, `expected ad units in the build, found ${units}`);
+});
+
 test('every page loads GA4 once, after the consent defaults', () => {
   // Order is the bug: gtag('config') before the consent defaults would let GA
   // set analytics cookies on first paint, which is what Consent Mode prevents.
