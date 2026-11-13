@@ -106,6 +106,16 @@ Keep these behaviours; they are what makes each game fair.
   views of one number. The UI renders five views of that state — revealed
   letters, ✓ keys, × keys, the found count and the pips — and a test asserts
   they cannot disagree.
+- **Dagens korsord: the grid holds only listed words.** A new word must cross
+  a placed letter, may not touch any other letter side-on and may not run on
+  into another word; `problems()` re-reads every run of two or more letters
+  and a test checks every date for a year. Without it a grid quietly spells
+  stray "words" no clue asks for.
+- **Dagens korsord: the date is the Swedish date** (`Europe/Stockholm`), not
+  the visitor's, so everyone gets the same grid and it changes at Swedish
+  midnight. Clues live in `site/data/korsord-ledtradar.json`; never add one
+  that contains its answer or shares its wording with an answer of the same
+  length (tests enforce both).
 - **Dagens ord: duplicate letters mark correctly.** Exact matches claim their
   letter before a "near" does — guessing a word with two of a letter must not
   light up both when the answer has one.
