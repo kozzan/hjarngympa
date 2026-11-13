@@ -1206,3 +1206,53 @@ test('a real page still canonicals to itself', () => {
   assert.match(html, /<link rel="canonical" href="https:\/\/hjarngympa\.se\/spindelharpan\/"/);
   assert.ok(!html.includes('http-equiv="refresh"'), 'and carries no refresh');
 });
+
+/* ---------- Dagens korsord: the clue bank (SITE-52) ---------- */
+
+const CLUES = JSON.parse(fs.readFileSync(path.join(ROOT, 'site/data/korsord-ledtradar.json'), 'utf8'));
+const ALL_WORDS = new Set(fs.readFileSync(path.join(ROOT, 'site/data/words.txt'), 'utf8').split('\n'));
+/* Words a family crossword must never ask for. The bank was filtered against a longer list; these are the ones a
+   regression would most likely bring back. */
+const SENSITIVE = ['jude', 'muslim', 'islam', 'neger', 'död', 'döda', 'mörda', 'våld', 'skjuta', 'vapen', 'sex',
+  'sexuell', 'porr', 'hora', 'jävla', 'skit', 'fitta', 'kuk', 'knark', 'narkotika', 'cancer', 'självmord', 'krig'];
+const stemOf = (w) => w.slice(0, Math.max(3, w.length - 2));
+
+test('korsord: the bank has enough common words, 3-9 letters, all lowercase Swedish and in the word list', () => {
+  assert.ok(CLUES.entries.length >= 1400, `only ${CLUES.entries.length} entries`);
+  for (const [w] of CLUES.entries) {
+    assert.match(w, /^[a-zåäö]{3,9}$/, w);
+    assert.ok(ALL_WORDS.has(w), `${w} is not in words.txt`);
+  }
+  assert.strictEqual(new Set(CLUES.entries.map(([w]) => w)).size, CLUES.entries.length, 'a word is in the bank twice');
+});
+
+test('korsord: every clue is short, has no full stop and never contains its answer', () => {
+  for (const [w, c] of CLUES.entries) {
+    assert.ok(c && c.length <= 40, `${w}: "${c}"`);
+    assert.ok(!c.endsWith('.'), `${w}: "${c}" ends with a full stop`);
+    assert.ok(!c.normalize('NFC').toLowerCase().includes(stemOf(w)), `${w}: "${c}" gives the answer away`);
+  }
+});
+
+test('korsord: two answers of the same length never share a clue', () => {
+  const seen = new Map();
+  for (const [w, c] of CLUES.entries) {
+    const key = `${w.length}|${c.toLowerCase()}`;
+    assert.ok(!seen.has(key), `"${c}" fits both ${seen.get(key)} and ${w}`);
+    seen.set(key, w);
+  }
+});
+
+test('korsord: no sensitive word is ever an answer', () => {
+  const words = new Set(CLUES.entries.map(([w]) => w));
+  for (const w of SENSITIVE) assert.ok(!words.has(w), `${w} is in the bank`);
+});
+
+test('korsord: every clue records its word class and how it was made', () => {
+  for (const [w, , pos, method] of CLUES.entries) {
+    assert.ok(['noun', 'verb', 'adjective'].includes(pos), `${w}: word class ${pos}`);
+    assert.ok(CLUES.methods[method], `${w}: no method ${method}`);
+  }
+  assert.match(CLUES.source, /Kelly/);
+  assert.match(CLUES.source, /CC BY 4\.0/);
+});

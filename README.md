@@ -59,6 +59,7 @@ python3 tools/build-wordlist.py saldom.xml kelly.xml site/data/
 | `words9.txt` | 240k forms, 538 KB gz | Wordfeud rack solver |
 | `words5all.txt` | 13 779 forms | validating a guess in Dagens ord |
 | `words5.txt` | 952 curated | picking the daily answer |
+| `korsord-ledtradar.json` | 1729 words + clues, 21 KB gz | Dagens korsord: one new clue per common word (Kelly A1–A2, 3–9 letters), checked by tests in `tools/test.js` |
 
 SALDO and Kelly are **CC BY 4.0** (Språkbanken Text, Göteborgs universitet).
 Attribution lives on `/om/`, linked from every page footer — see CLAUDE.md.
