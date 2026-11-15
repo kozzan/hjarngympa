@@ -7,6 +7,8 @@
   text-align: center;
 }
 .game h1 { font-size: 30px; }
+/* SITE-60: the part of an H1 that names the kind of game, quieter than the name. */
+.game h1 .h1-sub { font-weight: 500; color: var(--muted); }
 .game-meta { margin: 0 0 24px; }
 
 #toast[hidden] { display: none; }

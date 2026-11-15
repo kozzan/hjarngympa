@@ -1,13 +1,13 @@
 <!--meta
-title: Dagens ord — gissa dagens svenska ord | hjärngympa
-desc: Spela Dagens ord gratis. Ett nytt svenskt fembokstavsord varje dag, sex försök. Inget konto, ingen app — spela direkt i webbläsaren.
+title: Dagens ord – gratis ordlek: gissa dagens svenska ord | hjärngympa
+desc: Dagens ord är en gratis ordlek: gissa dagens svenska ord på fem bokstäver med sex försök. Nytt ord varje dag, samma för alla. Inget konto, ingen app.
 head: <link rel="stylesheet" href="/assets/games.css">
 priority: 1.0
 -->
 <div class="ad ad-320x100 mobile-ad">ANNONS 320×100</div>
 
 <div class="game">
-  <h1>Dagens ord</h1>
+  <h1>Dagens ord <span class="h1-sub">– ordlek</span></h1>
   <p class="mono game-meta" id="meta">Laddar…</p>
 
   <div id="board" aria-label="Spelplan"></div>
@@ -40,15 +40,11 @@ priority: 1.0
 
 <div class="wrap" style="margin-top:48px">
   <div class="prose" style="margin:0 auto">
-    <h2>Tidigare dagars ord</h2>
-    <p>Missade du ett ord, eller vill du veta vad det betyder? Här är svaren
-    från den senaste veckan — klicka på ett ord för att slå upp det i
-    Svenska Akademiens ordböcker. Dagens ord visas aldrig här — det får du gissa.</p>
-    <!--past-words-->
-
     <h2>Så spelar du</h2>
-    <p>Du har sex försök på dig att gissa dagens svenska ord. Ordet är alltid
-    fem bokstäver långt. Efter varje gissning får du veta hur nära du var:</p>
+    <p>Dagens ord är en ordlek med bokstäver: du har sex försök på dig att
+    gissa dagens svenska ord, och ordet är alltid fem bokstäver långt. Skriv
+    ett giltigt svenskt ord på fem bokstäver och tryck ENTER. Efter varje
+    gissning får du veta hur nära du var:</p>
     <ul>
       <li><strong>Grön med ✓</strong> — rätt bokstav på rätt plats.</li>
       <li><strong>Gul med streckad ram och →</strong> — bokstaven finns i ordet,
@@ -61,7 +57,13 @@ priority: 1.0
     flesta känner igen. Inga namn, inga förkortningar och inga obskyra
     böjningsformer. Du kan däremot gissa på vilket giltigt svenskt
     fembokstavsord som helst.</p>
-  
+
+    <h2>Tidigare dagars ord</h2>
+    <p>Missade du ett ord, eller vill du veta vad det betyder? Här är svaren
+    från den senaste veckan — klicka på ett ord för att slå upp det i
+    Svenska Akademiens ordböcker. Dagens ord visas aldrig här — det får du gissa.</p>
+    <!--past-words-->
+
     <h2>Hur du kommer igång bäst</h2>
     <p>Det första ordet är det enda draget du gör helt utan information, så
     lägg det där det ger mest. Ett bra öppningsord har fem <em>olika</em>
@@ -119,7 +121,7 @@ priority: 1.0
     genom de delade grön-gula rutorna, och köptes av The New York Times i
     januari 2022. Idén är äldre: samma mekanik som tv-spelet Lingo och som
     brädspelet Jotto från 1955.</p>
-    <p>Det som inte översätter sig är ordlistan. En engelsk femboksstavslista
+    <p>Det som inte översätter sig är ordlistan. En engelsk fembokstavslista
     fungerar illa på svenska, dels för att å, ä och ö är egna bokstäver, dels
     för att svensk bokstavsfrekvens ser annorlunda ut. Därför är orden här
     valda ur svenska frekvensdata i stället för översatta.</p>
@@ -136,6 +138,25 @@ priority: 1.0
     <a href="/hanga-gubbe/">hänga gubbe</a>.</p>
     <h3>Räknas å, ä och ö som a och o?</h3>
     <p>Nej, de är egna bokstäver. Ett A avslöjar aldrig ett Å.</p>
+    <h3>Är Dagens ord samma sak som Wordle?</h3>
+    <p>Det är samma sorts ordlek — gissa ett ord på fem bokstäver med sex
+    försök — men på svenska, med svenska ord och med å, ä och ö som egna
+    bokstäver.</p>
+    <h3>Kostar det något?</h3>
+    <p>Nej. Dagens ord är gratis, utan konto och utan app, och spelas direkt i
+    webbläsaren på dator, surfplatta eller mobil. Sajten bekostas av
+    annonser.</p>
+    <h3>Varför godkänns inte min gissning?</h3>
+    <p>Gissningen måste vara ett svenskt ord på exakt fem bokstäver som finns i
+    ordlistan. Namn och förkortningar räknas inte.</p>
+
+    <h2>Fler ordlekar</h2>
+    <p>Vill du spela mer än ett ord om dagen finns <a href="/hanga-gubbe/">hänga
+    gubbe</a>, där du gissar ett ord en bokstav i taget, och
+    <a href="/korsord/">dagens korsord</a>, ett nytt lätt korsord varje dag.
+    Sitter du fast i ett korsord på papper hjälper
+    <a href="/verktyg/korsordshjalp/">korsordshjälpen</a> dig att hitta ord
+    från längden och de bokstäver du redan har.</p>
 </div>
 </div>
 
@@ -147,7 +168,8 @@ priority: 1.0
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Dagens ord",
-  "description": "Ett nytt svenskt fembokstavsord varje dag, sex försök. Samma ord för alla i hela landet.",
+  "alternateName": ["Dagensord", "Gissa ordet"],
+  "description": "En ordlek: gissa dagens svenska ord på fem bokstäver med sex försök. Samma ord för alla i hela landet.",
   "url": "https://hjarngympa.se/dagens-ord/",
   "inLanguage": "sv-SE",
   "applicationCategory": "GameApplication",
