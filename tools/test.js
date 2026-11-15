@@ -1341,3 +1341,64 @@ test('dagens korsord: the page targets its searches, is in the sitemap and is li
   for (const from of ['index.html', 'verktyg/korsordshjalp/index.html', 'artiklar/losa-korsord/index.html'])
     assert.match(fs.readFileSync(path.join(ROOT, 'dist', from), 'utf8'), /href="\/korsord\/"/, from);
 });
+
+// SITE-60: dagens ord, harpan and spindelharpan sit just outside the clicks in
+// Search Console. Their titles, H1s and rules text are what this checks.
+const builtPage = (route) => {
+  const page = fs.readFileSync(path.join(ROOT, 'dist', route, 'index.html'), 'utf8');
+  return {
+    page,
+    title: page.match(/<title>([^<]*)<\/title>/)[1],
+    desc: page.match(/<meta name="description" content="([^"]*)"/)[1],
+    h1: page.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1].replace(/<[^>]+>/g, ''),
+  };
+};
+
+test('SITE-60: dagens ord targets "dagens ord" and "ordlek", explains the game and links to the other word games', () => {
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  const { page, title, desc, h1 } = builtPage('dagens-ord');
+  assert.match(title, /Dagens ord/);
+  assert.match(title, /ordlek/i);
+  assert.match(h1, /Dagens ord/);
+  assert.match(h1, /ordlek/i);
+  assert.ok(title.length <= 70 && desc.length >= 70 && desc.length <= 160, `${title.length} / ${desc.length}`);
+  assert.match(page, /<h2>Så spelar du<\/h2>/);
+  assert.match(page, /<h2>Vanliga frågor<\/h2>/);
+  for (const to of ['/korsord/', '/hanga-gubbe/', '/verktyg/korsordshjalp/'])
+    assert.match(page, new RegExp(`href="${to}"`), to);
+  for (const from of ['index.html', 'spel/index.html', 'korsord/index.html', 'hanga-gubbe/index.html', 'verktyg/korsordshjalp/index.html'])
+    assert.match(fs.readFileSync(path.join(ROOT, 'dist', from), 'utf8'), /href="\/dagens-ord\/"/, from);
+});
+
+test('SITE-60: harpan is the game at /patiens/ by title, H1 and rules, and spindelharpan names itself the same way', () => {
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  const harpan = builtPage('patiens');
+  assert.match(harpan.title, /^Harpan/);
+  assert.match(harpan.title, /patiens/);
+  assert.match(harpan.title, /gratis/);
+  assert.match(harpan.h1, /Harpan/);
+  assert.match(harpan.page, /<h2>Regler för harpan<\/h2>/);
+  const spider = builtPage('spindelharpan');
+  assert.match(spider.title, /^Spindelharpan/);
+  assert.match(spider.title, /gratis/);
+  for (const p of [harpan, spider]) {
+    assert.ok(p.title.length <= 70 && p.desc.length >= 70 && p.desc.length <= 160, `${p.title.length} / ${p.desc.length}`);
+    assert.match(p.page, /<h2>Vanliga frågor<\/h2>/);
+  }
+  assert.match(harpan.page, /href="\/spindelharpan\/"/);
+  assert.match(spider.page, /href="\/patiens\/"/);
+  // Both the patience rules and the page must agree with the deal in the core.
+  const lens = Pat.deal(1).tableau.map((c) => c.length);
+  assert.deepStrictEqual(lens, [1, 2, 3, 4, 5, 6, 7]);
+  assert.match(harpan.page, /28 kort i sju\s+kolumner/);
+  assert.match(harpan.page, /24 kort/);
+  const spLens = Spider.deal(1, 2).cols.map((c) => c.length);
+  assert.deepStrictEqual(spLens, [6, 6, 6, 6, 5, 5, 5, 5, 5, 5]);
+  assert.match(spider.page, /fyra kolumner med\s+sex kort och sex med fem/);
+  assert.doesNotMatch(spider.page, /fyra korta kolumnerna/);
+});
+
+test('SITE-60: korsordshjälp keeps the title under CTR test since 2026-11-12', () => {
+  execFileSync('python3', [path.join(ROOT, 'tools/build.py')], { cwd: ROOT, stdio: 'pipe' });
+  assert.strictEqual(builtPage('verktyg/korsordshjalp').title, 'Korsordshjälp – hitta ord från längd och kända bokstäver');
+});
